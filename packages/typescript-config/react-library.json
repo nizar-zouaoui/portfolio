@@ -1,8 +1,11 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "React Library",
   "extends": "./base.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-  }
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "incremental": true,
+    "jsx": "preserve"
+  },
+
+  "moduleResolution": ["node_modules", ".next", "node"]
 }
