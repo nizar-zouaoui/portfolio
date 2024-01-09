@@ -1,0 +1,27 @@
+{
+  "name": "calcs",
+  "description": "this is a temp project to test exports after build",
+  "version": "1.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nizar-zouaoui/npm-publish"
+  },
+  "scripts": {
+    "clean": "rimraf build",
+    "build": "yarn clean && yarn build:esm && yarn build:cjs && yarn build:types",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:types": "tsc --p tsconfig.types.prod.json",
+    "test": "vitest run",
+    "lint": "tsc",
+    "launch": "npx ts-node index",
+    "ci": "yarn lint && yarn test && yarn build"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "vitest": "^1.0.4"
+  }
+}

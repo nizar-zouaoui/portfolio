@@ -5,7 +5,8 @@
     "build": "turbo build",
     "start": "turbo run start --parallel --concurrency=100%",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "build:package": "node ./scripts/prebuild.js"
   },
   "dependencies": {
     "rimraf": "^5.0.0"
