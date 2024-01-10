@@ -44,9 +44,9 @@ function getAllInternalPackages(packageName) {
 const allInternalPkgs = getAllInternalPackages(pkgName);
 const allInternalPkgsDirs = allInternalPkgs.map((pkgName) => ({
   name: pkgName,
-  dir: path.join(__dirname, "..", getPackageInfo(pkgName).location),
+  dir: path.join(__dirname, "../..", getPackageInfo(pkgName).location),
 }));
-const pkgDir = path.join(__dirname, "..", getPackageInfo(pkgName).location);
+const pkgDir = path.join(__dirname, "../..", getPackageInfo(pkgName).location);
 const pkgCopyDir = path.join(__dirname, "package-copy");
 
 fs.copySync(pkgDir, pkgCopyDir, { overwrite: true });
