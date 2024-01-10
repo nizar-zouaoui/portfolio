@@ -8,7 +8,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "build:package": "node ./scripts/build_package.js",
     "pre-build:package": "node ./scripts/lib/prebuild.js",
-    "publish-package": "node ./scripts/publish.js"
+    "publish-package": "node ./scripts/publish.js",
+    "sync:workflows": "node ./scripts/sync_workflows.js"
   },
   "dependencies": {
     "rimraf": "^5.0.0"

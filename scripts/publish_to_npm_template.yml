@@ -9,21 +9,16 @@ on:
         default: "N/A"
         type: choice
         options:
-          - "N/A"
-          - "calcs"
-          - "error-handler"
-          - "@repo/eslint-config"
-          - "@repo/typescript-config"
-          - "@repo/ui"
+          # PACKAGES_PLACEHOLDER
       versionUpdate:
         description: "Select version update"
         required: true
         default: "patch"
         type: choice
         options:
-          - "patch"
-          - "minor"
-          - "major"
+          - patch
+          - minor
+          - major
 
 jobs:
   publish:
