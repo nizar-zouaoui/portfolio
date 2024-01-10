@@ -5,6 +5,9 @@ const pkgName = process.argv[2];
 
 const pkgInfo = getPackageInfo(pkgName);
 
-execSync(`cd ${pkgInfo.location} && yarn publish-package`, {
-  stdio: "inherit",
-});
+execSync(
+  `yarn build:package ${pkgName} && cd ${pkgInfo.location} && yarn publish-package`,
+  {
+    stdio: "inherit",
+  }
+);
