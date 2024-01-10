@@ -7,6 +7,7 @@ const { execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs-extra");
 const { relativizeImports } = require("./relativizeImports");
+const { updatePackageTypesVersions } = require("./exportPackage");
 
 const pkgName = process.argv[2];
 
@@ -159,6 +160,8 @@ allInternalPkgsDirs.forEach((pkg) => {
 allInternalPkgsDirs.forEach((pkg) => {
   cleanUpPackageJson(pkg.name);
 });
+
+updatePackageTypesVersions(pkgDir, packageJsonDir);
 console.log(allInternalPkgsDirs);
 
 // fs.removeSync(pkgCopyDir);
