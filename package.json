@@ -7,7 +7,7 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "build:package": "node ./scripts/build_package.js",
-    "prebuild": "node ./scripts/lib/prebuild.js"
+    "pre-build:package": "node ./scripts/lib/prebuild.js"
   },
   "dependencies": {
     "rimraf": "^5.0.0"

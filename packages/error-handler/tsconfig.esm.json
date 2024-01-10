@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": false,
-    "declaration": false
+    "module": "esnext",
+    "target": "esnext",
+    "outDir": "build/esm"
   },
   "exclude": [
     "build",
@@ -13,13 +14,12 @@
     "dist",
     "**/__test__",
     "__test__",
-    "**/__tests__",
-    "__tests__",
     "__mocks__",
     "**/__mocks__",
     "*.config.js",
     "*.config.ts",
     ".env",
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "scripts"
   ]
 }
