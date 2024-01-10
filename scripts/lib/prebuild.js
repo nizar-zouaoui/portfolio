@@ -10,7 +10,6 @@ const { updatePackageTypesVersions } = require("./exportPackage");
 const { getPackageInfo } = require("./getPackageInfo");
 
 const pkgName = process.argv[2];
-console.log(process.argv);
 
 function getAllInternalPackages(packageName) {
   const pkgInfo = getPackageInfo(packageName);
@@ -26,10 +25,12 @@ function getAllInternalPackages(packageName) {
 }
 
 const allInternalPkgs = getAllInternalPackages(pkgName);
+
 const allInternalPkgsDirs = allInternalPkgs.map((pkgName) => ({
   name: pkgName,
   dir: path.join(__dirname, "../..", getPackageInfo(pkgName).location),
 }));
+
 const pkgDir = path.join(__dirname, "../..", getPackageInfo(pkgName).location);
 const pkgCopyDir = path.join(__dirname, "package-copy");
 
@@ -80,8 +81,6 @@ const updateDevDependencies = (sourcePackageDir) => {
 
   if (!!packageJsonSource.devDependencies) {
     for (key in packageJsonSource.devDependencies) {
-      console.log(key);
-      console.log(packageJsonDestination.devDependencies);
       if (!packageJsonDestination.devDependencies)
         packageJsonDestination.devDependencies = {};
       if (
@@ -99,7 +98,7 @@ const updateDevDependencies = (sourcePackageDir) => {
   }
 };
 allInternalPkgsDirs.forEach((pkg) => {
-  const newFolder = path.join(pkgDir, pkg.name);
+  const newFolder = path.join(pkgDir, pkg.name.replace("@nizar-repo/", ""));
   fs.ensureDirSync(newFolder);
   const sourceDir = pkg.dir;
 
@@ -109,7 +108,7 @@ allInternalPkgsDirs.forEach((pkg) => {
 });
 
 allInternalPkgsDirs.forEach((pkg) => {
-  const newFolder = path.join(pkgDir, pkg.name);
+  const newFolder = path.join(pkgDir, pkg.name.replace("@nizar-repo/", ""));
   const deleteFilesAndEmptyDirs = (dirPath) => {
     const files = fs.readdirSync(dirPath);
 

@@ -50,7 +50,7 @@ const updateFileImports = (fileData, pkgName, depth) => {
     `^import\\s+.+?\\s+from\\s+"(${pkgName}|${pkgName}/.+?)";*$`,
     "gm"
   );
-  const relativePkg = `${depth}${pkgName}`;
+  const relativePkg = `${depth}${pkgName.replace("@nizar-repo/", "")}`;
   return fileData.replace(regexPattern, (match) => {
     return match.replace(pkgName, relativePkg);
   });
