@@ -57,6 +57,4 @@ const updateFileImports = (fileData, pkgName, depth) => {
 };
 module.exports = {
   relativizeImports,
-  getAllFiles,
-  getFileDepth,
 };

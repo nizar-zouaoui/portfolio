@@ -1,16 +1,12 @@
 // get pkg to build
 // get its internal dependancies each under a folder with its own name and set them next to the to-build pkg's package.json
-// TODO relativize all imports
+// relativize all imports
 // TODO build pkg
 // TODO publish
 const { execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs-extra");
-const {
-  relativizeImports,
-  getAllFiles,
-  getFileDepth,
-} = require("./relativizeImports");
+const { relativizeImports } = require("./relativizeImports");
 
 const pkgName = process.argv[2];
 
