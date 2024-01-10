@@ -3,30 +3,14 @@
 // relativize all imports
 // TODO build pkg
 // TODO publish
-const { execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs-extra");
 const { relativizeImports } = require("./relativizeImports");
 const { updatePackageTypesVersions } = require("./exportPackage");
+const { getPackageInfo } = require("./getPackageInfo");
 
 const pkgName = process.argv[2];
 console.log(process.argv);
-function getPackageInfo(packageName) {
-  const workspacesInfoRaw = execSync("yarn workspaces info --json", {
-    stdio: "pipe",
-  }).toString();
-  const workspacesInfoStringified = workspacesInfoRaw.substring(
-    workspacesInfoRaw.indexOf("{"),
-    workspacesInfoRaw.lastIndexOf("}") + 1
-  );
-  const workspacesInfo = JSON.parse(workspacesInfoStringified);
-
-  if (!workspacesInfo[packageName]) {
-    throw new Error(`Could not find ${packageName} in workspaces`);
-  }
-
-  return workspacesInfo[packageName];
-}
 
 function getAllInternalPackages(packageName) {
   const pkgInfo = getPackageInfo(packageName);
@@ -165,3 +149,6 @@ updatePackageTypesVersions(pkgDir, packageJsonDir);
 console.log(allInternalPkgsDirs);
 
 // fs.removeSync(pkgCopyDir);
+module.exports = {
+  getPackageInfo,
+};

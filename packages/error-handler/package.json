@@ -10,7 +10,8 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:types": "tsc --p tsconfig.types.prod.json",
-    "lint": "tsc --noEmit && eslint . --fix"
+    "lint": "tsc --noEmit && eslint . --fix",
+    "publish-package": "echo hello_there"
   },
   "dependencies": {
     "express": "^4.18.2",
