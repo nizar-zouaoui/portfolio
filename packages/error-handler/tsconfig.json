@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/server.json",
+  "extends": "@nizar-repo/typescript-config/server.json",
 
   "compilerOptions": {
     "rootDir": ".",

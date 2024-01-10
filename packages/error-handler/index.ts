@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ApiError } from "./types";
-import add from "calcs";
-import multiply from "calcs/mult/multiply";
+import add from "@nizar-repo/calcs";
+import multiply from "@nizar-repo/calcs/mult/multiply";
 
 const globalErrorHandler = (
   err: ApiError,

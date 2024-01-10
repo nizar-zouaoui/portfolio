@@ -15,8 +15,8 @@
     "rimraf": "^5.0.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "@nizar-repo/eslint-config": "*",
+    "@nizar-repo/typescript-config": "*",
     "prettier": "^3.1.0",
     "turbo": "latest"
   },

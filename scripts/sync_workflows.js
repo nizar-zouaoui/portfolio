@@ -32,10 +32,21 @@ packages.forEach(
     (yamlPackages += `
           - "${package}"`)
 );
-
-const yamlTemplate = fs.readFileSync(PUBLISH_TEMPLATE_PATH, "utf-8");
-console.log(yamlTemplate);
-fs.writeFileSync(
-  PUBLISH_WORKFLOW_PATH,
-  yamlTemplate.replace(PACKAGES_PLACEHOLDER, yamlPackages)
-);
+try {
+  console.log("reading template for workflow file.");
+  const yamlTemplate = fs.readFileSync(PUBLISH_TEMPLATE_PATH, "utf-8");
+  console.log("updating workflow file.");
+  fs.writeFileSync(
+    PUBLISH_WORKFLOW_PATH,
+    yamlTemplate.replace(PACKAGES_PLACEHOLDER, yamlPackages)
+  );
+  console.log("file updated.");
+} catch (error) {
+  console.log(
+    "++++++++++++++++++++++++++file update failed++++++++++++++++++++++++++."
+  );
+  console.log(error);
+  console.log(
+    "++++++++++++++++++++++++++file update failed++++++++++++++++++++++++++."
+  );
+}

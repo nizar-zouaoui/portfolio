@@ -10,20 +10,20 @@ on:
         type: choice
         options:
           - "N/A"
-          - "calcs"
-          - "error-handler"
-          - "@repo/eslint-config"
-          - "@repo/typescript-config"
-          - "@repo/ui"
+          - "@nizar-repo/calcs"
+          - "@nizar-repo/error-handler"
+          - "@nizar-repo/eslint-config"
+          - "@nizar-repo/typescript-config"
+          - "@nizar-repo/ui"
       versionUpdate:
         description: "Select version update"
         required: true
         default: "patch"
         type: choice
         options:
-          - "patch"
-          - "minor"
-          - "major"
+          - patch
+          - minor
+          - major
 
 jobs:
   publish:

@@ -5,7 +5,7 @@ import { json } from "body-parser";
 import router from "./routes";
 import mongoose, { ConnectOptions, connect } from "mongoose";
 import cors from "cors";
-import globalErrorHandler from "error-handler";
+import globalErrorHandler from "@nizar-repo/error-handler";
 const databaseConfig: ConnectOptions = {
   user: process.env.DATABASE_USER,
   pass: process.env.DATABASE_PASSWORD,

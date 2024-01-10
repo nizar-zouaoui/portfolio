@@ -1,5 +1,5 @@
 {
-  "name": "error-handler",
+  "name": "@nizar-repo/error-handler",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "calcs": "*"
+    "@nizar-repo/calcs": "*"
   }
 }
