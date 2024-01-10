@@ -6,6 +6,11 @@
 const { execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs-extra");
+const {
+  relativizeImports,
+  getAllFiles,
+  getFileDepth,
+} = require("./relativizeImports");
 
 const pkgName = process.argv[2];
 
@@ -94,6 +99,10 @@ const updateDevDependencies = (sourcePackageDir) => {
 
   if (!!packageJsonSource.devDependencies) {
     for (key in packageJsonSource.devDependencies) {
+      console.log(key);
+      console.log(packageJsonDestination.devDependencies);
+      if (!packageJsonDestination.devDependencies)
+        packageJsonDestination.devDependencies = {};
       if (
         !packageJsonDestination.devDependencies[key] &&
         packageJsonSource.devDependencies[key] !== "*"
@@ -148,12 +157,12 @@ allInternalPkgsDirs.forEach((pkg) => {
 
   deleteFilesAndEmptyDirs(newFolder);
 });
-
-// allInternalPkgsDirs.forEach((pkg) => {
-//   cleanUpPackageJson(pkg.name);
-// });
-console.log(pkgDir);
+allInternalPkgsDirs.forEach((pkg) => {
+  relativizeImports(pkg.name, pkgDir);
+});
+allInternalPkgsDirs.forEach((pkg) => {
+  cleanUpPackageJson(pkg.name);
+});
 console.log(allInternalPkgsDirs);
-console.log("All internal packages:", allInternalPkgs);
 
 // fs.removeSync(pkgCopyDir);

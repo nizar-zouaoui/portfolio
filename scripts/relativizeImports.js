@@ -1,18 +1,16 @@
 const fs = require("fs-extra");
+const path = require("path");
 const relativizeImports = (pkgName, rootDir) => {
-  const files = getAllFiles(rootDir).filter((file) => file.includes("pkgName"));
-
+  const files = getAllFiles(rootDir).filter(
+    (file) => path.extname(file) === ".ts"
+  );
   files.forEach((file) => {
     const fileDepth = getFileDepth(file, rootDir);
+    console.log({ rootDir, file, fileDepth });
     const fileData = fs.readFileSync(file, "utf8");
-    fs.writeFileSync(
-      file,
-      // TODO fix regex for replace
-      fileData.replace(
-        `import * from "${pkgName}*/***"`,
-        `import * from "${fileDepth}${pkgName}*/***"`
-      )
-    );
+    const updatedFile = updateFileImports(fileData, pkgName, fileDepth);
+    fileData !== updatedFile && console.log("updated", file);
+    fs.writeFileSync(file, updateFileImports(fileData, pkgName, fileDepth));
   });
 };
 
@@ -36,6 +34,29 @@ const getFileDepth = (filePath, rootDirectory) => {
   const relativePath = path.relative(rootDirectory, filePath);
   const splitPath = relativePath.split(path.sep);
   const depthLevel = splitPath.length - 1;
+  let preFix = "./";
+  if (depthLevel > 0) {
+    preFix = "";
+    for (let i = 0; i < depthLevel; i++) {
+      preFix += "../";
+    }
+  }
 
-  return depthLevel;
+  return preFix;
+};
+
+const updateFileImports = (fileData, pkgName, depth) => {
+  const regexPattern = new RegExp(
+    `^import\\s+.+?\\s+from\\s+"(${pkgName}|${pkgName}/.+?)";*$`,
+    "gm"
+  );
+  const relativePkg = `${depth}${pkgName}`;
+  return fileData.replace(regexPattern, (match) => {
+    return match.replace(pkgName, relativePkg);
+  });
+};
+module.exports = {
+  relativizeImports,
+  getAllFiles,
+  getFileDepth,
 };
