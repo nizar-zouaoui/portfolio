@@ -1,0 +1,32 @@
+name: Workflow Dispatch Publish NPM Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_name:
+        description: "Select package to publish"
+        required: true
+        default: "N/A"
+        type: choice
+        options:
+          - N/A
+          - error-handler
+          - calcs
+          - eslint-config
+          - typescript-cofing
+          - ui
+      versionUpdate:
+        description: "Select version update"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Publishing ${{github.event.inputs.package_name}} with ${{github.event.inputs.versionUpdate}} version update"
