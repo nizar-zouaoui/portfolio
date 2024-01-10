@@ -10,7 +10,7 @@ const { relativizeImports } = require("./relativizeImports");
 const { updatePackageTypesVersions } = require("./exportPackage");
 
 const pkgName = process.argv[2];
-
+console.log(process.argv);
 function getPackageInfo(packageName) {
   const workspacesInfoRaw = execSync("yarn workspaces info --json", {
     stdio: "pipe",
