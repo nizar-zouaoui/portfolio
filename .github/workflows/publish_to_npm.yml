@@ -29,4 +29,4 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Publishing ${{github.event.inputs.package_name}} with ${{github.event.inputs.versionUpdate}} version update"
+      - run: echo "Publishing ${{github.event.inputs.package_name}} with ${{github.event.inputs.versionUpdate}} version update with token ${{secrets.NPM_PUBLISH_TOKEN}}"
