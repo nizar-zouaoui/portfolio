@@ -26,3 +26,7 @@ execSync(
     stdio: "inherit",
   }
 );
+
+execSync(`yarn post-publish ${pkgName} ${versionUpdate}`, {
+  stdio: "inherit",
+});
