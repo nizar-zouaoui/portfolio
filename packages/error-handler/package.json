@@ -1,9 +1,9 @@
 {
   "name": "@nizar-repo/error-handler",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "index.js",
   "license": "MIT",
-  "private": "false",
+  "private": false,
   "scripts": {
     "clean": "rimraf build",
     "test": "jest --coverage --passWithNoTests",
@@ -12,10 +12,10 @@
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:types": "tsc --p tsconfig.types.prod.json",
     "lint": "tsc --noEmit && eslint . --fix",
-    "publish-package": "echo hello_there"
+    "publish-package": "yarn version --major && yarn publish --access public"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "@nizar-repo/calcs": "*"
+    "@nizar-repo/calcs": "*",
+    "express": "^4.18.2"
   }
 }
