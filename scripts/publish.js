@@ -1,5 +1,6 @@
 const { execSync } = require("child_process");
 const { getPackageInfo } = require("./lib/getPackageInfo");
+const path = require("path");
 
 const pkgName = process.argv[2];
 const versionUpdate = process.argv[3];

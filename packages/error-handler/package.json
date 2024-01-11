@@ -1,6 +1,6 @@
 {
   "name": "@nizar-repo/error-handler",
-  "version": "3.0.1",
+  "version": "3.0.0",
   "main": "build/cjs/index.js",
   "license": "MIT",
   "private": false,
@@ -14,73 +14,7 @@
     "lint": "tsc --noEmit && eslint . --fix"
   },
   "dependencies": {
-    "calcs": "*",
-    "date-fns": "^2.30.0"
-  },
-  "files": [
-    "build/cjs",
-    "build/esm",
-    "build/@types"
-  ],
-  "types": "build/@types",
-  "module": "build/mjs/index.js",
-  "typesVersions": {
-    ">=4": {
-      "build/@types/.d": [
-        "build/@types/build/@types/.d"
-      ],
-      "build/@types/types.d": [
-        "build/@types/build/@types/types.d"
-      ],
-      "build/cjs/.d": [
-        "build/@types/build/cjs/.d"
-      ],
-      "build/cjs/types.d": [
-        "build/@types/build/cjs/types.d"
-      ],
-      "build/esm/.d": [
-        "build/@types/build/esm/.d"
-      ],
-      "build/esm/types.d": [
-        "build/@types/build/esm/types.d"
-      ],
-      "types": [
-        "build/@types/types"
-      ]
-    }
-  },
-  "exports": {
-    ".": {
-      "require": "./build/cjs/index.js",
-      "import": "./build/esm/index.js"
-    },
-    "./build/@types/.d": {
-      "require": "./build/cjs/build/@types/.d.js",
-      "import": "./build/esm/build/@types/.d.js"
-    },
-    "./build/@types/types.d": {
-      "require": "./build/cjs/build/@types/types.d.js",
-      "import": "./build/esm/build/@types/types.d.js"
-    },
-    "./build/cjs/.d": {
-      "require": "./build/cjs/build/cjs/.d.js",
-      "import": "./build/esm/build/cjs/.d.js"
-    },
-    "./build/cjs/types.d": {
-      "require": "./build/cjs/build/cjs/types.d.js",
-      "import": "./build/esm/build/cjs/types.d.js"
-    },
-    "./build/esm/.d": {
-      "require": "./build/cjs/build/esm/.d.js",
-      "import": "./build/esm/build/esm/.d.js"
-    },
-    "./build/esm/types.d": {
-      "require": "./build/cjs/build/esm/types.d.js",
-      "import": "./build/esm/build/esm/types.d.js"
-    },
-    "./types": {
-      "require": "./build/cjs/types.js",
-      "import": "./build/esm/types.js"
-    }
+    "date-fns": "^2.30.0",
+    "calcs": "*"
   }
 }
