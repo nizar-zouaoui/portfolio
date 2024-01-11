@@ -1,7 +1,7 @@
 {
   "name": "@nizar-repo/error-handler",
-  "version": "2.0.0",
-  "main": "index.js",
+  "version": "3.0.0",
+  "main": "build/cjs/index.js",
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -15,7 +15,98 @@
     "publish-package": "yarn version --major && yarn publish --access public"
   },
   "dependencies": {
-    "@nizar-repo/calcs": "*",
-    "express": "^4.18.2"
+    "date-fns": "^2.30.0",
+    "express": "^4.18.2",
+    "vitest": "^1.0.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  },
+  "files": [
+    "build/cjs",
+    "build/esm",
+    "build/@types"
+  ],
+  "types": "build/@types",
+  "module": "build/mjs/index.js",
+  "typesVersions": {
+    ">=4": {
+      "calcs/divide": [
+        "build/@types/calcs/divide"
+      ],
+      "calcs/getPercentage": [
+        "build/@types/calcs/getPercentage"
+      ],
+      "calcs/helper/": [
+        "build/@types/calcs/helper/"
+      ],
+      "calcs/": [
+        "build/@types/calcs/"
+      ],
+      "calcs/mult/divide": [
+        "build/@types/calcs/mult/divide"
+      ],
+      "calcs/mult/helper/": [
+        "build/@types/calcs/mult/helper/"
+      ],
+      "calcs/mult/multiply/": [
+        "build/@types/calcs/mult/multiply/"
+      ],
+      "calcs/mult/multiply/square": [
+        "build/@types/calcs/mult/multiply/square"
+      ],
+      "calcs/substract": [
+        "build/@types/calcs/substract"
+      ],
+      "types": [
+        "build/@types/types"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "require": "./build/cjs/index.js",
+      "import": "./build/esm/index.js"
+    },
+    "./calcs/divide": {
+      "require": "./build/cjs/calcs/divide.js",
+      "import": "./build/esm/calcs/divide.js"
+    },
+    "./calcs/getPercentage": {
+      "require": "./build/cjs/calcs/getPercentage.js",
+      "import": "./build/esm/calcs/getPercentage.js"
+    },
+    "./calcs/helper/": {
+      "require": "./build/cjs/calcs/helper/.js",
+      "import": "./build/esm/calcs/helper/.js"
+    },
+    "./calcs/": {
+      "require": "./build/cjs/calcs/.js",
+      "import": "./build/esm/calcs/.js"
+    },
+    "./calcs/mult/divide": {
+      "require": "./build/cjs/calcs/mult/divide.js",
+      "import": "./build/esm/calcs/mult/divide.js"
+    },
+    "./calcs/mult/helper/": {
+      "require": "./build/cjs/calcs/mult/helper/.js",
+      "import": "./build/esm/calcs/mult/helper/.js"
+    },
+    "./calcs/mult/multiply/": {
+      "require": "./build/cjs/calcs/mult/multiply/.js",
+      "import": "./build/esm/calcs/mult/multiply/.js"
+    },
+    "./calcs/mult/multiply/square": {
+      "require": "./build/cjs/calcs/mult/multiply/square.js",
+      "import": "./build/esm/calcs/mult/multiply/square.js"
+    },
+    "./calcs/substract": {
+      "require": "./build/cjs/calcs/substract.js",
+      "import": "./build/esm/calcs/substract.js"
+    },
+    "./types": {
+      "require": "./build/cjs/types.js",
+      "import": "./build/esm/types.js"
+    }
   }
 }
