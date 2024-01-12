@@ -30,11 +30,11 @@ const allInternalPkgsDirs = allInternalPkgs.map((pkgName) => ({
   name: pkgName,
   dir: path.join(__dirname, "../..", getPackageInfo(pkgName).location),
 }));
+const pkgLocation = getPackageInfo(pkgName).location;
+const pkgDir = path.join(__dirname, "../..", pkgLocation);
+// const pkgCopyDir = path.join(__dirname, "package-copy");
 
-const pkgDir = path.join(__dirname, "../..", getPackageInfo(pkgName).location);
-const pkgCopyDir = path.join(__dirname, "package-copy");
-
-fs.copySync(pkgDir, pkgCopyDir, { overwrite: true });
+// fs.copySync(pkgDir, pkgCopyDir, { overwrite: true });
 
 const packageJsonDir = path.join(pkgDir, "package.json");
 const cleanUpPackageJson = (pkgName) => {
@@ -144,7 +144,7 @@ allInternalPkgsDirs.forEach((pkg) => {
   cleanUpPackageJson(pkg.name);
 });
 
-updatePackageTypesVersions(pkgDir, packageJsonDir);
+updatePackageTypesVersions(pkgDir, packageJsonDir, pkgLocation);
 console.log(allInternalPkgsDirs);
 
 // fs.removeSync(pkgCopyDir);

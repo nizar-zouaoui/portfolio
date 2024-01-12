@@ -27,9 +27,9 @@ function updatePackageTypesVersions(folderPath, packageJsonPath) {
   const dtsExportPaths = tsFiles
     .map((file) =>
       file
+        .replace(`${folderPath}\\index.ts`, "")
         .replace(`${folderPath}\\`, "")
         .replace(".ts", "")
-        .replace("index", "")
         .replace(/\\/g, "/")
     )
     .filter((file) => !!file.length);
