@@ -1,3 +1,8 @@
+const fs = require("fs-extra");
+const path = require("path");
+const pkgName = process.argv[2];
+const versionUpdate = process.argv[3];
+
 const getNewVersion = (versionUpdate, currVersion) => {
   const [major, minor, patch] = currVersion.split(".");
   if (versionUpdate === "major") return `${Number(major) + 1}.0.0`;
@@ -5,6 +10,19 @@ const getNewVersion = (versionUpdate, currVersion) => {
   return `${major}.${minor}.${Number(patch) + 1}`;
 };
 
-module.exports = {
-  getNewVersion,
-};
+const pkgInfo = getPackageInfo(pkgName);
+const pkgJsonDir = path.join(
+  __dirname,
+  "../..",
+  pkgInfo.location,
+  "package.json"
+);
+const packageJson = JSON.parse(fs.readFileSync(pkgJsonDir, "utf8"));
+const currVersion = packageJson.version;
+const newVersion = getNewVersion(versionUpdate, currVersion);
+packageJson.version = newVersion;
+fs.writeFileSync(pkgJsonDir, JSON.stringify(packageJson, null, 2));
+
+console.log(
+  `${pkgInfo.name}'s version bumped from ${currVersion} to ${newVersion}`
+);
