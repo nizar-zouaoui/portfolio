@@ -114,7 +114,6 @@ allInternalPkgsDirs.forEach((pkg) => {
 console.log("got imported all internal pkgs into my pkg");
 
 allInternalPkgsDirs.forEach((pkg) => {
-  const newFolder = path.join(pkgDir, pkg.name.replace("@nizar-repo/", ""));
   const deleteFilesAndEmptyDirs = (dirPath) => {
     const files = fs.readdirSync(dirPath);
 
@@ -141,7 +140,12 @@ allInternalPkgsDirs.forEach((pkg) => {
     }
   };
 
-  deleteFilesAndEmptyDirs(newFolder);
+  try {
+    const newFolder = path.join(pkgDir, pkg.name.replace("@nizar-repo/", ""));
+    deleteFilesAndEmptyDirs(newFolder);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 console.log("kept only ts files");
 
