@@ -150,11 +150,19 @@ allInternalPkgsDirs.forEach((pkg) => {
 console.log("kept only ts files");
 
 allInternalPkgsDirs.forEach((pkg) => {
-  relativizeImports(pkg.name, pkgDir);
+  try {
+    relativizeImports(pkg.name, pkgDir);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 console.log("relativized imports");
 allInternalPkgsDirs.forEach((pkg) => {
-  cleanUpPackageJson(pkg.name);
+  try {
+    cleanUpPackageJson(pkg.name);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 console.log("cleaned up pkg json");
 
