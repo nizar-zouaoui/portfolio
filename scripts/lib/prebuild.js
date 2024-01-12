@@ -1,8 +1,8 @@
 // get pkg to build
 // get its internal dependancies each under a folder with its own name and set them next to the to-build pkg's package.json
 // relativize all imports
-// TODO build pkg
-// TODO publish
+// build pkg
+// publish
 const path = require("path");
 const fs = require("fs-extra");
 const { relativizeImports } = require("./relativizeImports");
@@ -166,7 +166,7 @@ allInternalPkgsDirs.forEach((pkg) => {
 });
 console.log("cleaned up pkg json");
 
-updatePackageTypesVersions(pkgDir, packageJsonDir, pkgLocation);
+updatePackageTypesVersions(pkgDir, packageJsonDir);
 console.log("updated pkg json with publishing data");
 console.log(allInternalPkgsDirs);
 

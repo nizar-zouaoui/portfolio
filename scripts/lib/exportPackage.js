@@ -28,7 +28,9 @@ function updatePackageTypesVersions(folderPath, packageJsonPath) {
     .map((file) =>
       file
         .replace(`${folderPath}\\index.ts`, "")
+        .replace(`${folderPath}/index.ts`, "")
         .replace(`${folderPath}\\`, "")
+        .replace(`${folderPath}/`, "")
         .replace(".ts", "")
         .replace(/\\/g, "/")
     )
