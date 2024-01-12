@@ -10,7 +10,8 @@
     "pre-build:package": "node ./scripts/lib/prebuild.js",
     "publish-package": "node ./scripts/publish.js",
     "sync:workflows": "node ./scripts/sync_workflows.js",
-    "post-publish": "node ./scripts/lib/post_publish.js"
+    "post-publish": "node ./scripts/lib/post_publish.js",
+    "bump:version": "node ./scripts/lib/bumpVersion.js"
   },
   "dependencies": {
     "rimraf": "^5.0.0"
