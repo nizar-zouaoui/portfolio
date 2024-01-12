@@ -1,6 +1,6 @@
 {
   "name": "@nizar-repo/error-handler",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "main": "build/cjs/index.js",
   "license": "MIT",
   "private": false,
