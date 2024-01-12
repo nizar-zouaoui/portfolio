@@ -27,6 +27,6 @@ jobs:
       - run: yarn --force
       - run: yarn set:auth ${{github.event.inputs.package_name}} ${{secrets.NPM_PUBLISH_TOKEN}}
       - run: yarn build:package ${{github.event.inputs.package_name}}
-      - run: yarn --force
-      - run: yarn publish-package ${{github.event.inputs.package_name}}
+      # - run: yarn --force
+      # - run: yarn publish-package ${{github.event.inputs.package_name}}
       - run: echo "Publishing ${{github.event.inputs.package_name}} with token ${{secrets.NPM_PUBLISH_TOKEN}}"
