@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
+const { getPackageInfo } = require("./getPackageInfo");
 const pkgName = process.argv[2];
 const versionUpdate = process.argv[3];
 
@@ -23,6 +24,4 @@ const newVersion = getNewVersion(versionUpdate, currVersion);
 packageJson.version = newVersion;
 fs.writeFileSync(pkgJsonDir, JSON.stringify(packageJson, null, 2));
 
-console.log(
-  `${pkgInfo.name}'s version bumped from ${currVersion} to ${newVersion}`
-);
+console.log(`${pkgName}'s version bumped from ${currVersion} to ${newVersion}`);
