@@ -25,6 +25,7 @@ function getAllInternalPackages(packageName) {
 }
 
 const allInternalPkgs = getAllInternalPackages(pkgName);
+console.log(allInternalPkgs);
 console.log("got all internal pkgs");
 
 const allInternalPkgsDirs = allInternalPkgs.map((pkgName) => ({
@@ -44,10 +45,26 @@ const packageJsonDir = path.join(pkgDir, "package.json");
 console.log("got pkg.json dir");
 const cleanUpPackageJson = (pkgName) => {
   const packageJson = JSON.parse(fs.readFileSync(packageJsonDir, "utf8"));
-  if (!!packageJson.dependencies[pkgName])
-    delete packageJson.dependencies[pkgName];
-  if (!!packageJson.devDependencies[pkgName])
-    delete packageJson.devDependencies[pkgName];
+  console.log(pkgName);
+  console.log(packageJson.dependencies);
+  console.log(packageJson.devDependencies);
+  console.log(
+    packageJson.dependencies
+      ? packageJson.dependencies[`${pkgName}`]
+      : "packageJson.dependencies is undefined"
+  );
+  console.log(
+    packageJson.devDependencies
+      ? packageJson.devDependencies[`${pkgName}`]
+      : "packageJson.devDependencies is undefined"
+  );
+  if (!!packageJson.dependencies && !!packageJson.dependencies[`${pkgName}`])
+    delete packageJson.dependencies[`${pkgName}`];
+  if (
+    !!packageJson.devDependencies &&
+    !!packageJson.devDependencies[`${pkgName}`]
+  )
+    delete packageJson.devDependencies[`${pkgName}`];
 
   fs.writeFileSync(packageJsonDir, JSON.stringify(packageJson, null, 2));
 };
