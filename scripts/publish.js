@@ -6,9 +6,6 @@ const fs = require("fs-extra");
 const pkgName = process.argv[2];
 
 const pkgInfo = getPackageInfo(pkgName);
-execSync(`yarn build:package ${pkgName}`, {
-  stdio: "inherit",
-});
 const pkgJsonDir = path.join(__dirname, "..", pkgInfo.location, "package.json");
 const packageJson = JSON.parse(fs.readFileSync(pkgJsonDir, "utf8"));
 
