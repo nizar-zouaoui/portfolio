@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": false,
-    "outDir": "build/@types"
+    "declaration": true,
+    "outDir": "build/@types",
+    "emitDeclarationOnly": true
   },
   "exclude": [
     "build",
