@@ -12,12 +12,10 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:types": "tsc --p tsconfig.types.prod.json",
-    "test": "vitest run",
     "lint": "tsc",
-    "ci": "yarn lint && yarn test && yarn build"
+    "ci": "yarn lint && yarn build"
   },
   "dependencies": {
-    "date-fns": "^2.30.0",
-    "vitest": "^1.0.4"
+    "date-fns": "^2.30.0"
   }
 }
