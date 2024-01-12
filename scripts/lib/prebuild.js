@@ -25,18 +25,23 @@ function getAllInternalPackages(packageName) {
 }
 
 const allInternalPkgs = getAllInternalPackages(pkgName);
+console.log("got all internal pkgs");
 
 const allInternalPkgsDirs = allInternalPkgs.map((pkgName) => ({
   name: pkgName,
   dir: path.join(__dirname, "../..", getPackageInfo(pkgName).location),
 }));
+console.log("got all internal pkgs dirs");
 const pkgLocation = getPackageInfo(pkgName).location;
+console.log("got pkg location");
 const pkgDir = path.join(__dirname, "../..", pkgLocation);
+console.log("got pkg dir");
 // const pkgCopyDir = path.join(__dirname, "package-copy");
 
 // fs.copySync(pkgDir, pkgCopyDir, { overwrite: true });
 
 const packageJsonDir = path.join(pkgDir, "package.json");
+console.log("got pkg.json dir");
 const cleanUpPackageJson = (pkgName) => {
   const packageJson = JSON.parse(fs.readFileSync(packageJsonDir, "utf8"));
   if (!!packageJson.dependencies[pkgName])
@@ -106,6 +111,7 @@ allInternalPkgsDirs.forEach((pkg) => {
   updateDependencies(path.join(newFolder, "package.json"));
   updateDevDependencies(path.join(newFolder, "package.json"));
 });
+console.log("got imported all internal pkgs into my pkg");
 
 allInternalPkgsDirs.forEach((pkg) => {
   const newFolder = path.join(pkgDir, pkg.name.replace("@nizar-repo/", ""));
@@ -137,14 +143,19 @@ allInternalPkgsDirs.forEach((pkg) => {
 
   deleteFilesAndEmptyDirs(newFolder);
 });
+console.log("kept only ts files");
+
 allInternalPkgsDirs.forEach((pkg) => {
   relativizeImports(pkg.name, pkgDir);
 });
+console.log("relativized imports");
 allInternalPkgsDirs.forEach((pkg) => {
   cleanUpPackageJson(pkg.name);
 });
+console.log("cleaned up pkg json");
 
 updatePackageTypesVersions(pkgDir, packageJsonDir, pkgLocation);
+console.log("updated pkg json with publishing data");
 console.log(allInternalPkgsDirs);
 
 // fs.removeSync(pkgCopyDir);
