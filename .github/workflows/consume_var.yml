@@ -1,0 +1,35 @@
+name: Workflow Dispatch Publish NPM Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_name:
+        description: "Select package to publish"
+        required: true
+        default: "N/A"
+        type: choice
+        options:
+          - "N/A"
+          - "@nizar-repo/calcs"
+          - "@nizar-repo/error-handler"
+          - "@nizar-repo/eslint-config"
+          - "@nizar-repo/typescript-config"
+          - "@nizar-repo/ui"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Setup node env
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - run: yarn
+      - id: get_version
+        run: echo "::set-output name=version::$(yarn get:version ${{github.event.inputs.package_name}})"
+      - name: Use the output
+        run: |
+          echo "The version is ${{ steps.get_version.outputs.version }}"
+      - run: echo "Publishing ${{github.event.inputs.package_name}} with token ${{secrets.NPM_PUBLISH_TOKEN}}"

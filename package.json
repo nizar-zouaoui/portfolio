@@ -12,7 +12,8 @@
     "sync:workflows": "node ./scripts/sync_workflows.js",
     "post-publish": "node ./scripts/lib/post_publish.js",
     "bump:version": "node ./scripts/lib/bumpVersion.js",
-    "set:auth": "node ./scripts/lib/create_auth_file.js"
+    "set:auth": "node ./scripts/lib/create_auth_file.js",
+    "get:version": "node scripts/lib/getPackageVersion.js"
   },
   "dependencies": {
     "rimraf": "^5.0.0"
