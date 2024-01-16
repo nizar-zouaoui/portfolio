@@ -1,4 +1,4 @@
-name: Workflow Dispatch Publish NPM Package
+name: Consumming variable to reuse later
 
 on:
   workflow_dispatch:
