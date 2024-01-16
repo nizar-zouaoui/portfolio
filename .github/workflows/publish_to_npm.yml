@@ -28,6 +28,6 @@ jobs:
           node-version: 20
       - run: yarn --force
       - run: yarn publish-package ${{github.event.inputs.package_name}}
-      - run: echo "Publishing ${{github.event.inputs.package_name}} with token ${{secrets.NPM_PUBLISH_TOKEN}}"
         env:
           NPM_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
+      - run: echo "Publishing ${{github.event.inputs.package_name}} with token ${{secrets.NPM_PUBLISH_TOKEN}}"
