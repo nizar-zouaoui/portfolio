@@ -28,7 +28,7 @@ jobs:
           node-version: 20
       - run: yarn
       - id: get_version
-        run: yarn get:version ${{github.event.inputs.package_name}} >> "$GITHUB_OUTPUT"
+        run: echo "{app_version}={$(yarn get:version ${{github.event.inputs.package_name}})}" >> "$GITHUB_OUTPUT"
       - name: Use the output
         run: |
           echo "The version is ${{ steps.get_version.outputs }}"
