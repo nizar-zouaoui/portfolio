@@ -11,3 +11,4 @@ const pkgJsonDir = path.join(
 );
 const packageJson = JSON.parse(fs.readFileSync(pkgJsonDir, "utf8"));
 console.log(packageJson.version);
+return packageJson.version;
