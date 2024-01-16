@@ -2,19 +2,6 @@ name: Consumming variable to reuse later
 
 on:
   workflow_dispatch:
-    inputs:
-      package_name:
-        description: "Select package to publish"
-        required: true
-        default: "N/A"
-        type: choice
-        options:
-          - "N/A"
-          - "@nizar-repo/calcs"
-          - "@nizar-repo/error-handler"
-          - "@nizar-repo/eslint-config"
-          - "@nizar-repo/typescript-config"
-          - "@nizar-repo/ui"
 
 jobs:
   publish:
@@ -28,8 +15,8 @@ jobs:
           node-version: 20
       - run: yarn
       - id: get_version
-        run: echo "{app_version}={$(yarn get:version ${{github.event.inputs.package_name}})}" >> "$GITHUB_OUTPUT"
+        run: echo "{app_version}={yarn get:version @nizar-repo/error-handler}" >> "$GITHUB_OUTPUT"
       - name: Use the output
         run: |
           echo "The version is ${{ steps.get_version.outputs }}"
-      - run: echo "Publishing ${{github.event.inputs.package_name}} with token ${{secrets.NPM_PUBLISH_TOKEN}}"
+      - run: echo "Publishing @nizar-repo/error-handler with token ${{secrets.NPM_PUBLISH_TOKEN}}"
