@@ -14,7 +14,7 @@ const pkgJsonDir = path.join(__dirname, "..", pkgInfo.location, "package.json");
 const packageJson = JSON.parse(fs.readFileSync(pkgJsonDir, "utf8"));
 
 execSync(
-  `cd ${pkgInfo.location} && yarn publish --accesss public --new-version ${packageJson.version}`,
+  `cd ${pkgInfo.location} && yarn publish --access public --new-version ${packageJson.version}`,
   {
     stdio: "inherit",
   }
