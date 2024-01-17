@@ -15,7 +15,7 @@ jobs:
           node-version: 20
       - run: yarn
       - id: get_version
-        run: export app_version=$(npm pkg -w @edonec/blogs get version | head -n 1 | xargs)
+        run: export app_version=$(npm pkg -w @nizar-repo/error-handler get version | head -n 1 | xargs)
       - name: Use the output
         run: |
           echo "The version is $version"
