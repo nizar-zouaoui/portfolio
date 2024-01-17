@@ -15,8 +15,8 @@ jobs:
           node-version: 20
       - run: yarn
       - id: get_version
-        run: yarn get:version @nizar-repo/error-handler
+        run: export app_version=$(npm pkg -w @edonec/blogs get version | head -n 1 | xargs)
       - name: Use the output
         run: |
-          echo "The version is ${{ steps.get_version.outputs.app_version }}"
+          echo "The version is $version"
       - run: echo "Publishing @nizar-repo/error-handler with token ${{secrets.NPM_PUBLISH_TOKEN}}"
