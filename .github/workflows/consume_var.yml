@@ -19,5 +19,5 @@ jobs:
       - run: npm pkg -w @nizar-repo/error-handler get version
       - name: Use the output
         run: |
-          echo "The version is $version"
+          echo "The version is $app_version"
       - run: echo "Publishing @nizar-repo/error-handler with token ${{secrets.NPM_PUBLISH_TOKEN}}"
