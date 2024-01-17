@@ -1,23 +1,23 @@
 name: Consumming variable to reuse later
 
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
-  publish:
+  set-version:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
         uses: actions/checkout@v3
+
       - name: Setup node env
         uses: actions/setup-node@v3
         with:
           node-version: 20
-      - run: yarn
-      - id: get_version
-        run: export app_version=$(npm pkg -w @nizar-repo/error-handler get version | head -n 1 | xargs)
-      - run: npm pkg -w @nizar-repo/error-handler get version
-      - name: Use the output
+      - name: Extract version
         run: |
-          echo "The version is $app_version"
-      - run: echo "Publishing @nizar-repo/error-handler with token ${{secrets.NPM_PUBLISH_TOKEN}}"
+          echo "app_version=$(npm pkg -w @nizar-repo/error-handler get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
+        id: version
+
+      - name: Use the version
+        run: echo "The version is ${{ steps.version.outputs.app_version }}"
