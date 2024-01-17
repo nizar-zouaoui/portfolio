@@ -10,5 +10,7 @@ const pkgJsonDir = path.join(
   "package.json"
 );
 const packageJson = JSON.parse(fs.readFileSync(pkgJsonDir, "utf8"));
-console.log(packageJson.version);
-return packageJson.version;
+fs.writeFileSync(
+  process.env.GITHUB_OUTPUT,
+  `app_version=${packageJson.version}`
+);

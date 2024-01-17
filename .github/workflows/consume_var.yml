@@ -15,7 +15,7 @@ jobs:
           node-version: 20
       - run: yarn
       - id: get_version
-        run: echo "app_version=$(yarn get:version @nizar-repo/error-handler)" >> "$GITHUB_OUTPUT"
+        run: yarn get:version @nizar-repo/error-handler
       - name: Use the output
         run: |
           echo "The version is ${{ steps.get_version.outputs.app_version }}"
