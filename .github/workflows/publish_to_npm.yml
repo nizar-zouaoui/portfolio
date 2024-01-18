@@ -31,3 +31,29 @@ jobs:
         env:
           NPM_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
       - run: echo "Publishing ${{github.event.inputs.package_name}} with token ${{secrets.NPM_PUBLISH_TOKEN}}"
+  other_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Example step
+        run: echo "This is another job"
+  tag_workflow:
+    needs:
+      - publish
+      - other_job
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
+      - name: Extract version
+        run: |
+          echo "app_version=$(npm pkg -w ${{github.event.inputs.package_name}} get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
+        id: version
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          CUSTOM_TAG: testing_tag/v${{ steps.version.outputs.app_version }}
