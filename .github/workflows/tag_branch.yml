@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  tag_workflow:
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -22,4 +22,27 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
-          CUSTOM_TAG: testing_tag/v1.2.0
+          CUSTOM_TAG: "@testing_tag/v1.1.0"
+  release:
+    needs: tag_workflow
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract version
+        run: |
+          echo "app_version=$(npm pkg -w @nizar-repo/error-handler get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
+        id: version
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: "@testing_tag/v1.1.0"
+          release_name: "Release @testing_tag/v1.1.0"
+          body: |
+            Important Urls:
+            - Microservice
+            - Package
+            draft: false
+            prerelease: false
