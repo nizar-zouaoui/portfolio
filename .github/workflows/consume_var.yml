@@ -1,7 +1,7 @@
 name: Consumming variable to reuse later
 
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   set-version:
