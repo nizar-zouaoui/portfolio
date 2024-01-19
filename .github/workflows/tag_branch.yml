@@ -22,11 +22,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
-          CUSTOM_TAG: "@testing_tag/v1.1.1"
+          CUSTOM_TAG: "@testing_tag/v1.1.2"
   release:
     needs: tag_workflow
     name: Create Release
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - uses: actions/checkout@v3
         with:
@@ -41,8 +42,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "@testing_tag/v1.1.1"
-          release_name: "Release @testing_tag/v1.1.1"
+          tag_name: "@testing_tag/v1.1.2"
+          release_name: "Release @testing_tag/v1.1.2"
           body: |
             Important Urls:
             - Microservice
