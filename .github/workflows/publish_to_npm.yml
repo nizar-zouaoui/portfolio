@@ -15,22 +15,43 @@ on:
           - "@nizar-repo/eslint-config"
           - "@nizar-repo/typescript-config"
           - "@nizar-repo/ui"
+          - "@nizar-repo/calcs"
+          - "@nizar-repo/error-handler"
+          - "@nizar-repo/eslint-config"
+          - "@nizar-repo/typescript-config"
+          - "@nizar-repo/ui"
+          - "@nizar-repo/calcs"
+          - "@nizar-repo/error-handler"
+          - "@nizar-repo/eslint-config"
+          - "@nizar-repo/typescript-config"
+          - "@nizar-repo/ui"
+          - "@nizar-repo/calcs"
+          - "@nizar-repo/error-handler"
+          - "@nizar-repo/eslint-config"
+          - "@nizar-repo/typescript-config"
+          - "@nizar-repo/ui"
+          - "@nizar-repo/calcs"
+          - "@nizar-repo/error-handler"
+          - "@nizar-repo/eslint-config"
+          - "@nizar-repo/typescript-config"
+          - "@nizar-repo/ui"
+          - "@nizar-repo/calcs"
+          - "@nizar-repo/error-handler"
+          - "@nizar-repo/eslint-config"
+          - "@nizar-repo/typescript-config"
+          - "@nizar-repo/ui"
+          - "@nizar-repo/calcs"
+          - "@nizar-repo/error-handler"
+          - "@nizar-repo/eslint-config"
+          - "@nizar-repo/typescript-config"
+          - "@nizar-repo/ui"
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Setup node env
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - run: yarn --force
-      - run: yarn publish-package ${{github.event.inputs.package_name}}
-        env:
-          NPM_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
-      - run: echo "Publishing ${{github.event.inputs.package_name}} with token ${{secrets.NPM_PUBLISH_TOKEN}}"
+    uses: ./.github/workflows/~template_publish.yml
+    with:
+      package_name: ${{github.event.inputs.package_name}}
+    secrets: inherit
   other_job:
     runs-on: ubuntu-latest
     steps:
@@ -40,44 +61,15 @@ jobs:
     needs:
       - publish
       - other_job
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: "0"
-      - name: Extract version
-        run: |
-          echo "app_version=$(npm pkg -w ${{github.event.inputs.package_name}} get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
-        id: version
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: false
-          CUSTOM_TAG: "${{github.event.inputs.package_name}}/v${{ steps.version.outputs.app_version }}"
+    uses: ./.github/workflows/~template_tag.yml
+    with:
+      package_name: ${{github.event.inputs.package_name}}
+    secrets: inherit
+  
   release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Extract version
-        run: |
-          echo "app_version=$(npm pkg -w ${{github.event.inputs.package_name}} get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
-        id: version
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: "${{github.event.inputs.package_name}}/v${{ steps.version.outputs.app_version }}"
-          release_name: "Release ${{github.event.inputs.package_name}}/v${{ steps.version.outputs.app_version }}"
-          body: |
-            Important Urls:
-            - Microservice
-            - Package
-          draft: false
-          prerelease: false
+    uses: ./.github/workflows/~template_release.yml
+    needs: tag_workflow
+    with:
+      package_name: ${{github.event.inputs.package_name}}
+    secrets: inherit
+    

@@ -1,23 +1,10 @@
-name: Consumming variable to reuse later
-
 on:
-  workflow_dispatch:
+    workflow_dispatch:
+
 
 jobs:
-  set-version:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v3
-
-      - name: Setup node env
-        uses: actions/setup-node@v3
+    consume_var:
+        uses: ./.github/workflows/~template_consume_var.yml
         with:
-          node-version: 20
-      - name: Extract version
-        run: |
-          echo "app_version=$(npm pkg -w @nizar-repo/error-handler get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
-        id: version
-
-      - name: Use the version
-        run: echo "The version is ${{ steps.version.outputs.app_version }}"
+          package_name: "@nizar-repo/error-handler"
+        secrets: inherit

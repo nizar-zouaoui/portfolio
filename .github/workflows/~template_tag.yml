@@ -1,0 +1,28 @@
+on:
+  workflow_call:
+    inputs:
+      package_name:
+        type: string
+        required: true
+
+
+
+jobs:
+  tag_workflow:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
+      - name: Extract version
+        run: |
+          echo "app_version=$(npm pkg -w ${{github.event.inputs.package_name}} get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
+        id: version
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
+          CUSTOM_TAG: "${{github.event.inputs.package_name}}/v${{ steps.version.outputs.app_version }}"

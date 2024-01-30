@@ -1,0 +1,27 @@
+name: Consumming variable to reuse later
+
+on:
+  workflow_call:
+    inputs:
+      package_name:
+        type: string
+        required: true
+
+jobs:
+  set-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Setup node env
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Extract version
+        run: |
+          echo "app_version=$(npm pkg -w ${{github.event.inputs.package_name}} get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
+        id: version
+
+      - name: Use the version
+        run: echo "The version is ${{ steps.version.outputs.app_version }}"
