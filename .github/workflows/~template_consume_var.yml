@@ -18,6 +18,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+      - name: Display input
+        run: |
+            echo "${{github.event.inputs.package_name}}"
       - name: Extract version
         run: |
           echo "app_version=$(npm pkg -w ${{github.event.inputs.package_name}} get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
