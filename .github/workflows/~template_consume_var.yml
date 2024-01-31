@@ -26,11 +26,11 @@ jobs:
         run: echo "The version is ${{ steps.version.outputs.app_version }}"
 
       - name: Display correct
-        if: ${{inputs.package_name}} == "@nizar-repo/error-handler"
         run : echo "this is correct"
+        if: ${{inputs.package_name}} == "@nizar-repo/error-handler"
       - name: Display Wrong
+        run : echo "this is Wrong"
         if: ${{inputs.package_name}} != "-handler"
-        run : echo "this is Wrong"
       - name: Shouldn't Display
-        if: ${{inputs.package_name}} == "-handler"
         run : echo "this is Wrong"
+        if: ${{inputs.package_name}} == "-handler"
