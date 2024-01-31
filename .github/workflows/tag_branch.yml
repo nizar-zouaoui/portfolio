@@ -1,9 +1,9 @@
-name: Get version
+name: Tag Branch
 on:
   workflow_dispatch:
 
 jobs:
-  get_version:
+  tag-workflow:
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -21,6 +21,9 @@ jobs:
         id: version
       - name: Use the version
         run: echo "The version is ${{ steps.version.outputs.app_version }}"
+      - name: Check curr directory
+        run: |
+          echo "$(cat package.json | jq -r '.name')"
       # - name: Bump version and push tag
       #   uses: anothrNick/github-tag-action@1.64.0
       #   env:
