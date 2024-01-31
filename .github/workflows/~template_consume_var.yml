@@ -19,7 +19,7 @@ jobs:
           node-version: 20
       - name: Extract version
         run: |
-          echo "app_version=$(cd "$(node scripts/lib/getPackageLocation.js @nizar-repo/error-handler)" && cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
+          echo "app_version=$(cd "$(node scripts/lib/getPackageLocation.js ${{inputs.package_name}})" && cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
         id: version
 
       - name: Use the version
