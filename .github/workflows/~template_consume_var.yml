@@ -30,11 +30,13 @@ jobs:
         run: echo "The version is ${{ steps.version.outputs.app_version }}"
 
       - name: Display correct
-        if: ${{inputs.bool_val}} == 'true'
-        run : echo "this is correct"
+        if: ${{ inputs.bool_val == true }}
+        run: echo "this is correct"
+
       - name: Display Wrong
-        if: ${{inputs.bool_val}} != 'false'
-        run : echo "this is Wrong"
+        if: ${{ inputs.bool_val != false }}
+        run: echo "this is Wrong"
+
       - name: Shouldn't Display
-        if: ${{inputs.bool_val}} == 'false'
-        run : echo "this is Wrong"
+        if: ${{ inputs.bool_val == false }}
+        run: echo "this shouldn't display"
