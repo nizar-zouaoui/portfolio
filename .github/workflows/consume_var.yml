@@ -8,4 +8,5 @@ jobs:
         uses: ./.github/workflows/~template_consume_var.yml
         with:
           package_name: "@nizar-repo/error-handler"
+          bool_val: true
         secrets: inherit
