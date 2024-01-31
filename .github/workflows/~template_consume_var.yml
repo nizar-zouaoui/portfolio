@@ -1,4 +1,3 @@
-name: Consumming variable to reuse later
 
 on:
   workflow_call:
