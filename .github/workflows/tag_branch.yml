@@ -17,36 +17,36 @@ jobs:
         id: version
       - name: Use the version
         run: echo "The version is ${{ steps.version.outputs.app_version }}"
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: false
-          CUSTOM_TAG: "@nizar-repo/error-handler/v${{ steps.version.outputs.app_version }}"
-  release:
-    needs: tag_workflow
-    name: Create Release
-    runs-on: ubuntu-latest
-    permissions: write-all
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: "0"
-      - name: Extract version
-        run: |
-          echo "app_version=$(npm pkg -w @nizar-repo/error-handler get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
-        id: version
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: "@nizar-repo/error-handler/v${{ steps.version.outputs.app_version }}"
-          release_name: "Release @nizar-repo/error-handler/v${{ steps.version.outputs.app_version }}"
-          body: |
-            # Important Urls:
-            - `Microservice:` path
-            - `Package:` path
-          draft: false
-          prerelease: false
+      # - name: Bump version and push tag
+      #   uses: anothrNick/github-tag-action@1.64.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     WITH_V: false
+      #     CUSTOM_TAG: "@nizar-repo/error-handler/v${{ steps.version.outputs.app_version }}"
+  # release:
+  #   needs: tag_workflow
+  #   name: Create Release
+  #   runs-on: ubuntu-latest
+  #   permissions: write-all
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: "0"
+  #     - name: Extract version
+  #       run: |
+  #         echo "app_version=$(npm pkg -w @nizar-repo/error-handler get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
+  #       id: version
+  #     - name: Create Release
+  #       id: create_release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         tag_name: "@nizar-repo/error-handler/v${{ steps.version.outputs.app_version }}"
+  #         release_name: "Release @nizar-repo/error-handler/v${{ steps.version.outputs.app_version }}"
+  #         body: |
+  #           # Important Urls:
+  #           - `Microservice:` path
+  #           - `Package:` path
+  #         draft: false
+  #         prerelease: false

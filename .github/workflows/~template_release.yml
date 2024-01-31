@@ -16,7 +16,7 @@ jobs:
             uses: actions/checkout@v2
           - name: Extract version
             run: |
-              echo "app_version=$(npm pkg -w ${{github.event.inputs.package_name}} get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
+              echo "app_version=$(npm pkg -w ${{inputs.package_name}} get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
             id: version
           - name: Create Release
             id: create_release
@@ -24,8 +24,8 @@ jobs:
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
             with:
-              tag_name: "${{github.event.inputs.package_name}}/v${{ steps.version.outputs.app_version }}"
-              release_name: "Release ${{github.event.inputs.package_name}}/v${{ steps.version.outputs.app_version }}"
+              tag_name: "${{inputs.package_name}}/v${{ steps.version.outputs.app_version }}"
+              release_name: "Release ${{inputs.package_name}}/v${{ steps.version.outputs.app_version }}"
               body: |
                 Important Urls:
                 - Microservice
