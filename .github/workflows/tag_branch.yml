@@ -1,9 +1,9 @@
-name: Bump version
+name: Get version
 on:
   workflow_dispatch:
 
 jobs:
-  tag_workflow:
+  get_version:
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -17,7 +17,7 @@ jobs:
             node-version: 20
       - name: Extract version
         run: |
-          echo "app_version=$(npm pkg -w @nizar-repo/error-handler get version | head -n 1 | xargs)" >> $GITHUB_OUTPUT
+          echo "app_version=$(npm pkg -w @nizar-repo/error-handler get version  | awk -F ': ' '{print $2}' | tr -d '["}]')" >> $GITHUB_OUTPUT
         id: version
       - name: Use the version
         run: echo "The version is ${{ steps.version.outputs.app_version }}"
