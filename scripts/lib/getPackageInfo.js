@@ -1,4 +1,5 @@
 const { execSync } = require("child_process");
+const fs = require("fs-extra");
 function getPackageInfo(packageName) {
   const workspacesInfoRaw = execSync("yarn workspaces info --json", {
     stdio: "pipe",
@@ -13,6 +14,9 @@ function getPackageInfo(packageName) {
     throw new Error(`Could not find ${packageName} in workspaces`);
   }
 
+  workspacesInfo[packageName].hasSrc = fs.existsSync(
+    path.join(rootDir, workspacesInfo[packageName].location, "src")
+  );
   return workspacesInfo[packageName];
 }
 
