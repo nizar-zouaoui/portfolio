@@ -1,5 +1,6 @@
 const { execSync } = require("child_process");
 const fs = require("fs");
+const path = require("path");
 function getPackageInfo(packageName) {
   const workspacesInfoRaw = execSync("yarn workspaces info --json", {
     stdio: "pipe",
@@ -15,7 +16,7 @@ function getPackageInfo(packageName) {
   }
 
   workspacesInfo[packageName].hasSrc = fs.existsSync(
-    path.join(rootDir, workspacesInfo[packageName].location, "src")
+    path.join(__dirname,"../..", workspacesInfo[packageName].location, "src")
   );
   return workspacesInfo[packageName];
 }
