@@ -1,12 +1,37 @@
 name: Consumming variable to reuse later
 on:
     workflow_dispatch:
+      inputs:
+        name:
+          type: choice
+          default: all
+          description: Select one job or all
+          options: 
+          - all
+          - consume_var
+          - other_job
+  
 
 
 jobs:
     consume_var:
+        if: ${{ github.event.inputs.name == 'all' || github.event.inputs.name == 'consume_var' }}
         uses: ./.github/workflows/~template_consume_var.yml
         with:
           package_name: "@nizar-repo/error-handler"
           bool_val: true
         secrets: inherit
+    other_job:
+        if: ${{github.event.inputs.name == 'all' || github.event.inputs.name == 'other_job'}}
+        runs-on: ubuntu-latest
+        steps:
+          - name: Example step
+            run: echo "This is another job"
+    needs_job:
+        needs:
+          - consume_var
+          - other_job
+        runs-on: ubuntu-latest
+        steps:
+          - name: Example step
+            run: echo "This is a needs job"
