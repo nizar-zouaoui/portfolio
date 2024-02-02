@@ -1,5 +1,5 @@
 const { execSync } = require("child_process");
-const fs = require("fs-extra");
+const fs = require("fs");
 function getPackageInfo(packageName) {
   const workspacesInfoRaw = execSync("yarn workspaces info --json", {
     stdio: "pipe",
