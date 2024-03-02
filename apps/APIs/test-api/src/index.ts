@@ -19,9 +19,9 @@ app.use(
     credentials: true,
   })
 );
+app.use(globalErrorHandler);
 app.use(json());
 app.use(baseUrl, router);
-app.use(globalErrorHandler);
 mongoose.Promise = Promise;
 connect(`${process.env.DATABASE_URI}`, databaseConfig)
   .then(() => {
