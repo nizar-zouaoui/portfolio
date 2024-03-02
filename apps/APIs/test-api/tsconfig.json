@@ -4,6 +4,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "build",
+    "baseUrl": "./src",
     "sourceMap": false
   },
   "include": ["."],
