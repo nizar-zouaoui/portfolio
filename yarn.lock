@@ -2143,6 +2143,11 @@ execa@5.1.1:
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
 
+express-promisify-router@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/express-promisify-router/-/express-promisify-router-1.1.0.tgz#dd4d47c74a6e215a16da05c0e240d598b161b43f"
+  integrity sha512-ScH6keTA6TRB/uVUqwaAaRZhfOxWnhKSCj0veUlZJloIIUb+59no8bHQwR3ClbPpF4eE5YbY2CjYqd+RStHXHA==
+
 express-validator@7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-7.0.1.tgz#435fac6b5fa838763f78eca05d2206317b92106e"
