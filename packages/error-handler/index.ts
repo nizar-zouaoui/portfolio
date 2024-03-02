@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import { ApiError } from "./types";
-import add from "@nizar-repo/calcs";
-import multiply from "@nizar-repo/calcs/mult/multiply";
 
 const globalErrorHandler = (
   err: ApiError,
@@ -9,7 +7,9 @@ const globalErrorHandler = (
   res: Response,
   _next: NextFunction
 ) => {
-  console.log(add(1, 2), multiply(1, 2));
+  console.log("err");
+  console.log(err);
+  console.log("err");
   return res.status(err.status).json({ message: err.message });
 };
 export default globalErrorHandler;

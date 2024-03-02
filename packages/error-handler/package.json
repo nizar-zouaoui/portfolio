@@ -1,7 +1,6 @@
 {
   "name": "@nizar-repo/error-handler",
   "version": "6.1.2",
-  "main": "build/cjs/index.js",
   "license": "MIT",
   "private": false,
   "scripts": {
@@ -13,8 +12,5 @@
     "build:types": "tsc --p tsconfig.types.prod.json",
     "lint": "tsc --noEmit && eslint . --fix"
   },
-  "dependencies": {
-    "@nizar-repo/calcs": "*",
-    "date-fns": "^2.30.0"
-  }
+  "dependencies": {}
 }
