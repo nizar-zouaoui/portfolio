@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as testServices from "../../services/test-service";
 import { TestType } from "../../models";
 
-export const getTestData = async (req: Request, res: Response) => {
+export const getTestData = async (_req: Request, res: Response) => {
   const response = await testServices.getTestData();
   res.status(200).send(response);
 };

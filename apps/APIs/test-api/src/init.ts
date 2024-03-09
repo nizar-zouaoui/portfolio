@@ -1,7 +1,5 @@
-import { Router } from "express";
-// @ts-ignore
-import { wrapRouter } from "express-promisify-router";
+import CustomRouter from "@nizar-repo/custom-router";
 
 export const baseUrl = "/api/v1/test-api";
 
-export const router = wrapRouter(Router());
+export const router = CustomRouter()();

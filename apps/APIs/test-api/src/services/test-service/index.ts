@@ -3,7 +3,6 @@ import { TestType, Tester } from "../../models";
 
 export const getTestData = async () => {
   const testData = await Tester.find();
-  throw createHttpError(404, "dattebayo not found");
   return testData;
 };
 

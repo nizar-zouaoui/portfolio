@@ -1,24 +1,27 @@
 import { NextFunction, Request, Response } from "express";
-import { body, param, validationResult, check } from "express-validator";
+import {
+  body,
+  validationResult,
+  check,
+  Result,
+  ValidationError,
+} from "express-validator";
 import { TestType } from "../../models";
 import createHttpError from "http-errors";
 
+const formatErrors = (errors: Result<ValidationError>) => ({
+  fields: errors.array(),
+});
 export const addTestDataValidation = (
   req: Request<any, any, TestType, any>,
-  res: Response<unknown, Record<string, any>>,
+  _: Response<unknown, Record<string, any>>,
   next: NextFunction
 ) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
   }
-  throw {
-    status: 422,
-    message: errors
-      .array()
-      .map((el) => JSON.stringify(el))
-      .join("\n"),
-  };
+  throw createHttpError(422, formatErrors(errors));
 };
 
 export const addTestDataValidator = [
@@ -27,40 +30,28 @@ export const addTestDataValidator = [
 
 export const getTestDataByIdValidation = (
   req: Request<{ id: string }, any, any, any>,
-  res: Response<unknown, Record<string, any>>,
+  _: Response<unknown, Record<string, any>>,
   next: NextFunction
 ) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
   }
-  throw createHttpError(
-    422,
-    errors
-      .array()
-      .map((el) => JSON.stringify(el))
-      .join("\n")
-  );
+  throw createHttpError(422, formatErrors(errors));
 };
 
 export const getTestDataByIdValidator = [check("id").isMongoId()];
 
 export const updateTestDataValidation = (
   req: Request<{ id: string }, any, TestType, any>,
-  res: Response<unknown, Record<string, any>>,
+  _: Response<unknown, Record<string, any>>,
   next: NextFunction
 ) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
   }
-  throw createHttpError(
-    422,
-    errors
-      .array()
-      .map((el) => JSON.stringify(el))
-      .join("\n")
-  );
+  throw createHttpError(422, formatErrors(errors));
 };
 
 export const updateTestDataValidator = [
@@ -70,20 +61,14 @@ export const updateTestDataValidator = [
 
 export const deleteTestDataValidation = (
   req: Request<{ id: string }, any, any, any>,
-  res: Response<unknown, Record<string, any>>,
+  _: Response<unknown, Record<string, any>>,
   next: NextFunction
 ) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
   }
-  throw createHttpError(
-    422,
-    errors
-      .array()
-      .map((el) => JSON.stringify(el))
-      .join("\n")
-  );
+  throw createHttpError(422, formatErrors(errors));
 };
 
 export const deleteTestDataValidator = [check("id").isMongoId()];
