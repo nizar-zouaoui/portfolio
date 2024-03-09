@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "start": "turbo run start --parallel --concurrency=100%",
+    "start": "turbo run start --parallel",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "build:package": "node ./scripts/build_package.js",
@@ -31,6 +31,8 @@
   "workspaces": [
     "apps/*",
     "apps/APIs/*",
+    "packages/node/*",
+    "packages/SDK/*",
     "packages/*"
   ],
   "version": "0.0.0"
