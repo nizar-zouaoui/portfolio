@@ -16,6 +16,7 @@
     "ci": "yarn lint && yarn build"
   },
   "dependencies": {
+    "@nizar-repo/server-sdk": "*",
     "express": "^4.18.2",
     "express-validator": "7.0.1",
     "axios": "1.4.0"
