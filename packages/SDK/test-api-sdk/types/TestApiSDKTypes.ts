@@ -1,10 +1,10 @@
-import { TestApiRouteTypes } from "./routeTypes";
+import { TestApiRouteTypes } from "./RouteTypes";
 
 export type TestApiSDKTypes = {
   addTestDataBody: TestApiRouteTypes["/offer/"]["POST"]["body"];
   addTestDataResponse: TestApiRouteTypes["/offer/"]["POST"]["response"];
   getTestDatasQuery: TestApiRouteTypes["/offer/"]["GET"]["query"];
-  getTestDataResponse: TestApiRouteTypes["/offer/"]["GET"]["response"];
+  getTestDatasResponse: TestApiRouteTypes["/offer/"]["GET"]["response"];
   getTestDataByIdParams: TestApiRouteTypes["/offer/:id"]["GET"]["params"];
   getTestDataByIdResponse: TestApiRouteTypes["/offer/:id"]["GET"]["response"];
   updateTestDataParams: TestApiRouteTypes["/offer/:id"]["PUT"]["params"];
