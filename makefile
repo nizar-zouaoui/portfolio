@@ -1,2 +1,2 @@
 compose-dev:
-	cd dev && docker compose  up --build --force-recreate -d --remove-orphans
+	cd dev-env && docker compose  up --build --force-recreate -d --remove-orphans
