@@ -18,6 +18,7 @@
     "@next/eslint-plugin-next": "^14.0.2",
     "@nizar-repo/eslint-config": "*",
     "@nizar-repo/typescript-config": "*",
+    "@nizar-repo/ui": "*",
     "@types/eslint": "^8.44.7",
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
