@@ -3,6 +3,7 @@ import { Card } from "@nizar-repo/ui/card";
 import { Code } from "@nizar-repo/ui/code";
 import styles from "./page.module.css";
 import { Button } from "@nizar-repo/ui/button";
+import TestApiSDK from "@nizar-repo/test-api-sdk";
 
 function Gradient({
   conic,
@@ -52,6 +53,29 @@ const LINKS = [
 ];
 
 export default function Page(): JSX.Element {
+  console.log(TestApiSDK);
+  console.log("HELLO");
+  const api = new TestApiSDK({
+    baseURL: { force: true, hostname: "https://host.docker.internal:3000/api" },
+  });
+  console.log(
+    "========================================================================="
+  );
+  api
+    .getTestDatas({ query: {} })
+    .then((res) => {
+      console.log("res");
+      console.log(res);
+      console.log("res");
+    })
+    .catch((err) => {
+      console.log("err");
+      console.log(err);
+      console.log("err");
+    });
+  console.log(
+    "========================================================================="
+  );
   return (
     <main className={styles.main}>
       <div className={styles.description}>

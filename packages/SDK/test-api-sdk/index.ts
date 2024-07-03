@@ -15,7 +15,7 @@ class TestApiSDK extends ServerSDK {
     accessToken?: string;
     refreshToken?: string;
   }) {
-    super(api.baseURL, api.accessToken, api.refreshToken);
+    super(api.baseURL);
     if (api.baseURL.force) baseUrl = api.baseURL.hostname + suffix;
     else {
       baseUrl = _baseUrl;

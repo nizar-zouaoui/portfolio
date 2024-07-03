@@ -52,6 +52,12 @@ const LINKS = [
 ];
 
 export default function Page(): JSX.Element {
+  // const testApiSDK = new TestApiSDK({
+  //   baseURL: {
+  //     force: false,
+  //   },
+  // });
+  // testApiSDK.getTestDatas({ query: {} });
   return (
     <main className={styles.main}>
       <div className={styles.description}>
