@@ -16,16 +16,16 @@
     "get:version": "node scripts/lib/getPackageVersion.js"
   },
   "dependencies": {
-    "rimraf": "^5.0.0"
+    "rimraf": "5.0.7"
   },
   "devDependencies": {
-    "tailwindcss": "3.4.3",
-    "postcss": "8.4.38",
+    "tailwindcss": "3.4.4",
+    "postcss": "8.4.39",
     "autoprefixer": "10.4.19",
     "@nizar-repo/eslint-config": "*",
     "@nizar-repo/typescript-config": "*",
-    "prettier": "^3.1.0",
-    "turbo": "latest"
+    "prettier": "3.3.2",
+    "turbo": "2.0.6"
   },
   "engines": {
     "node": ">=18"

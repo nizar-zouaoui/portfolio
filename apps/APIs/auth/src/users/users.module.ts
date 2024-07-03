@@ -3,8 +3,7 @@ import { UsersService } from "./users.service";
 import { UsersController } from "./users.controller";
 import { User, UserSchema } from "./schemas/user.schema";
 import { MongooseModule } from "@nestjs/mongoose";
-import { Role } from "src/rbac/roles.decorator";
-import { RoleSchema } from "src/roles/schemas/roles.schema";
+import { Role, RoleSchema } from "src/roles/schemas/roles.schema";
 
 @Module({
   controllers: [UsersController],

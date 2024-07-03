@@ -1,14 +1,6 @@
 version: "3.9"
+
 services:
-  web:
-    build:
-      context: ..
-      dockerfile: ./dockerfiles/dockerfile.proxy-balancer
-    restart: always
-    image: nginx
-    ports:
-      - "3007:80"
-      - "3000:443"
   database:
     image: mongo:7.0.5-jammy
     restart: always
@@ -16,10 +8,10 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${DATABASE_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_PASSWORD}
     networks:
-      - main_network
+      - nestjs_network
     ports:
       - "27017:27017"
 
 networks:
-  main_network:
+  nestjs_network:
     driver: bridge

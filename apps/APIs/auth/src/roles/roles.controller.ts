@@ -9,17 +9,17 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { RolesService } from "./roles.service";
-import {
-  ACCESS_PRIVILIGE,
-  CreateRoleDto,
-  RESOURCE,
-} from "./dto/create-role.dto";
+import { CreateRoleDto } from "./dto/create-role.dto";
 import { UpdateRoleDto } from "./dto/update-role.dto";
 import { AssignRoleDto } from "./dto/assign-role.dto";
-import { AuthGuard } from "src/auth/auth.guard";
-import { RbacGuard } from "src/rbac/rbac.guard";
-import { Role } from "src/rbac/roles.decorator";
 
+import {
+  ACCESS_PRIVILIGE,
+  Role,
+  RbacGuard,
+  AuthGuard,
+  RESOURCE,
+} from "@nizar-repo/route-protector";
 @Controller("roles")
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
@@ -28,6 +28,7 @@ export class RolesController {
   @Role(ACCESS_PRIVILIGE.WRITE, RESOURCE.ROLES)
   @UseGuards(AuthGuard, RbacGuard)
   create(@Body() createRoleDto: CreateRoleDto) {
+    // console.log(rbac);
     return this.rolesService.create(createRoleDto);
   }
 

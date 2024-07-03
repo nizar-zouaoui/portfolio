@@ -14,13 +14,13 @@
   "devDependencies": {
     "@nizar-repo/eslint-config": "*",
     "@nizar-repo/typescript-config": "*",
-    "@turbo/gen": "^1.10.12",
-    "@types/node": "^20.5.2",
-    "@types/eslint": "^8.44.7",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "eslint": "^8.53.0",
-    "react": "^18.2.0",
-    "typescript": "^5.2.2"
+    "@turbo/gen": "2.0.6",
+    "@types/node": "20.14.9",
+    "@types/eslint": "8.56.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "eslint": "9.6.0",
+    "react": "18.3.1",
+    "typescript": "5.5.3"
   }
 }

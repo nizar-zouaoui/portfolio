@@ -10,10 +10,13 @@ import {
   Req,
 } from "@nestjs/common";
 import { Request } from "express";
-import { AuthGuard } from "src/auth/auth.guard";
-import { RbacGuard } from "src/rbac/rbac.guard";
-import { Role } from "src/rbac/roles.decorator";
-import { ACCESS_PRIVILIGE, RESOURCE } from "src/roles/dto/create-role.dto";
+import {
+  ACCESS_PRIVILIGE,
+  Role,
+  RbacGuard,
+  AuthGuard,
+  RESOURCE,
+} from "@nizar-repo/route-protector";
 import { CreateUserDto } from "src/users/dtos/CreateUser.dto";
 import { UpdateUserDto } from "src/users/dtos/UpdateUser.dto";
 import { UsersService } from "src/users/users.service";
