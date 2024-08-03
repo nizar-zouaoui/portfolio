@@ -20,50 +20,54 @@ import {
   AuthGuard,
   RESOURCE,
 } from "@nizar-repo/route-protector";
+import { IRolesController } from "./roles.controller.interface";
 @Controller("roles")
-export class RolesController {
+export class RolesController implements IRolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
   @Role(ACCESS_PRIVILIGE.WRITE, RESOURCE.ROLES)
   @UseGuards(AuthGuard, RbacGuard)
-  create(@Body() createRoleDto: CreateRoleDto) {
-    // console.log(rbac);
-    return this.rolesService.create(createRoleDto);
+  async create(@Body() createRoleDto: CreateRoleDto) {
+    await this.rolesService.create(createRoleDto);
+    return "OK";
   }
 
   @Get()
   @Role(ACCESS_PRIVILIGE.READ_ALL, RESOURCE.ROLES)
   @UseGuards(AuthGuard, RbacGuard)
-  findAll() {
-    return this.rolesService.findAll();
+  async findAll() {
+    return await this.rolesService.findAll();
   }
 
   @Get(":id")
   @Role(ACCESS_PRIVILIGE.READ_ALL, RESOURCE.ROLES)
   @UseGuards(AuthGuard, RbacGuard)
-  findOne(@Param("id") id: string) {
-    return this.rolesService.findOne(id);
+  async findOne(@Param("id") id: string) {
+    return await this.rolesService.findOne(id);
   }
 
   @Patch(":id")
   @Role(ACCESS_PRIVILIGE.WRITE, RESOURCE.ROLES)
   @UseGuards(AuthGuard, RbacGuard)
-  update(@Param("id") id: string, @Body() updateRoleDto: UpdateRoleDto) {
-    return this.rolesService.update(id, updateRoleDto);
+  async update(@Param("id") id: string, @Body() updateRoleDto: UpdateRoleDto) {
+    await this.rolesService.update(id, updateRoleDto);
+    return "OK";
   }
 
   @Delete(":id")
   @Role(ACCESS_PRIVILIGE.DELETE_ALL, RESOURCE.ROLES)
   @UseGuards(AuthGuard, RbacGuard)
-  remove(@Param("id") id: string) {
-    return this.rolesService.remove(id);
+  async remove(@Param("id") id: string) {
+    await this.rolesService.remove(id);
+    return "OK";
   }
 
   @Post("assign-role")
   @Role(ACCESS_PRIVILIGE.WRITE, RESOURCE.USERS)
   @UseGuards(AuthGuard, RbacGuard)
-  assignRole(@Body() assignRoleDto: AssignRoleDto) {
-    return this.rolesService.assignRole(assignRoleDto);
+  async assignRole(@Body() assignRoleDto: AssignRoleDto) {
+    await this.rolesService.assignRole(assignRoleDto);
+    return "OK";
   }
 }

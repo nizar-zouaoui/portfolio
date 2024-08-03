@@ -1,0 +1,19 @@
+{
+  "name": "@nizar-repo/auth-types",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "main": "./dist/index.js",
+  "scripts": {
+    "clean": "rimraf build",
+    "build": "yarn clean && yarn build:cjs",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:types": "tsc --p tsconfig.types.prod.json"
+  },
+  "dependencies": {
+    "mongoose": "8.4.4"
+  }
+}

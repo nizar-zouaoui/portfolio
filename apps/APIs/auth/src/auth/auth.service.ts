@@ -9,7 +9,11 @@ import { Model, Types } from "mongoose";
 import { User } from "src/users/schemas/user.schema";
 import getAuthWithUserAggregation from "src/helpers/getAuthWithUserAggregation";
 import getUserWithRoleAggregation from "src/helpers/getUserWithRoleAggregation";
-
+import {
+  LeanAuthDocument,
+  LeanUserDocument,
+  AuthMethods,
+} from "@nizar-repo/auth-types";
 @Injectable()
 export class AuthService {
   constructor(
@@ -21,38 +25,30 @@ export class AuthService {
 
   async verifyAuth({
     email,
-    username,
+    authMethod,
   }: {
-    email?: string;
-    username?: string;
+    email: string;
+    authMethod: AuthMethods;
   }): Promise<
-    Auth & {
-      _id: Types.ObjectId;
-      user: {
-        _id: Types.ObjectId;
-        username: string;
-        email: string;
-        isAdmin: boolean;
-      };
+    LeanAuthDocument & {
+      user: LeanUserDocument;
     }
   > {
-    const auth: (Auth & {
-      _id: Types.ObjectId;
-      user: {
-        _id: Types.ObjectId;
-        username: string;
-        email: string;
-        isAdmin: boolean;
-      };
-    })[] = await this.authModel.aggregate(
-      getAuthWithUserAggregation({ email, username }),
-    );
+    const auth: (LeanAuthDocument & { user: LeanUserDocument })[] =
+      await this.authModel.aggregate(
+        getAuthWithUserAggregation({ email, authMethod }),
+      );
 
     return auth[0];
   }
 
-  async classicSignIn({ password, email }: ClassicSignInDto): Promise<any> {
-    const authExists = await this.verifyAuth({ email });
+  async classicSignIn({ password, email }: ClassicSignInDto): Promise<{
+    accessToken: string;
+  }> {
+    const authExists = await this.verifyAuth({
+      email,
+      authMethod: AuthMethods.CLASSIC,
+    });
     if (!authExists)
       throw new UnauthorizedException("No account with these credentials!");
 
@@ -65,17 +61,17 @@ export class AuthService {
       )
     )[0];
     const payload = { userId: user._id, email: user.email, role: user.role };
+    const accessToken = await this.jwtService.signAsync(payload);
     return {
-      accessToken: await this.jwtService.signAsync(payload),
+      accessToken,
     };
   }
 
-  async classicSignUp({
-    email,
-    username,
-    password,
-  }: ClassicSignUpDto): Promise<any> {
-    const authExists = await this.verifyAuth({ username, email });
+  async classicSignUp({ email, password }: ClassicSignUpDto): Promise<any> {
+    const authExists = await this.verifyAuth({
+      email,
+      authMethod: AuthMethods.CLASSIC,
+    });
     if (authExists)
       throw new UnauthorizedException(
         "An account with these credentials already exists!",
@@ -83,15 +79,17 @@ export class AuthService {
     const newAuth = await this.createAuth({
       email,
       password,
-      username,
+      authMethod: AuthMethods.CLASSIC,
     });
-    const payload = { authId: newAuth.id, username: newAuth.username };
+    const payload = { userId: newAuth.user._id };
     return {
       accessToken: await this.jwtService.signAsync(payload),
     };
   }
 
-  async createAuth(authData: ClassicSignUpDto) {
+  async createAuth(
+    authData: ClassicSignUpDto & { authMethod: AuthMethods },
+  ): Promise<{ auth: LeanAuthDocument; user: LeanUserDocument }> {
     const newAuthData = {
       ...authData,
       createdAt: new Date(),
@@ -100,8 +98,14 @@ export class AuthService {
     const userExist = await this.usersService.verifyUser(authData.email);
 
     if (userExist) {
-      const savedAuth = await this.updateUserWithAuth(newAuthData, userExist);
-      return savedAuth;
+      const savedAuth: LeanAuthDocument = await this.updateUserWithAuth(
+        newAuthData,
+        userExist,
+      );
+      return {
+        auth: savedAuth,
+        user: userExist,
+      };
     }
 
     const savedAuth = await this.createUserWithAuth(newAuthData);
@@ -120,7 +124,6 @@ export class AuthService {
   async createUserWithAuth(authData: ClassicSignUpDto) {
     const newUser = new this.userModel({
       email: authData.email,
-      username: authData.username,
       createdAt: new Date(),
     });
     const savedUser = await newUser.save();
@@ -130,7 +133,7 @@ export class AuthService {
     savedUser.auths.push(savedAuth._id);
     await savedUser.save();
 
-    return savedAuth;
+    return { auth: savedAuth, user: savedUser };
   }
   async updateUserWithAuth(
     authData: ClassicSignUpDto,
@@ -138,7 +141,10 @@ export class AuthService {
       _id: Types.ObjectId;
     },
   ) {
-    const savedAuth = await this.createNewAuth(authData, user._id);
+    const savedAuth: LeanAuthDocument = await this.createNewAuth(
+      authData,
+      user._id,
+    );
     user.auths.push(savedAuth._id);
     await this.userModel.updateOne(
       {

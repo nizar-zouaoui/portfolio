@@ -1,20 +1,15 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Types } from "mongoose";
-export type UserDocument = User & Document;
+import { IUser } from "./user.document.types";
+// eslint-disable-next-line @typescript-eslint/ban-types
 
-@Schema()
-export class User {
+@Schema({ timestamps: true })
+export class User implements IUser {
   @Prop({ unique: true })
   username: string;
 
   @Prop({ unique: true })
   email: string;
-
-  @Prop({ default: false })
-  isAdmin: string;
-
-  @Prop()
-  createdAt: Date;
 
   @Prop({ type: [{ type: Types.ObjectId, ref: "Auth" }] })
   auths: Types.ObjectId[];

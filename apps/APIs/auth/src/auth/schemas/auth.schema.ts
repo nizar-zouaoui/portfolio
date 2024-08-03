@@ -1,24 +1,19 @@
-import { Types } from "mongoose";
+import { Document, Types } from "mongoose";
 import { AuthMethods } from "../auth-methods.enum";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-export type AuthDocument = Auth & Document;
-@Schema()
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type AuthDocument = Document<unknown, {}, Auth> &
+  Auth & {
+    _id: Types.ObjectId;
+  };
+@Schema({ timestamps: true })
 export class Auth {
-  @Prop({ unique: true })
-  username: string;
-
   @Prop({ unique: true })
   email: string;
 
   @Prop()
   password: string;
-
-  @Prop({ default: false })
-  isAdmin: boolean;
-
-  @Prop({ type: Date, default: Date.now })
-  createdAt: Date;
 
   @Prop({ default: AuthMethods.CLASSIC })
   authMethod: AuthMethods;

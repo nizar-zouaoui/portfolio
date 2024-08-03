@@ -5,8 +5,5 @@ export class ClassicSignUpDto {
   email: string;
 
   @IsString()
-  username: string;
-
-  @IsString()
   password: string;
 }

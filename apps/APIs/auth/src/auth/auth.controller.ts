@@ -10,9 +10,10 @@ import {
 import { AuthService } from "./auth.service";
 import { ClassicSignInDto } from "./dto/classic-sign-in.dto";
 import { ClassicSignUpDto } from "./dto/classic-sign-up.dto";
+import { IAuthController } from "./auth.controller.interface";
 
 @Controller("auth")
-export class AuthController {
+export class AuthController implements IAuthController {
   constructor(private authService: AuthService) {}
 
   @HttpCode(HttpStatus.OK)

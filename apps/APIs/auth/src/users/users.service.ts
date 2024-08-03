@@ -8,9 +8,13 @@ import { UpdateUserDto } from "./dtos/UpdateUser.dto";
 import { User } from "./schemas/user.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from "mongoose";
-import { Role, RoleDocument } from "src/roles/schemas/roles.schema";
+import { Role } from "src/roles/schemas/roles.schema";
 import getFullUserAggregation from "src/helpers/getFullUserAggregation";
-import { AuthDocument } from "src/auth/schemas/auth.schema";
+import {
+  LeanUserDocument,
+  LeanAuthDocument,
+  LeanRoleDocument,
+} from "@nizar-repo/auth-types";
 
 @Injectable()
 export class UsersService {
@@ -19,38 +23,32 @@ export class UsersService {
     @InjectModel(Role.name) private roleModel: Model<Role>,
   ) {}
 
-  async getUsers(): Promise<User[]> {
+  async getUsers(): Promise<LeanUserDocument[]> {
     const godRole = await this.roleModel.findOne({ name: "GOD" });
     if (!godRole) throw new NotFoundException("No god role?");
-    const users = await this.userModel.find({ roleId: { $ne: godRole._id } });
+    const users = await this.userModel
+      .find({ roleId: { $ne: godRole._id } })
+      .lean();
     return users;
   }
 
   async getUserById(
     id: string,
     roleName?: string,
-  ): Promise<{
-    _id: Types.ObjectId;
-    username: string;
-    email: string;
-    isAdmin: string;
-    createdAt: Date;
-    auths: AuthDocument[];
-    __v: number;
-    role: RoleDocument;
-  }> {
+  ): Promise<
+    Omit<LeanUserDocument, "roleId" | "auths"> & {
+      auths: LeanAuthDocument[];
+      role: LeanRoleDocument;
+    }
+  > {
     const godRole = await this.roleModel.findOne({ name: "GOD" });
     if (!godRole) throw new NotFoundException("No god role?");
-    const user = await this.userModel.aggregate<{
-      _id: Types.ObjectId;
-      username: string;
-      email: string;
-      isAdmin: string;
-      createdAt: Date;
-      auths: AuthDocument[];
-      __v: number;
-      role: RoleDocument;
-    }>(
+    const user = await this.userModel.aggregate<
+      Omit<LeanUserDocument, "roleId" | "auths"> & {
+        auths: LeanAuthDocument[];
+        role: LeanRoleDocument;
+      }
+    >(
       getFullUserAggregation(
         new Types.ObjectId(id),
         roleName === "GOD" ? undefined : godRole._id,
@@ -68,14 +66,13 @@ export class UsersService {
     return user;
   }
 
-  async verifyUser(email: string): Promise<
-    User & {
-      _id: Types.ObjectId;
-    }
-  > {
-    const user = await this.userModel.findOne({
-      where: { email },
-    });
+  async verifyUser(email: string): Promise<LeanUserDocument> {
+    const user: LeanUserDocument = await this.userModel
+      .findOne({
+        where: { email },
+      })
+      .lean();
+
     return user;
   }
 
@@ -89,7 +86,6 @@ export class UsersService {
       createdAt: new Date(),
     });
     await newUser.save();
-    return "OK!";
   }
 
   async updateUser(id: string, userData: UpdateUserDto) {
@@ -104,8 +100,6 @@ export class UsersService {
     if (updatedUser.matchedCount === 0) {
       throw new NotFoundException("User not found!");
     }
-
-    return "OK!";
   }
 
   async deleteUser(id: string) {
@@ -117,6 +111,5 @@ export class UsersService {
     });
     if (!deletedUser || deletedUser.deletedCount === 0)
       throw new NotFoundException("User not found!");
-    return "OK!";
   }
 }

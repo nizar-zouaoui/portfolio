@@ -4,46 +4,51 @@ import { Model, Types } from "mongoose";
 import { Role, RoleDocument } from "./schemas/roles.schema";
 import { CreateRoleDto } from "./dto/create-role.dto";
 import { UpdateRoleDto } from "./dto/update-role.dto";
-import { User, UserDocument } from "src/users/schemas/user.schema";
+import { User } from "src/users/schemas/user.schema";
 import { AssignRoleDto } from "./dto/assign-role.dto";
+import { LeanRoleDocument, LeanUserDocument } from "@nizar-repo/auth-types";
 
 @Injectable()
 export class RolesService {
   constructor(
     @InjectModel(Role.name) private roleModel: Model<RoleDocument>,
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @InjectModel(User.name) private userModel: Model<LeanUserDocument>,
   ) {}
 
-  async create(createRoleDto: CreateRoleDto): Promise<Role> {
+  async create(createRoleDto: CreateRoleDto): Promise<string> {
     const createdRole = new this.roleModel(createRoleDto);
-    return createdRole.save();
+    await createdRole.save();
+    return "OK";
   }
 
-  async findAll(): Promise<Role[]> {
-    return this.roleModel.find().exec();
+  async findAll(): Promise<LeanRoleDocument[]> {
+    return this.roleModel.find().lean();
   }
 
-  async findOne(id: string): Promise<Role> {
-    return this.roleModel.findOne({ _id: id }).exec();
+  async findOne(id: string): Promise<LeanRoleDocument> {
+    return this.roleModel.findOne({ _id: id }).lean();
   }
 
-  async update(id: string, updateRoleDto: UpdateRoleDto): Promise<Role> {
-    return this.roleModel
+  async update(id: string, updateRoleDto: UpdateRoleDto): Promise<string> {
+    await this.roleModel
       .findOneAndUpdate({ _id: id }, updateRoleDto, { new: true })
       .exec();
+    return "OK";
   }
 
-  async remove(id: string): Promise<Role> {
-    return this.roleModel.findOneAndDelete({ _id: id }).exec();
+  async remove(id: string): Promise<string> {
+    await this.roleModel.findOneAndDelete({ _id: id }).exec();
+    return "OK";
   }
 
-  async assignRole(assignRoleDto: AssignRoleDto): Promise<User> {
+  async assignRole(assignRoleDto: AssignRoleDto): Promise<string> {
     const { userId, roleId } = assignRoleDto;
     const user = await this.userModel.findById(userId);
     if (!user) {
       throw new NotFoundException("User not found");
     }
     user.roleId = new Types.ObjectId(roleId);
-    return user.save();
+    await user.save();
+    return "OK";
   }
 }

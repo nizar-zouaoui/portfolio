@@ -1,13 +1,16 @@
+import { AuthMethods } from "src/auth/auth-methods.enum";
+
 const getAuthWithUserAggregation = ({
   email,
-  username,
+  authMethod,
 }: {
   email?: string;
-  username?: string;
+  authMethod: AuthMethods;
 }) => [
   {
     $match: {
-      $or: [{ username }, { email }],
+      email,
+      authMethod,
     },
   },
   {
@@ -27,14 +30,12 @@ const getAuthWithUserAggregation = ({
       username: 1,
       email: 1,
       password: 1,
-      isAdmin: 1,
       createdAt: 1,
       authMethod: 1,
       user: {
         _id: 1,
         username: 1,
         email: 1,
-        isAdmin: 1,
       },
     },
   },
