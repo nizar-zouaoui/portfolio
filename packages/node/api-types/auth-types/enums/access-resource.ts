@@ -1,4 +1,4 @@
-export declare enum ACCESS_PRIVILIGE {
+export enum ACCESS_PRIVILEGE {
   READ = "READ",
   READ_ALL = "READ_ALL",
   WRITE = "WRITE",
@@ -7,7 +7,7 @@ export declare enum ACCESS_PRIVILIGE {
   DELETE_ALL = "DELETE_ALL",
   "*" = "*",
 }
-export declare enum RESOURCE {
+export enum RESOURCE {
   AUTH = "AUTH",
   USERS = "USERS",
   ROLES = "ROLES",

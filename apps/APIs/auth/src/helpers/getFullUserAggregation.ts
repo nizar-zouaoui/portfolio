@@ -1,15 +1,24 @@
 import { PipelineStage, Types } from "mongoose";
 
-const getFullUserAggregation = (
-  userId: Types.ObjectId,
-  godRoleId?: Types.ObjectId,
-) => {
-  const match: PipelineStage = { $match: { _id: userId } };
+const getFullUserAggregation = (userId: string, godRoleId?: string) => {
+  const match: PipelineStage = { $match: { _id: new Types.ObjectId(userId) } };
   if (godRoleId) {
-    match.$match.roleId = { $ne: godRoleId };
+    match.$match.roleId = { $ne: new Types.ObjectId(godRoleId) };
   }
   return [
     match,
+    {
+      $addFields: {
+        roleId: { $toObjectId: "$roleId" },
+        auths: {
+          $map: {
+            input: "$auths",
+            as: "authId",
+            in: { $toObjectId: "$$authId" },
+          },
+        },
+      },
+    },
     {
       $lookup: {
         from: "roles",

@@ -1,4 +1,4 @@
-import { AuthMethods } from "src/auth/auth-methods.enum";
+import { AuthMethods } from "@nizar-repo/auth-types";
 
 const getAuthWithUserAggregation = ({
   email,
@@ -11,6 +11,11 @@ const getAuthWithUserAggregation = ({
     $match: {
       email,
       authMethod,
+    },
+  },
+  {
+    $addFields: {
+      userId: { $toObjectId: "$userId" },
     },
   },
   {

@@ -1,6 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "globalEnv": [
+    "NPM_TOKEN",
+    "DATABASE_USER",
+    "DATABASE_PASSWORD",
+    "JWT_SECRET_KEY"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -10,6 +16,13 @@
       "dependsOn": ["^lint"]
     },
     "start": {
+      "inputs": ["$TURBO_DEFAULT$", ".env"],
+      "env": [
+        "NPM_TOKEN",
+        "DATABASE_USER",
+        "DATABASE_PASSWORD",
+        "JWT_SECRET_KEY"
+      ],
       "cache": false,
       "persistent": true
     }

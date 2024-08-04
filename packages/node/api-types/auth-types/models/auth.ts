@@ -7,9 +7,9 @@ export interface IAuth {
   authMethod: AuthMethods;
 }
 export interface IAuthDocument extends IAuth {
-  userId: Types.ObjectId;
+  userId: string;
 }
 export type HydratedAuthDocument = HydratedDocument<IAuthDocument>;
 export type LeanAuthDocument = FlattenMaps<IAuthDocument> & {
-  _id: Types.ObjectId;
+  _id: string;
 };

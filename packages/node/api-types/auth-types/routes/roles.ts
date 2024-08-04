@@ -3,28 +3,28 @@ export type RoleRouteTypes = {
   "/roles/": {
     POST: {
       body: IRole;
-      response: Promise<string>;
+      response: string;
     };
     GET: {
-      response: Promise<LeanRoleDocument[]>;
+      response: LeanRoleDocument[];
     };
   };
   "/roles/:id": {
     PATCH: {
       body: Partial<IRole>;
-      response: Promise<string>;
+      response: string;
       params: {
         id: string;
       };
     };
     DELETE: {
-      response: Promise<string>;
+      response: string;
       params: {
         id: string;
       };
     };
     GET: {
-      response: Promise<LeanRoleDocument>;
+      response: LeanRoleDocument;
       params: {
         id: string;
       };
@@ -36,7 +36,7 @@ export type RoleRouteTypes = {
         userId: string;
         roleId: string;
       };
-      response: Promise<string>;
+      response: string;
     };
   };
 };

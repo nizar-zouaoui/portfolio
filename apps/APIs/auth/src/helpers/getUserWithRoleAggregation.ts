@@ -1,8 +1,13 @@
 import { Types } from "mongoose";
 
-const getUserWithRoleAggregation = (userId: Types.ObjectId) => [
+const getUserWithRoleAggregation = (userId: string) => [
   {
-    $match: { _id: userId },
+    $match: { _id: new Types.ObjectId(userId) },
+  },
+  {
+    $addFields: {
+      roleId: { $toObjectId: "$roleId" },
+    },
   },
   {
     $lookup: {
@@ -20,7 +25,6 @@ const getUserWithRoleAggregation = (userId: Types.ObjectId) => [
       _id: 1,
       username: 1,
       email: 1,
-      createdAt: 1,
       role: {
         _id: 1,
         name: 1,

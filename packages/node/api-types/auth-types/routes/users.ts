@@ -5,33 +5,31 @@ export type UserRouteTypes = {
   "/users/": {
     POST: {
       body: IUser;
-      response: Promise<string>;
+      response: string;
     };
     GET: {
-      response: Promise<LeanUserDocument[]>;
+      response: LeanUserDocument[];
     };
   };
   "/users/:id": {
     PATCH: {
       body: Partial<IUser>;
-      response: Promise<string>;
+      response: string;
       params: {
         id: string;
       };
     };
     DELETE: {
-      response: Promise<string>;
+      response: string;
       params: {
         id: string;
       };
     };
     GET: {
-      response: Promise<
-        Omit<LeanUserDocument, "roleId" | "auths"> & {
-          auths: LeanAuthDocument[];
-          role: LeanRoleDocument;
-        }
-      >;
+      response: Omit<LeanUserDocument, "roleId" | "auths"> & {
+        auths: LeanAuthDocument[];
+        role: LeanRoleDocument;
+      };
       params: {
         id: string;
       };
@@ -39,16 +37,14 @@ export type UserRouteTypes = {
   };
   "/users/me": {
     GET: {
-      response: Promise<
-        Omit<LeanUserDocument, "roleId" | "auths"> & {
-          auths: LeanAuthDocument[];
-          role: LeanRoleDocument;
-        }
-      >;
+      response: Omit<LeanUserDocument, "roleId" | "auths"> & {
+        auths: LeanAuthDocument[];
+        role: LeanRoleDocument;
+      };
     };
     PATCH: {
       body: IUser;
-      response: Promise<string>;
+      response: string;
     };
   };
 };
