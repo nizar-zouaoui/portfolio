@@ -21,6 +21,9 @@
         "NPM_TOKEN",
         "DATABASE_USER",
         "DATABASE_PASSWORD",
+        "USER_EMAIL",
+        "USER_PASSWORD",
+        "USER_USERNAME",
         "JWT_SECRET_KEY"
       ],
       "cache": false,
