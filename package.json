@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "start": "turbo run start --parallel",
+    "start": "dotenv -- turbo run start --parallel",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "build:package": "node ./scripts/build_package.js",
@@ -16,7 +16,8 @@
     "get:version": "node scripts/lib/getPackageVersion.js"
   },
   "dependencies": {
-    "rimraf": "5.0.7"
+    "rimraf": "5.0.7",
+    "dotenv-cli": "^7.2.1"
   },
   "devDependencies": {
     "tailwindcss": "3.4.4",

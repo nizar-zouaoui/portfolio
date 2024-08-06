@@ -1,15 +1,15 @@
 import express from "express";
-import dotenv from "dotenv";
 import { baseUrl } from "./init";
 import { json } from "body-parser";
 import router from "./routes";
 import mongoose, { ConnectOptions, connect } from "mongoose";
 import cors from "cors";
+import "dotenv/config";
+
 const databaseConfig: ConnectOptions = {
   user: process.env.DATABASE_USER,
   pass: process.env.DATABASE_PASSWORD,
 };
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -24,8 +24,6 @@ mongoose.Promise = Promise;
 connect(`${process.env.DATABASE_URI}`, databaseConfig)
   .then(() => {
     app.listen(PORT, () => {
-      console.log(process.env.JWT_SECRET_KEY);
-
       import("helpers/seed");
       console.log(`🚀 Server listening at http://localhost:${PORT}`);
     });
