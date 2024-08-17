@@ -1,14 +1,11 @@
-export function Card({
-  className,
-  title,
-  children,
-  href,
-}: {
+import React from "react";
+
+const Card: React.FC<{
   className?: string;
   title: string;
   children: React.ReactNode;
   href: string;
-}): JSX.Element {
+}> = ({ className, title, children, href }) => {
   return (
     <a
       className={className}
@@ -22,4 +19,6 @@ export function Card({
       <p>{children}</p>
     </a>
   );
-}
+};
+
+export default Card;

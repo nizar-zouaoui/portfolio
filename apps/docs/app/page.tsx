@@ -1,9 +1,8 @@
+"use client";
 import Image from "next/image";
-import { Card } from "@nizar-repo/ui/card";
-import { Code } from "@nizar-repo/ui/code";
 import styles from "./page.module.css";
-import { Button } from "@nizar-repo/ui/button";
-
+import { Code, Button, Card } from "@nizar-repo/ui";
+import Authenticator from "./components/Authenticator";
 function Gradient({
   conic,
   className,
@@ -52,15 +51,10 @@ const LINKS = [
 ];
 
 export default function Page(): JSX.Element {
-  // const testApiSDK = new TestApiSDK({
-  //   baseURL: {
-  //     force: false,
-  //   },
-  // });
-  // testApiSDK.getTestDatas({ query: {} });
   return (
     <main className={styles.main}>
       <div className={styles.description}>
+        <Authenticator />
         <p>
           This is docs app&nbsp;
           <Code className={styles.code}>docs</Code>
