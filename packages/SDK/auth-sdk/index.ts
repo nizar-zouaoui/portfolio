@@ -8,8 +8,7 @@ import axios, { Axios, AxiosRequestConfig } from "axios";
 export class AuthSDK {
   api: Axios;
 
-  constructor(prefix: string) {
-    const token = localStorage.getItem("token");
+  constructor(prefix: string, token: string | null) {
     this.api = axios.create({
       baseURL: `${prefix}api/v1/auth/`,
       headers: {

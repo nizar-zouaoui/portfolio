@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 
 import { AuthSDK } from "@nizar-repo/auth-sdk";
+
 const Authenticator = () => {
-  if (typeof window !== "undefined") {
-    const anything = localStorage.token;
-    console.log(anything);
-  }
-  console.log(process.env.BASE_URL);
+  let token: string | null = null;
+  if (typeof window !== "undefined") token = localStorage.getItem("token");
+
+  const testApiSDK = new AuthSDK(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://localhost:3000/",
+    token
+  );
   useEffect(() => {
-    const testApiSDK = new AuthSDK("https://localhost:3000/");
     testApiSDK
       .classicSignIn({
         body: {
