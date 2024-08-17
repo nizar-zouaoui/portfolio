@@ -36,6 +36,7 @@
     "apps/*",
     "apps/APIs/*",
     "packages/node/*",
+    "packages/configs/*",
     "packages/node/api-types/*",
     "packages/SDK/*",
     "packages/browser/*",

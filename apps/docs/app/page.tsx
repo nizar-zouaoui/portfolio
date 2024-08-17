@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Code, Button, Card } from "@nizar-repo/ui";
-import Authenticator from "./components/Authenticator";
+import Authenticator from "@nizar-repo/authenticator";
 function Gradient({
   conic,
   className,
