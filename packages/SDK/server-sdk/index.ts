@@ -46,9 +46,11 @@ export default class ApiSDK {
     this.baseURL = baseURL;
 
     this.api = axios.create({
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: process.env.NODE_ENV === "production",
-      }),
+      httpsAgent:
+        typeof window === "undefined" &&
+        new https.Agent({
+          rejectUnauthorized: process.env.NODE_ENV === "production",
+        }),
     });
     this.initOrReInit(accessToken, refreshToken);
   }

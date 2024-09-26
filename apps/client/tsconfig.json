@@ -14,7 +14,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "../../packages/browser/Authenticator/index.tsx"
+    "../../packages/browser/Authenticator/index.tsx",
+    "../../packages/browser/ui/src/components/forms/IBasicForm.ts"
   ],
   "exclude": ["node_modules"]
 }

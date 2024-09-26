@@ -1,7 +1,3 @@
-import React from "react";
+export { default as LoginForm } from "./LoginForm";
 
-const Authenticator = () => {
-  return <div>Authenticator</div>;
-};
-
-export default Authenticator;
+export * from "./types";

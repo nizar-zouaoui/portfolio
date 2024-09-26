@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import Button from "../../Button";
 import { useAuth } from "../../../Contexts/AuthContext";
+import { Button } from "@nizar-repo/ui";
 
 const UserIcon: React.FC = () => {
   const { logout, userData } = useAuth(); // Access user and logout from AuthContext

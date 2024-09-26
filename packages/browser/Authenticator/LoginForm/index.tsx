@@ -1,9 +1,7 @@
 import React from "react";
 import { FormProvider } from "react-hook-form";
-import { ClassicLoginBodyType } from "../../../Contexts/AuthContext";
-import { IBasicForm } from "../../../types/IBasicForm";
-import Input from "../../forms/Input";
-import Button from "../../Button";
+import { Input, Button, IBasicForm } from "@nizar-repo/ui";
+import { ClassicLoginBodyType } from "../types";
 
 interface ILoginForm extends IBasicForm<ClassicLoginBodyType> {}
 

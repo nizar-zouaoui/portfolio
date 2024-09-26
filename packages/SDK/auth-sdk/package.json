@@ -1,9 +1,6 @@
 {
   "version": "0.0.1",
   "name": "@nizar-repo/auth-sdk",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/@types/index.d.ts",
   "scripts": {
     "clean": "rimraf build",
     "build": "yarn clean && yarn build:cjs",

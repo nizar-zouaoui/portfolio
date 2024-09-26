@@ -1,18 +1,14 @@
-"use client";
-import { AuthMethods, AuthRouteTypes } from "@nizar-repo/auth-types";
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
-import Api from "../../sdks";
-import { useRouter } from "next/navigation";
-import { createSession, deleteSession, updateSession } from "./sessionHandlers";
+import { AuthMethods } from "@nizar-repo/auth-types";
+import React, { createContext, useEffect, useState, ReactNode } from "react";
 import { ClassicLoginBodyType, UserData } from "@nizar-repo/authenticator";
+import {
+  updateSession,
+  createSession,
+  deleteSession,
+} from "./session-management";
+import Api from "../../sdks";
 
-interface AuthContextType {
+export interface AuthContextType {
   token: string | null;
   isAuthenticated: boolean;
   refreshSession: () => Promise<void>;
@@ -22,15 +18,9 @@ interface AuthContextType {
   userData: UserData | null;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
 type LoginProps = {
   authMethod: AuthMethods.CLASSIC;
@@ -43,13 +33,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const router = useRouter();
-
   const refreshSession = async () => {
     try {
       const res = await updateSession();
-      const resJson = await res.json();
-      setUserData(resJson.userData);
+      if (!res) throw new Error("Failed to update session");
+      setUserData(res.userData);
       setIsAuthenticated(true);
     } catch (error) {
       console.log("Failed to refresh session:", error);
@@ -70,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               email: res.email,
               username: res.username,
             });
-            router.push("/");
+            // router.push("/");
           })
           .catch((e) => console.log(e))
           .finally(() => setLoading(false));

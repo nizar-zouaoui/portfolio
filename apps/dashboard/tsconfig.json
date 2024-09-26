@@ -1,8 +1,13 @@
 {
   "files": [],
   "extends": "@nizar-repo/typescript-config/react-library.json",
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "sourceMap": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowJs": true
+  },
+  "include": ["src", "vite.config.ts", "**/*.ts", "**/*.tsx", ".eslintrc.cjs"]
 }

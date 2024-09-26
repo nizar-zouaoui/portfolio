@@ -1,5 +1,4 @@
 import "server-only";
-import { IRole } from "@nizar-repo/auth-types";
 import { cookies } from "next/headers";
 import Api from "../../sdks";
 
