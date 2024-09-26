@@ -1,10 +1,8 @@
 import {
-  ACCESS_PRIVILEGE,
   AuthMethods,
   AuthRouteTypes,
   LeanAuthDocument,
   LeanUserDocument,
-  RESOURCE,
 } from "@nizar-repo/auth-types";
 import getAuthWithUserAggregation from "helpers/getAuthWithUserAggregation";
 import Auth from "models/auth";
@@ -16,13 +14,15 @@ import * as usersServices from "services/users";
 import * as rolesServices from "services/roles";
 import { DEFAULT_ROLES_NAMES } from "@nizar-repo/auth-types/enums/defaultRoles";
 import { mongo } from "mongoose";
-import createHttpError from "http-errors";
 import { getDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
+import { validateToken } from "@nizar-repo/route-protection";
 
 export const classicSignIn = async ({
   email,
   password,
-}: AuthRouteTypes["/auth/classic/login/"]["POST"]["body"]) => {
+}: AuthRouteTypes["/auth/classic/login/"]["POST"]["body"]): Promise<
+  AuthRouteTypes["/auth/classic/login/"]["POST"]["response"]
+> => {
   if (!process.env.JWT_SECRET_KEY)
     throw createHtpError(500, "JWT_SECRET_KEY env is not provided!");
   const authExists = await verifyAuth({
@@ -47,13 +47,17 @@ export const classicSignIn = async ({
   });
   return {
     accessToken,
+    email: user.email,
+    username: user.username,
   };
 };
 
 export const classicSignUp = async ({
   email,
   password,
-}: AuthRouteTypes["/auth/classic/sign-up/"]["POST"]["body"]) => {
+}: AuthRouteTypes["/auth/classic/sign-up/"]["POST"]["body"]): Promise<
+  AuthRouteTypes["/auth/classic/sign-up/"]["POST"]["response"]
+> => {
   if (!process.env.JWT_SECRET_KEY)
     throw createHtpError(500, "JWT_SECRET_KEY env is not provided!");
   const authExists = await verifyAuth({
@@ -81,6 +85,43 @@ export const classicSignUp = async ({
   });
   return {
     accessToken,
+    email: newAuth.user.email,
+    username: newAuth.user.username,
+  };
+};
+
+export const refreshAccessToken = async (
+  userId: string
+): Promise<
+  AuthRouteTypes["/auth/refresh-access-token/"]["GET"]["response"]
+> => {
+  if (!process.env.JWT_SECRET_KEY)
+    throw createHtpError(500, "JWT_SECRET_KEY env is not provided!");
+  const user = await usersServices.getUserWithRole(userId);
+  const payload: TokenPayloadType = {
+    userId: user._id,
+    email: user.email,
+    role: user.role,
+  };
+
+  const accessToken = sign(payload, process.env.JWT_SECRET_KEY, {
+    expiresIn: "1d",
+  });
+  return {
+    accessToken,
+    email: user.email,
+    username: user.username,
+  };
+};
+
+export const verifyAccessToken = async (
+  token: string
+): Promise<
+  AuthRouteTypes["/auth/verify-access-token/:token"]["GET"]["response"]
+> => {
+  validateToken(`Bearer ${token}`);
+  return {
+    accessToken: token,
   };
 };
 const createAuth = async (

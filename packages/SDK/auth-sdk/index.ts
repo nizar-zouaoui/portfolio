@@ -4,17 +4,29 @@ import {
   UserRouteTypes,
 } from "@nizar-repo/auth-types";
 import axios, { Axios, AxiosRequestConfig } from "axios";
+import ServerSDK from "@nizar-repo/server-sdk/sdk";
+import ApiSDK from "@nizar-repo/server-sdk";
 
-export class AuthSDK {
-  api: Axios;
+const isClientRequest = typeof window !== "undefined";
 
-  constructor(prefix: string, token: string | null) {
-    this.api = axios.create({
-      baseURL: `${prefix}api/v1/auth/`,
-      headers: {
-        Authorization: token,
-      },
-    });
+const suffix = "/v1/auth";
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const _baseUrl = !isClientRequest
+  ? `http://auth:3000/api${suffix}`
+  : `/api${suffix}`;
+
+let baseUrl = "";
+
+export class AuthSDK extends ServerSDK {
+  constructor(api: ApiSDK) {
+    super(api);
+    if (api.baseURL.force) baseUrl = api.baseURL.hostname + suffix;
+    else {
+      baseUrl = _baseUrl;
+    }
+  }
+  private handleAuthResponse(token: { accessToken: string }) {
+    this.setBearerToken(token.accessToken);
   }
 
   async classicSignIn({
@@ -24,7 +36,8 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.post<
       AuthRouteTypes["/auth/classic/login/"]["POST"]["response"]
-    >(`/auth/classic/login`, body);
+    >(`${baseUrl}/auth/classic/login`, body);
+    this.handleAuthResponse(data);
     return data;
   }
 
@@ -35,7 +48,27 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.post<
       AuthRouteTypes["/auth/classic/sign-up/"]["POST"]["response"]
-    >(`/auth/classic/sign-up`, body);
+    >(`${baseUrl}/auth/classic/sign-up`, body);
+    this.handleAuthResponse(data);
+    return data;
+  }
+
+  async refreshAccessToken() {
+    const { data } = await this.api.get<
+      AuthRouteTypes["/auth/refresh-access-token/"]["GET"]["response"]
+    >(`${baseUrl}/auth/refresh-access-token`);
+    this.handleAuthResponse(data);
+    return data;
+  }
+  async verifyAccessToken({
+    params,
+  }: {
+    params: AuthRouteTypes["/auth/verify-access-token/:token"]["GET"]["params"];
+  }) {
+    const { data } = await this.api.get<
+      AuthRouteTypes["/auth/verify-access-token/:token"]["GET"]["response"]
+    >(`${baseUrl}/auth/verify-access-token/${params.token}`);
+    this.handleAuthResponse(data);
     return data;
   }
 
@@ -54,7 +87,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.post<
       RoleRouteTypes["/roles/"]["POST"]["response"]
-    >(`/roles`, body);
+    >(`${baseUrl}/roles`, body);
     return data;
   }
 
@@ -65,7 +98,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.get<
       RoleRouteTypes["/roles/:id"]["GET"]["response"]
-    >(`/roles/${params.id}`);
+    >(`${baseUrl}/roles/${params.id}`);
     return data;
   }
 
@@ -78,7 +111,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.patch<
       RoleRouteTypes["/roles/:id"]["PATCH"]["response"]
-    >(`/roles/${params.id}`, body);
+    >(`${baseUrl}/roles/${params.id}`, body);
     return data;
   }
 
@@ -89,7 +122,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.delete<
       RoleRouteTypes["/roles/:id"]["DELETE"]["response"]
-    >(`/roles/${params.id}`);
+    >(`${baseUrl}/roles/${params.id}`);
     return data;
   }
 
@@ -100,7 +133,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.post<
       RoleRouteTypes["/roles/assign-role"]["POST"]["response"]
-    >(`/roles`, body);
+    >(`${baseUrl}/roles`, body);
     return data;
   }
 
@@ -119,7 +152,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.post<
       UserRouteTypes["/users/"]["POST"]["response"]
-    >(`/users`, body);
+    >(`${baseUrl}/users`, body);
     return data;
   }
 
@@ -130,7 +163,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.get<
       UserRouteTypes["/users/:id"]["GET"]["response"]
-    >(`/users/${params.id}`);
+    >(`${baseUrl}/users/${params.id}`);
     return data;
   }
 
@@ -143,7 +176,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.patch<
       UserRouteTypes["/users/:id"]["PATCH"]["response"]
-    >(`/users/${params.id}`, body);
+    >(`${baseUrl}/users/${params.id}`, body);
     return data;
   }
 
@@ -154,7 +187,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.delete<
       UserRouteTypes["/users/:id"]["DELETE"]["response"]
-    >(`/users/${params.id}`);
+    >(`${baseUrl}/users/${params.id}`);
     return data;
   }
 
@@ -173,7 +206,7 @@ export class AuthSDK {
   }) {
     const { data } = await this.api.patch<
       UserRouteTypes["/users/me"]["PATCH"]["response"]
-    >(`/users/me`, body);
+    >(`${baseUrl}/users/me`, body);
     return data;
   }
 }

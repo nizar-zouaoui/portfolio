@@ -20,7 +20,7 @@ export const protectRoute =
     return next();
   };
 
-const validateToken = (authHeader: string | undefined) => {
+export const validateToken = (authHeader: string | undefined) => {
   if (!process.env.JWT_SECRET_KEY)
     throw createError(500, "JWT_SECRET_KEY env is not provided!");
   if (authHeader === undefined) {

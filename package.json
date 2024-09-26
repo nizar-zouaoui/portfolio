@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "rimraf": "5.0.7",
-    "dotenv-cli": "^7.2.1"
+    "tailwindcss": "3.4.11",
+    "tailwindcss-radix": "3.0.5",
+    "dotenv-cli": "7.2.1"
   },
   "devDependencies": {
     "tailwindcss": "3.4.4",

@@ -5,12 +5,36 @@ export type AuthRouteTypes = {
       body: Omit<IAuth, "authMethod">;
       response: {
         accessToken: string;
+        email: string;
+        username: string;
       };
     };
   };
   "/auth/classic/sign-up/": {
     POST: {
       body: Omit<IAuth, "authMethod">;
+      response: {
+        accessToken: string;
+        email: string;
+        username: string;
+      };
+    };
+  };
+  "/auth/refresh-access-token/": {
+    GET: {
+      response: {
+        accessToken: string;
+        email: string;
+        username: string;
+      };
+    };
+  };
+
+  "/auth/verify-access-token/:token": {
+    GET: {
+      params: {
+        token: string;
+      };
       response: {
         accessToken: string;
       };

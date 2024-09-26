@@ -1,5 +1,5 @@
 {
-  "name": "config",
+  "name": "@nizar-repo/tailwindcss-config",
   "license": "MIT",
   "version": "0.1.0",
   "dependencies": {
