@@ -36,10 +36,6 @@ const AppRouter = () => {
           element: <Navigate to="/login" />, // Redirect to login if route doesn't match
         },
   ];
-  console.log("routes");
-  console.log(isAuthenticated);
-  console.log(routes);
-  console.log("routes");
   const router = createBrowserRouter(routes, {
     basename: "/dashboard",
   });

@@ -39,7 +39,6 @@ export const createSession = (token: string) => {
 // Update session by refreshing the token
 export const updateSession = async () => {
   const oldToken = getCookie("AUTH_SESSION");
-  console.log(oldToken);
   if (!oldToken) return null;
 
   try {
