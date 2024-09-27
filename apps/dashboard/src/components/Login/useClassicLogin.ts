@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AuthMethods } from "@nizar-repo/auth-types";
-import { useAuth } from "../../Contexts/AuthContext";
 import { ClassicLoginBodyType } from "@nizar-repo/authenticator";
+import useAuth from "../../contexts/AuthContext/useAuth";
 
 const useClassicLogin = () => {
   const { login, loading } = useAuth();

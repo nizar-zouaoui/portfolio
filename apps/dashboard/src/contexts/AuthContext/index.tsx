@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               email: res.email,
               username: res.username,
             });
-            // router.push("/");
+            window.location.reload();
           })
           .catch((e) => console.log(e))
           .finally(() => setLoading(false));
@@ -70,6 +70,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setToken(null);
     setUserData(null);
     setIsAuthenticated(false);
+    window.location.reload();
   };
 
   useEffect(() => {
