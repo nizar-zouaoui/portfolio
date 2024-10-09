@@ -9,17 +9,18 @@ import {
 } from "react-hook-form";
 
 interface IInput<TFieldValues extends FieldValues> {
-  name: Path<TFieldValues>; // Ensures name is a valid field within the form values
+  name: Path<TFieldValues>;
   label?: string;
   displayName?: string;
   placeholder?: string;
   rules?: Omit<
     RegisterOptions<TFieldValues, Path<TFieldValues>>,
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
-  >; // Can be further typed if needed
+  >;
   control: Control<TFieldValues>;
   type?: HTMLInputTypeAttribute;
   defaultValue?: TFieldValues[Path<TFieldValues>];
+  autoComplete?: string;
 }
 
 const Input = <TFieldValues extends FieldValues>({
@@ -28,8 +29,9 @@ const Input = <TFieldValues extends FieldValues>({
   placeholder,
   control,
   rules,
-  type = "text", // Default to text input
-  defaultValue, // Optional default value
+  type = "text",
+  defaultValue,
+  autoComplete,
 }: IInput<TFieldValues>) => {
   const {
     formState: { errors },
@@ -38,14 +40,15 @@ const Input = <TFieldValues extends FieldValues>({
   const [viewPassword, setViewPassword] = useState(false);
   const toggleViewPassword = () => setViewPassword(!viewPassword);
 
-  // Determine whether to show password based on type and toggle state
   const inputType = type === "password" && viewPassword ? "text" : type;
+
+  const inputId = `${name}-input`;
 
   return (
     <>
       {label && (
         <label
-          htmlFor={name}
+          htmlFor={inputId}
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           {label}
@@ -59,8 +62,10 @@ const Input = <TFieldValues extends FieldValues>({
           rules={rules}
           render={({ field }) => (
             <input
+              id={inputId}
+              autoComplete={autoComplete}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              type={inputType} // Dynamically set input type based on password visibility
+              type={inputType}
               placeholder={placeholder || ""}
               {...field}
             />

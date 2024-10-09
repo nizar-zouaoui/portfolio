@@ -1,5 +1,5 @@
 import { AuthMethods } from "@nizar-repo/auth-types";
-import React, { createContext, useEffect, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode } from "react";
 import { ClassicLoginBodyType, UserData } from "@nizar-repo/authenticator";
 import {
   updateSession,
@@ -8,14 +8,14 @@ import {
 } from "./session-management";
 import Api from "../../sdks";
 import { Loader } from "@nizar-repo/ui";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 export interface AuthContextType {
   token: string | null;
   isAuthenticated: boolean;
-  refreshSession: () => Promise<void>;
   logout: () => void;
   login: (props: LoginProps) => void;
-  loading: boolean;
+  classicLoginLoading: boolean;
   userData: UserData | null;
 }
 
@@ -32,39 +32,38 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [render, setRender] = useState<boolean>(false);
+  const queryClient = useQueryClient();
 
-  const refreshSession = async () => {
-    try {
-      const res = await updateSession();
-      if (!res) throw new Error("Failed to update session");
-      setUserData(res.userData);
-      setIsAuthenticated(true);
-    } catch (error) {
-      console.log("Failed to refresh session:", error);
-      setIsAuthenticated(false);
-    }
-  };
+  const { isLoading: refreshSessionLoading, isSuccess: refreshSessionSuccess } =
+    useQuery("refreshSession", updateSession, {
+      onSuccess: (res) => {
+        if (res) {
+          setUserData(res.userData);
+          setIsAuthenticated(true);
+        }
+      },
+      refetchOnWindowFocus: false, // Optional: avoid refetching when the window gains focus
+    });
 
-  const login = ({ authMethod, data }: LoginProps) => {
-    switch (authMethod) {
-      case AuthMethods.CLASSIC:
-        Api.authSDK
-          .classicSignIn({
-            body: data,
-          })
-          .then(async (res) => {
-            await createSession(res.accessToken);
-            setUserData({
-              email: res.email,
-              username: res.username,
-            });
-            window.location.reload();
-          })
-          .catch((e) => console.log(e))
-          .finally(() => setLoading(false));
-    }
+  const { mutate: classicLoginMutation, isLoading: classicLoginLoading } =
+    useMutation(
+      ({ data }: LoginProps) => Api.authSDK.classicSignIn({ body: data }),
+      {
+        onSuccess: async (res) => {
+          await createSession(res.accessToken);
+          setUserData({
+            email: res.email,
+            username: res.username,
+          });
+          queryClient.invalidateQueries("refreshSession");
+          window.location.reload();
+        },
+        onError: (e) => console.log(e),
+      }
+    );
+
+  const login = (props: LoginProps) => {
+    classicLoginMutation(props);
   };
 
   const logout = async () => {
@@ -72,30 +71,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setToken(null);
     setUserData(null);
     setIsAuthenticated(false);
+    queryClient.removeQueries("refreshSession");
     window.location.reload();
   };
-
-  useEffect(() => {
-    const initializeSession = async () => {
-      await refreshSession();
-      setRender(true);
-    };
-    initializeSession();
-  }, []);
 
   const value = {
     token,
     isAuthenticated,
-    refreshSession,
     logout,
     login,
-    loading,
+    classicLoginLoading,
     userData,
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {render ? children : <Loader />}
+      {!refreshSessionLoading && refreshSessionSuccess ? children : <Loader />}
     </AuthContext.Provider>
   );
 };

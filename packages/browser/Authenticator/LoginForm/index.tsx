@@ -22,6 +22,7 @@ const LoginForm: React.FC<ILoginForm> = ({
               displayName="Email"
               label="Email"
               placeholder="Your email"
+              autoComplete="email"
               rules={{
                 required: "Email is required",
                 pattern: {
@@ -40,6 +41,7 @@ const LoginForm: React.FC<ILoginForm> = ({
               displayName="Password"
               label="Password"
               placeholder="Your password"
+              autoComplete="password"
               rules={{
                 required: "Password is required",
                 minLength: {
