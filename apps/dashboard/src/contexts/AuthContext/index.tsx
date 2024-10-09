@@ -7,6 +7,7 @@ import {
   deleteSession,
 } from "./session-management";
 import Api from "../../sdks";
+import { Loader } from "@nizar-repo/ui";
 
 export interface AuthContextType {
   token: string | null;
@@ -32,6 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [render, setRender] = useState<boolean>(false);
 
   const refreshSession = async () => {
     try {
@@ -76,6 +78,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const initializeSession = async () => {
       await refreshSession();
+      setRender(true);
     };
     initializeSession();
   }, []);
@@ -90,5 +93,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     userData,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {render ? children : <Loader />}
+    </AuthContext.Provider>
+  );
 };

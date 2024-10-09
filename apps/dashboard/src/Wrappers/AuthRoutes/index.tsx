@@ -1,10 +1,14 @@
 import LoginPage from "../../pages/Login";
-import { RouteObject } from "react-router-dom";
+import { Navigate, RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [
   {
     path: "login",
     element: <LoginPage />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/login" />, // Redirect to login if route doesn't match
   },
 ];
 

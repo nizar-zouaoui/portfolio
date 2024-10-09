@@ -1,7 +1,6 @@
 import useAuth from "../../contexts/AuthContext/useAuth";
 import {
   createBrowserRouter,
-  Navigate,
   Outlet,
   RouteObject,
   RouterProvider,
@@ -26,15 +25,6 @@ const AppRouter = () => {
         ? [...publicRoutes, ...privateRoutes]
         : [...publicRoutes, ...authRoutes],
     },
-    isAuthenticated
-      ? {
-          path: "*",
-          element: <Navigate to="/" />, // Redirect to login if route doesn't match
-        }
-      : {
-          path: "*",
-          element: <Navigate to="/login" />, // Redirect to login if route doesn't match
-        },
   ];
   const router = createBrowserRouter(routes, {
     basename: "/dashboard",
