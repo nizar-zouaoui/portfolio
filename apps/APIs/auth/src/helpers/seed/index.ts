@@ -20,6 +20,16 @@ const rootUser: IUser = {
   email: process.env.USER_EMAIL!,
   username: process.env.USER_USERNAME!,
 };
+async function hashPassword(password: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
+}
 
 const seedRole = async () => {
   try {
@@ -39,7 +49,10 @@ const seedRole = async () => {
 
 const seedAuth = async () => {
   try {
-    const auth = new Auth(rootAuth);
+    const auth = new Auth({
+      ...rootAuth,
+      password: await hashPassword(rootAuth.password),
+    });
     console.log("Root Auth Created Successfully");
     return auth;
   } catch (error) {

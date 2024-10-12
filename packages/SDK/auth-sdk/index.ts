@@ -60,17 +60,6 @@ export class AuthSDK extends ServerSDK {
     this.handleAuthResponse(data);
     return data;
   }
-  async verifyAccessToken({
-    params,
-  }: {
-    params: AuthRouteTypes["/auth/verify-access-token/:token"]["GET"]["params"];
-  }) {
-    const { data } = await this.api.get<
-      AuthRouteTypes["/auth/verify-access-token/:token"]["GET"]["response"]
-    >(`${baseUrl}/auth/verify-access-token/${params.token}`);
-    this.handleAuthResponse(data);
-    return data;
-  }
 
   async getRoles() {
     const { data } =

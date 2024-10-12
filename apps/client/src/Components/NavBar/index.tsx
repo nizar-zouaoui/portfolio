@@ -15,13 +15,9 @@ const LINKS: LinkProp[] = [
 export default function Navbar() {
   return (
     <nav className="bg-gray-800 text-white px-16 py-4 flex justify-between items-center">
-      {/* Left side: Home Icon */}
       <HomeIcon />
-      {/* Right side: Links and Login/User button */}
       <div className="flex items-center space-x-6">
-        {/* Navigation links */}
         <Links links={LINKS} />
-        {/* User Login/User Dropdown */}
         <UserIcon />
       </div>
     </nav>

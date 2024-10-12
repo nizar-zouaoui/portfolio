@@ -6,3 +6,9 @@ export type UserData = {
 };
 export type ClassicLoginBodyType =
   AuthRouteTypes["/auth/classic/login/"]["POST"]["body"];
+
+export type ClassicSignUpBodyType =
+  AuthRouteTypes["/auth/classic/sign-up/"]["POST"]["body"] & {
+    verifyPassword: string;
+    username: string;
+  };

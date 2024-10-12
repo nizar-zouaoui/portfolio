@@ -1,25 +1,39 @@
 "use client";
-import { AuthMethods, AuthRouteTypes } from "@nizar-repo/auth-types";
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import { AuthMethods } from "@nizar-repo/auth-types";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import Api from "../../sdks";
 import { useRouter } from "next/navigation";
 import { createSession, deleteSession, updateSession } from "./sessionHandlers";
-import { ClassicLoginBodyType, UserData } from "@nizar-repo/authenticator";
+import {
+  ClassicLoginBodyType,
+  ClassicSignUpBodyType,
+  UserData,
+} from "@nizar-repo/authenticator";
+import {
+  UseMutateFunction,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "react-query";
 
 interface AuthContextType {
   token: string | null;
   isAuthenticated: boolean;
-  refreshSession: () => Promise<void>;
   logout: () => void;
   login: (props: LoginProps) => void;
-  loading: boolean;
+  classicLoginLoading: boolean;
   userData: UserData | null;
+  classicSignUp: UseMutateFunction<
+    {
+      accessToken: string;
+      email: string;
+      username: string;
+    },
+    unknown,
+    ClassicSignUpBodyType,
+    unknown
+  >;
+  classicSignUpLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -41,65 +55,105 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const queryClient = useQueryClient();
+
+  useQuery("refreshSession", updateSession, {
+    onSuccess: async (res) => {
+      if (res?.sessionStatus === "SESSION_UPDATED") {
+        setUserData(res.userData);
+        setIsAuthenticated(true);
+      } else {
+        setUserData(null);
+        setIsAuthenticated(false);
+      }
+    },
+    refetchOnWindowFocus: false,
+  });
 
   const router = useRouter();
 
-  const refreshSession = async () => {
-    try {
-      const res = await updateSession();
-      const resJson = await res.json();
-      setUserData(resJson.userData);
-      setIsAuthenticated(true);
-    } catch (error) {
-      console.log("Failed to refresh session:", error);
-      setIsAuthenticated(false);
-    }
-  };
-
+  const { mutate: classicLoginMutation, isLoading: classicLoginLoading } =
+    useMutation(
+      async (data: ClassicLoginBodyType) => {
+        return Api.authSDK.classicSignIn({
+          body: {
+            ...data,
+            password: await hashPassword(data.password),
+          },
+        });
+      },
+      {
+        onSuccess: async (res) => {
+          await createSession(res.accessToken);
+          setUserData({
+            email: res.email,
+            username: res.username,
+          });
+          queryClient.invalidateQueries("refreshSession");
+          router.push("/");
+        },
+      }
+    );
   const login = ({ authMethod, data }: LoginProps) => {
     switch (authMethod) {
       case AuthMethods.CLASSIC:
-        Api.authSDK
-          .classicSignIn({
-            body: data,
-          })
-          .then(async (res) => {
-            await createSession(res.accessToken);
-            setUserData({
-              email: res.email,
-              username: res.username,
-            });
-            router.push("/");
-          })
-          .catch((e) => console.log(e))
-          .finally(() => setLoading(false));
+        classicLoginMutation(data);
     }
   };
+
+  const { mutate: classicSignUpMutation, isLoading: classicSignUpLoading } =
+    useMutation(
+      async (data: ClassicSignUpBodyType) => {
+        return Api.authSDK.classicSignUp({
+          body: {
+            email: data.email,
+            password: await hashPassword(data.password),
+          },
+        });
+      },
+      {
+        onSuccess: async (res) => {
+          await createSession(res.accessToken);
+          setUserData({
+            email: res.email,
+            username: res.username,
+          });
+          queryClient.invalidateQueries("refreshSession");
+          router.push("/");
+        },
+      }
+    );
 
   const logout = async () => {
     await deleteSession();
     setToken(null);
     setUserData(null);
     setIsAuthenticated(false);
+    queryClient.removeQueries("refreshSession");
+    router.push("/");
   };
-
-  useEffect(() => {
-    const initializeSession = async () => {
-      await refreshSession();
-    };
-    initializeSession();
-  }, []);
 
   const value = {
     token,
     isAuthenticated,
-    refreshSession,
     logout,
     login,
-    loading,
+    classicLoginLoading,
+    classicSignUp: classicSignUpMutation,
+    classicSignUpLoading,
     userData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
+async function hashPassword(password: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
+}

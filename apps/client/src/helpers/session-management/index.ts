@@ -18,9 +18,10 @@ export const createSession = (token: string) => {
   });
 };
 
-export const updateSession = async () => {
+export const updateSession = async (): Promise<UpdateSessionReturnType> => {
   const oldToken = cookies().get("AUTH_SESSION")?.value;
   if (!oldToken) return null;
+  Api.mainApi.setBearerToken(oldToken);
   try {
     const res = await Api.authSDK.refreshAccessToken();
     const expires = new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000);
@@ -32,7 +33,7 @@ export const updateSession = async () => {
       path: "/",
     });
     return {
-      sessionStatus: "Session Updated",
+      sessionStatus: SESSION_STATUS.SESSION_UPDATED,
       userData: {
         email: res.email,
         username: res.username,
@@ -41,7 +42,7 @@ export const updateSession = async () => {
   } catch (error) {
     deleteSession();
     return {
-      sessionStatus: "Session Deleted",
+      sessionStatus: SESSION_STATUS.SESSION_DELETED,
       userData: null,
     };
   }
@@ -50,3 +51,22 @@ export const updateSession = async () => {
 export const deleteSession = () => {
   cookies().delete("AUTH_SESSION");
 };
+
+export enum SESSION_STATUS {
+  SESSION_UPDATED = "SESSION_UPDATED",
+  SESSION_DELETED = "SESSION_DELETED",
+}
+
+export type UpdateSessionReturnType =
+  | {
+      sessionStatus: SESSION_STATUS.SESSION_UPDATED;
+      userData: {
+        email: string;
+        username: string;
+      };
+    }
+  | {
+      sessionStatus: SESSION_STATUS.SESSION_DELETED;
+      userData: null;
+    }
+  | null;

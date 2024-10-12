@@ -29,15 +29,4 @@ export type AuthRouteTypes = {
       };
     };
   };
-
-  "/auth/verify-access-token/:token": {
-    GET: {
-      params: {
-        token: string;
-      };
-      response: {
-        accessToken: string;
-      };
-    };
-  };
 };

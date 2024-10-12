@@ -114,15 +114,8 @@ export const refreshAccessToken = async (
   };
 };
 
-export const verifyAccessToken = async (
-  token: string
-): Promise<
-  AuthRouteTypes["/auth/verify-access-token/:token"]["GET"]["response"]
-> => {
-  validateToken(`Bearer ${token}`);
-  return {
-    accessToken: token,
-  };
+export const verifyAccessToken = async (token: string) => {
+  validateToken(token);
 };
 const createAuth = async (
   authData: AuthRouteTypes["/auth/classic/sign-up/"]["POST"]["body"] & {

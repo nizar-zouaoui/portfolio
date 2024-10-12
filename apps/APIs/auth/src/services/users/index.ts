@@ -91,7 +91,6 @@ export const createUser = async (
   } catch (error) {
     if (!(error instanceof mongo.MongoServerError && error.code === 11000))
       throw error;
-    console.log(error);
     const duplicateFields = Object.keys(error.keyPattern);
     throw getDuplicateFieldsError(duplicateFields, error);
   }
@@ -112,7 +111,6 @@ export const updateUser = async (
       match.roleId = { $ne: godRole._id };
     }
     user = await User.updateOne(match, { ...userData });
-    console.log(user);
   } catch (error) {
     if (!(error instanceof mongo.MongoServerError && error.code === 11000))
       throw error;

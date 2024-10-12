@@ -1,8 +1,8 @@
 import "@nizar-repo/tailwindcss-config/tailwind/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { AuthProvider } from "../src/Contexts/AuthContext";
-import Navbar from "../src/Components/NavBar";
+import Wrapper from "../Wrappers";
+import Navbar from "../Components/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        <AuthProvider>
-          <Navbar />
-          {children}
-        </AuthProvider>
+        <Wrapper>{children}</Wrapper>
       </body>
     </html>
   );

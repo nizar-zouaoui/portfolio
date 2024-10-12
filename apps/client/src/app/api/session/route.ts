@@ -2,13 +2,11 @@
 import {
   createSession,
   deleteSession,
+  SESSION_STATUS,
   updateSession,
-} from "../../../src/helpers/session-management";
+} from "../../../helpers/session-management";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import Api from "../../../src/sdks";
-import { redirectAuth } from "../../../src/helpers/authRedirection";
-import { authPaths } from "../../../middleware";
 
 export async function POST(req: Request) {
   if (req.method === "POST") {
@@ -33,26 +31,13 @@ export async function GET(_: Request) {
   return NextResponse.json({ token });
 }
 
-export async function PUT(req: Request) {
+export async function PUT(_: Request) {
   const token = cookies().get("AUTH_SESSION")?.value;
-  const isAuthPath = authPaths.includes(req.url);
   if (!token) {
-    return redirectAuth(req.url, false, isAuthPath);
-  }
-  try {
-    await Api.authSDK.verifyAccessToken({
-      params: {
-        token,
-      },
-    });
-  } catch (error) {
-    return redirectAuth(req.url, false, isAuthPath);
+    return NextResponse.json({ success: false, userData: null });
   }
   const sessionUpdate = await updateSession();
-  if (!sessionUpdate || sessionUpdate.sessionStatus === "Session Deleted") {
-    return redirectAuth(req.url, false, isAuthPath);
-  }
-  return NextResponse.json({ success: true, userData: sessionUpdate.userData });
+  return NextResponse.json(sessionUpdate);
 }
 
 export async function DELETE(req: Request) {

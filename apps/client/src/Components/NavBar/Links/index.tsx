@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 export interface LinkProp {
   path: string;
@@ -8,13 +9,13 @@ const Links: React.FC<{ links: LinkProp[] }> = ({ links }) => {
   return (
     <>
       {links.map(({ pageName, path }) => (
-        <a
+        <Link
           key={`${path}-${pageName}`}
           href={path}
           className="text-lg hover:text-gray-400"
         >
           {pageName}
-        </a>
+        </Link>
       ))}
     </>
   );

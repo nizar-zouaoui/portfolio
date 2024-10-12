@@ -27,6 +27,7 @@ export const validateToken = (authHeader: string | undefined) => {
     throw createError(403, "No header provided!");
   }
   const token = authHeader.split(" ")[1];
+  debugger;
   const decodedToken = verify(
     token,
     process.env.JWT_SECRET_KEY

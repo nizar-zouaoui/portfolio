@@ -5,10 +5,12 @@ import {
   updateSession,
   createSession,
   deleteSession,
+  SESSION_STATUS,
 } from "./session-management";
 import Api from "../../sdks";
 import { Loader } from "@nizar-repo/ui";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import hashPassword from "../../helpers/hashPassword";
 
 export interface AuthContextType {
   token: string | null;
@@ -36,18 +38,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const { isLoading: refreshSessionLoading, isSuccess: refreshSessionSuccess } =
     useQuery("refreshSession", updateSession, {
-      onSuccess: (res) => {
-        if (res) {
+      onSuccess: async (res) => {
+        if (res?.sessionStatus === SESSION_STATUS.SESSION_UPDATED) {
           setUserData(res.userData);
           setIsAuthenticated(true);
+        } else {
+          setUserData(null);
+          setIsAuthenticated(false);
         }
       },
-      refetchOnWindowFocus: false, // Optional: avoid refetching when the window gains focus
+      refetchOnWindowFocus: false,
     });
 
   const { mutate: classicLoginMutation, isLoading: classicLoginLoading } =
     useMutation(
-      ({ data }: LoginProps) => Api.authSDK.classicSignIn({ body: data }),
+      async ({ data }: LoginProps) => {
+        return Api.authSDK.classicSignIn({
+          body: {
+            ...data,
+            password: await hashPassword(data.password),
+          },
+        });
+      },
       {
         onSuccess: async (res) => {
           await createSession(res.accessToken);
@@ -58,13 +70,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           queryClient.invalidateQueries("refreshSession");
           window.location.reload();
         },
-        onError: (e) => console.log(e),
       }
     );
-
-  const login = (props: LoginProps) => {
-    classicLoginMutation(props);
-  };
 
   const logout = async () => {
     await deleteSession();
@@ -79,7 +86,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     token,
     isAuthenticated,
     logout,
-    login,
+    login: classicLoginMutation,
     classicLoginLoading,
     userData,
   };

@@ -24,8 +24,4 @@ router.get(
   protectRoute(ACCESS_PRIVILEGE.WRITE, RESOURCE.USERS),
   authController.refreshAccessToken
 );
-router.get(
-  `${BASE_ROUTE}/verify-access-token/:token`,
-  authController.verifyAccessToken
-);
 export default router;

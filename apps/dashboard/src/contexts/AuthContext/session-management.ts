@@ -37,7 +37,20 @@ export const createSession = (token: string) => {
 };
 
 // Update session by refreshing the token
-export const updateSession = async () => {
+export const updateSession = async (): Promise<
+  | {
+      sessionStatus: SESSION_STATUS.SESSION_UPDATED;
+      userData: {
+        email: string;
+        username: string;
+      };
+    }
+  | {
+      sessionStatus: SESSION_STATUS.SESSION_DELETED;
+      userData: null;
+    }
+  | null
+> => {
   const oldToken = getCookie("AUTH_SESSION");
   if (!oldToken) return null;
 
@@ -46,7 +59,7 @@ export const updateSession = async () => {
     setCookie("AUTH_SESSION", res.accessToken, expiresIn);
 
     return {
-      sessionStatus: "Session Updated",
+      sessionStatus: SESSION_STATUS.SESSION_UPDATED,
       userData: {
         email: res.email,
         username: res.username,
@@ -56,7 +69,7 @@ export const updateSession = async () => {
   } catch (err) {
     deleteSession();
     return {
-      sessionStatus: "Session Deleted",
+      sessionStatus: SESSION_STATUS.SESSION_DELETED,
       userData: null,
     };
   }
@@ -66,3 +79,8 @@ export const updateSession = async () => {
 export const deleteSession = () => {
   deleteCookie("AUTH_SESSION");
 };
+
+export enum SESSION_STATUS {
+  SESSION_UPDATED = "SESSION_UPDATED",
+  SESSION_DELETED = "SESSION_DELETED",
+}

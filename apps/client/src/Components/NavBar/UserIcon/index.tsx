@@ -1,17 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useAuth } from "../../../Contexts/AuthContext";
 import { Button } from "@nizar-repo/ui";
+import useUserIcon from "./useUserIcon";
+import Link from "next/link";
 
 const UserIcon: React.FC = () => {
-  const { logout, userData } = useAuth(); // Access user and logout from AuthContext
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const handleLogout = () => {
-    logout(); // Call logout function from AuthContext
-    setDropdownOpen(false); // Close dropdown after logging out
-  };
+  const { dropdownOpen, setDropdownOpen, userData, handleLogout } =
+    useUserIcon();
   return userData ? (
     <div className="relative">
       <button
@@ -45,12 +41,12 @@ const UserIcon: React.FC = () => {
       )}
     </div>
   ) : (
-    <a
+    <Link
       href="/login"
       className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
     >
       Login
-    </a>
+    </Link>
   );
 };
 

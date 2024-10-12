@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { NextConfig } from "next";
-import { redirectAuth } from "./src/helpers/authRedirection";
+import { redirectAuth } from "./helpers/authRedirection";
 import { cookies } from "next/headers";
-import verifyJwt from "./src/helpers/verify-jwt";
+import verifyJwt from "./helpers/verify-jwt";
 export const publicPaths = ["/", "/about-us"];
 export const authPaths = ["/login", "/sign-up"];
 
