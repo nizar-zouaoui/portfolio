@@ -16,9 +16,11 @@ const UserIcon: React.FC = () => {
       >
         <FaUserCircle className="text-2xl" />
         <span>
-          {userData.username.length > 8
-            ? `${userData.username.slice(0, 3)}...`
-            : userData.username}
+          {userData.username
+            ? userData.username.length > 8
+              ? `${userData.username.slice(0, 3)}...`
+              : userData.username
+            : "User"}
         </span>
       </button>
 

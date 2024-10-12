@@ -46,4 +46,5 @@ export const classicSignUpValidation = (
 export const classicSignUpValidator = [
   body("email", "Invalid email").isString().isEmail(),
   body("password", "Invalid password").isString(),
+  body("username", "Invalid username").isString(),
 ];

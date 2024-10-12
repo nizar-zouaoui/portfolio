@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {
         onSuccess: async (res) => {
           await createSession(res.accessToken);
+          setIsAuthenticated(true);
           setUserData({
             email: res.email,
             username: res.username,
@@ -106,6 +107,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       async (data: ClassicSignUpBodyType) => {
         return Api.authSDK.classicSignUp({
           body: {
+            username: data.username,
             email: data.email,
             password: await hashPassword(data.password),
           },
@@ -114,6 +116,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {
         onSuccess: async (res) => {
           await createSession(res.accessToken);
+          setIsAuthenticated(true);
           setUserData({
             email: res.email,
             username: res.username,

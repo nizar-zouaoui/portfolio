@@ -55,6 +55,7 @@ export const classicSignIn = async ({
 export const classicSignUp = async ({
   email,
   password,
+  username,
 }: AuthRouteTypes["/auth/classic/sign-up/"]["POST"]["body"]): Promise<
   AuthRouteTypes["/auth/classic/sign-up/"]["POST"]["response"]
 > => {
@@ -70,6 +71,7 @@ export const classicSignUp = async ({
       "An account with these credentials already exists!"
     );
   const newAuth = await createAuth({
+    username,
     email,
     password,
     authMethod: AuthMethods.CLASSIC,
@@ -164,7 +166,7 @@ const createUserWithAuth = async (
   try {
     newUser = await User.create({
       email: authData.email,
-      username: `User-${crypto.randomUUID().slice(0, 8)}`,
+      username: authData.username,
       roleId: userRole._id,
     });
   } catch (error) {
@@ -202,8 +204,9 @@ const createNewAuth = async (
 ) => {
   try {
     const auth = await Auth.create({
-      ...authData,
       userId,
+      email: authData.email,
+      password: authData.password,
     });
     return { ...auth, _id: auth._id.toString() };
   } catch (error) {

@@ -12,7 +12,9 @@ export type AuthRouteTypes = {
   };
   "/auth/classic/sign-up/": {
     POST: {
-      body: Omit<IAuth, "authMethod">;
+      body: Omit<IAuth, "authMethod"> & {
+        username: string;
+      };
       response: {
         accessToken: string;
         email: string;

@@ -21,7 +21,7 @@ router.post(
 
 router.get(
   `${BASE_ROUTE}/refresh-access-token`,
-  protectRoute(ACCESS_PRIVILEGE.WRITE, RESOURCE.USERS),
+  protectRoute(ACCESS_PRIVILEGE.READ, RESOURCE.USERS),
   authController.refreshAccessToken
 );
 export default router;

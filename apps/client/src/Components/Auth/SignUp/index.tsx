@@ -2,6 +2,7 @@
 import React from "react";
 import { SignUpForm } from "@nizar-repo/authenticator";
 import useClassicSignUp from "./useClassicSignUp";
+import Link from "next/link";
 
 const SignUp = () => {
   const { formMethods, onSubmit, loading } = useClassicSignUp();
@@ -12,6 +13,14 @@ const SignUp = () => {
         loading={loading}
         onSubmit={onSubmit}
       />
+      <div className="mt-4 text-center">
+        <p className="text-gray-600">
+          Already have an account?{" "}
+          <Link href="/login" className="text-blue-500 hover:underline">
+            Login
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
