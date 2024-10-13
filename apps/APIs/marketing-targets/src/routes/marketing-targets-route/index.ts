@@ -7,6 +7,8 @@ import { ACCESS_PRIVILEGE, RESOURCE } from "@nizar-repo/auth-types";
 router.get(
   "/",
   protectRoute(ACCESS_PRIVILEGE.READ_ALL, RESOURCE.MARKETING_TARGETS),
+  ...marketingTargetsValidator.getMarketingTargetDataValidator,
+  marketingTargetsValidator.getMarketingTargetDataValidation,
   marketingTargetsController.getMarketingTargetData
 );
 router.get(
@@ -23,7 +25,15 @@ router.post(
   marketingTargetsValidator.addMarketingTargetDataValidation,
   marketingTargetsController.addMarketingTargetData
 );
-router.put(
+
+router.post(
+  "/bulk",
+  protectRoute(ACCESS_PRIVILEGE.WRITE_ALL, RESOURCE.MARKETING_TARGETS),
+  ...marketingTargetsValidator.addMarketingTargetDataBulkValidator,
+  marketingTargetsValidator.addMarketingTargetDataBulkValidation,
+  marketingTargetsController.addMarketingTargetDataBulk
+);
+router.patch(
   "/:id",
   protectRoute(ACCESS_PRIVILEGE.WRITE, RESOURCE.MARKETING_TARGETS),
   ...marketingTargetsValidator.updateMarketingTargetDataValidator,

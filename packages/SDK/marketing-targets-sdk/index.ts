@@ -21,10 +21,14 @@ export class MarketingTargetsSDK extends ServerSDK {
     }
   }
 
-  async getMarketingTargetData() {
+  async getMarketingTargetData({
+    query,
+  }: {
+    query: MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["query"];
+  }) {
     return this.api.get<
       MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["response"]
-    >(`${baseUrl}/marketing-targets`);
+    >(`${baseUrl}/marketing-targets`, { params: query });
   }
 
   async getMarketingTargetDataById({
@@ -67,5 +71,15 @@ export class MarketingTargetsSDK extends ServerSDK {
     return this.api.delete<
       MarketingTargetRouteTypes["/marketing-targets/:id"]["DELETE"]["response"]
     >(`${baseUrl}/marketing-targets/${params.id}`);
+  }
+
+  async addMarketingTargetDataBulk({
+    body,
+  }: {
+    body: MarketingTargetRouteTypes["/marketing-targets/bulk"]["POST"]["body"];
+  }) {
+    return this.api.post<
+      MarketingTargetRouteTypes["/marketing-targets/bulk"]["POST"]["response"]
+    >(`${baseUrl}/marketing-targets/bulk`, body);
   }
 }

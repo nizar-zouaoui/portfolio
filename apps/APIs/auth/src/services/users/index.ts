@@ -10,9 +10,9 @@ import getFullUserAggregation from "helpers/getFullUserAggregation";
 import getUserWithRoleAggregation from "helpers/getUserWithRoleAggregation";
 import createHttpError from "http-errors";
 import User from "models/users";
-import { FilterQuery, mongo } from "mongoose";
+import { FilterQuery } from "mongoose";
 import * as rolesServices from "services/roles";
-import { getDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
+import { handleDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
 
 export const getUsers = async () => {
   const godRole = await rolesServices.getRoleByName(DEFAULT_ROLES_NAMES.GOD);
@@ -89,10 +89,7 @@ export const createUser = async (
   try {
     await User.create(userData);
   } catch (error) {
-    if (!(error instanceof mongo.MongoServerError && error.code === 11000))
-      throw error;
-    const duplicateFields = Object.keys(error.keyPattern);
-    throw getDuplicateFieldsError(duplicateFields, error);
+    throw handleDuplicateFieldsError(error);
   }
 };
 
@@ -112,10 +109,7 @@ export const updateUser = async (
     }
     user = await User.updateOne(match, { ...userData });
   } catch (error) {
-    if (!(error instanceof mongo.MongoServerError && error.code === 11000))
-      throw error;
-    const duplicateFields = Object.keys(error.keyPattern);
-    throw getDuplicateFieldsError(duplicateFields, error);
+    throw handleDuplicateFieldsError(error);
   }
   if (!user.acknowledged) throw createHttpError(404, "User Not Found!");
 };

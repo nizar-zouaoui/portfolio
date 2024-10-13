@@ -15,3 +15,23 @@ export const getDuplicateFieldsError = (
       location: "body",
     })),
   });
+
+export const handleDuplicateFieldsError = (error: unknown): unknown => {
+  if (error instanceof mongo.MongoBulkWriteError && error.code === 11000) {
+    if (Array.isArray(error.writeErrors)) {
+      return createHttpError(400, {
+        message: "Duplicate keys, one or more elements are duplicated",
+      });
+    }
+
+    const duplicateFields = Object.keys(error.keyPattern);
+    return getDuplicateFieldsError(duplicateFields, error);
+  }
+
+  if (error instanceof mongo.MongoServerError && error.code === 11000) {
+    const duplicateFields = Object.keys(error.keyPattern);
+    return getDuplicateFieldsError(duplicateFields, error);
+  }
+
+  return error;
+};

@@ -2,6 +2,11 @@ import {
   IMarketingTarget,
   LeanMarketingTargetDocument,
 } from "../models/marketing-targets";
+
+import {
+  PaginatedResult,
+  SortDirection,
+} from "@nizar-repo/shared-types/PaginationTypes";
 export type MarketingTargetRouteTypes = {
   "/marketing-targets/": {
     POST: {
@@ -9,7 +14,14 @@ export type MarketingTargetRouteTypes = {
       response: string;
     };
     GET: {
-      response: LeanMarketingTargetDocument[];
+      query: {
+        page: number;
+        limit: number;
+        ["sort-direction"]: SortDirection;
+        ["sort-field"]: string;
+        keyword: string;
+      };
+      response: PaginatedResult<LeanMarketingTargetDocument>;
     };
   };
   "/marketing-targets/:id": {
@@ -31,6 +43,13 @@ export type MarketingTargetRouteTypes = {
       params: {
         id: string;
       };
+    };
+  };
+
+  "/marketing-targets/bulk": {
+    POST: {
+      body: IMarketingTarget[];
+      response: string;
     };
   };
 };

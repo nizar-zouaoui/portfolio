@@ -7,7 +7,11 @@ import { verify } from "jsonwebtoken";
 
 export const protectRoute =
   (accessPrivilege: ACCESS_PRIVILEGE, resource: RESOURCE) =>
-  (req: Request, res: Response, next: NextFunction) => {
+  (
+    req: Request<any, any, any, any>,
+    res: Response<any>,
+    next: NextFunction
+  ) => {
     const authHeader = req.get("Authorization");
     const decodedToken = validateToken(authHeader);
 

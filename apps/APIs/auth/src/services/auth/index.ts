@@ -13,8 +13,7 @@ import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType"
 import * as usersServices from "services/users";
 import * as rolesServices from "services/roles";
 import { DEFAULT_ROLES_NAMES } from "@nizar-repo/auth-types/enums/defaultRoles";
-import { mongo } from "mongoose";
-import { getDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
+import { handleDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
 import { validateToken } from "@nizar-repo/route-protection";
 
 export const classicSignIn = async ({
@@ -170,10 +169,7 @@ const createUserWithAuth = async (
       roleId: userRole._id,
     });
   } catch (error) {
-    if (!(error instanceof mongo.MongoServerError && error.code === 11000))
-      throw error;
-    const duplicateFields = Object.keys(error.keyPattern);
-    throw getDuplicateFieldsError(duplicateFields, error);
+    throw handleDuplicateFieldsError(error);
   }
 
   const savedAuth = await createNewAuth(authData, newUser._id.toString());
@@ -210,9 +206,6 @@ const createNewAuth = async (
     });
     return { ...auth, _id: auth._id.toString() };
   } catch (error) {
-    if (!(error instanceof mongo.MongoServerError && error.code === 11000))
-      throw error;
-    const duplicateFields = Object.keys(error.keyPattern);
-    throw getDuplicateFieldsError(duplicateFields, error);
+    throw handleDuplicateFieldsError(error);
   }
 };

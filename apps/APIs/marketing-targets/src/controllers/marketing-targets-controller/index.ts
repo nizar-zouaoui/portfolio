@@ -1,15 +1,24 @@
 import { Request, Response } from "express";
 import * as marketingTargetServices from "../../services/marketing-targets-service";
 import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
+import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType";
 
 export const getMarketingTargetData = async (
-  _: Request,
-  res: Response<
+  req: Request<
     unknown,
-    MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["response"]
+    unknown,
+    unknown,
+    MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["query"]
+  >,
+  res: Response<
+    MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["response"],
+    { token: TokenPayloadType }
   >
 ) => {
-  const response = await marketingTargetServices.getMarketingTargetData();
+  const response = await marketingTargetServices.getMarketingTargetData(
+    res.locals.token.userId,
+    req.query
+  );
   res.status(200).send(response);
 };
 
@@ -21,12 +30,13 @@ export const getMarketingTargetDataById = async (
     unknown
   >,
   res: Response<
-    unknown,
-    MarketingTargetRouteTypes["/marketing-targets/:id"]["GET"]["response"]
+    MarketingTargetRouteTypes["/marketing-targets/:id"]["GET"]["response"],
+    { token: TokenPayloadType }
   >
 ) => {
   const response = await marketingTargetServices.getMarketingTargetDataById(
-    req.params.id
+    req.params.id,
+    res.locals.token.userId
   );
   res.status(200).send(response);
 };
@@ -39,10 +49,14 @@ export const addMarketingTargetData = async (
     unknown
   >,
   res: Response<
-    MarketingTargetRouteTypes["/marketing-targets/"]["POST"]["response"]
+    MarketingTargetRouteTypes["/marketing-targets/"]["POST"]["response"],
+    { token: TokenPayloadType }
   >
 ) => {
-  await marketingTargetServices.addMarketingTargetData(req.body);
+  await marketingTargetServices.addMarketingTargetData(
+    req.body,
+    res.locals.token.userId
+  );
   res.status(201).send("OK");
 };
 
@@ -54,12 +68,14 @@ export const updateMarketingTargetData = async (
     unknown
   >,
   res: Response<
-    MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["response"]
+    MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["response"],
+    { token: TokenPayloadType }
   >
 ) => {
   await marketingTargetServices.updateMarketingTargetData(
     req.params.id,
-    req.body
+    req.body,
+    res.locals.token.userId
   );
   res.status(200).send("OK");
 };
@@ -72,9 +88,32 @@ export const deleteMarketingTargetData = async (
     unknown
   >,
   res: Response<
-    MarketingTargetRouteTypes["/marketing-targets/:id"]["DELETE"]["response"]
+    MarketingTargetRouteTypes["/marketing-targets/:id"]["DELETE"]["response"],
+    { token: TokenPayloadType }
   >
 ) => {
-  await marketingTargetServices.deleteMarketingTargetData(req.params.id);
+  await marketingTargetServices.deleteMarketingTargetData(
+    req.params.id,
+    res.locals.token.userId
+  );
   res.status(200).send("OK");
+};
+
+export const addMarketingTargetDataBulk = async (
+  req: Request<
+    unknown,
+    unknown,
+    MarketingTargetRouteTypes["/marketing-targets/bulk"]["POST"]["body"],
+    unknown
+  >,
+  res: Response<
+    MarketingTargetRouteTypes["/marketing-targets/bulk"]["POST"]["response"],
+    { token: TokenPayloadType }
+  >
+) => {
+  await marketingTargetServices.addMarketingTargetDataBulk(
+    req.body,
+    res.locals.token.userId
+  );
+  res.status(201).send("OK");
 };

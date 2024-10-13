@@ -1,4 +1,5 @@
 import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
+import { SortDirection } from "@nizar-repo/shared-types/PaginationTypes";
 import { NextFunction, Request, Response } from "express";
 import {
   body,
@@ -12,6 +13,34 @@ import createHttpError from "http-errors";
 const formatErrors = (errors: Result<ValidationError>) => ({
   fields: errors.array(),
 });
+
+export const getMarketingTargetDataValidation = (
+  req: Request<
+    any,
+    any,
+    any,
+    MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["query"]
+  >,
+  _: Response<
+    MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["response"]
+  >,
+  next: NextFunction
+) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    return next();
+  }
+  throw createHttpError(422, formatErrors(errors));
+};
+
+export const getMarketingTargetDataValidator = [
+  check("limit").optional().isInt(),
+  check("page").optional().isInt(),
+  check("sort-direction").optional().isIn(Object.keys(SortDirection)),
+  check("sort-field").optional().isString(),
+  check("keyword").optional().isString(),
+];
+
 export const addMarketingTargetDataValidation = (
   req: Request<
     any,
@@ -104,3 +133,29 @@ export const deleteMarketingTargetDataValidation = (
 };
 
 export const deleteMarketingTargetDataValidator = [check("id").isMongoId()];
+
+export const addMarketingTargetDataBulkValidation = (
+  req: Request<
+    any,
+    any,
+    MarketingTargetRouteTypes["/marketing-targets/bulk"]["POST"]["body"],
+    any
+  >,
+  _: Response<
+    MarketingTargetRouteTypes["/marketing-targets/bulk"]["POST"]["response"]
+  >,
+  next: NextFunction
+) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    return next();
+  }
+  throw createHttpError(422, formatErrors(errors));
+};
+
+export const addMarketingTargetDataBulkValidator = [
+  body().isArray(),
+  body("*.email", "Invalid Email").isEmail(),
+  body("*.fullName", "Invalid Full Name").isAlpha(),
+  body("*.phoneNumber", "Invalid Phone Number").isMobilePhone("any"),
+];
