@@ -3,7 +3,6 @@ import {
   RoleRouteTypes,
   UserRouteTypes,
 } from "@nizar-repo/auth-types";
-import axios, { Axios, AxiosRequestConfig } from "axios";
 import ServerSDK from "@nizar-repo/server-sdk/sdk";
 import ApiSDK from "@nizar-repo/server-sdk";
 
