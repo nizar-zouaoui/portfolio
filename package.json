@@ -22,7 +22,7 @@
     "dotenv-cli": "7.2.1"
   },
   "devDependencies": {
-    "tailwindcss": "3.4.4",
+    "tailwindcss": "3.4.11",
     "postcss": "8.4.39",
     "autoprefixer": "10.4.19",
     "@nizar-repo/eslint-config": "*",
