@@ -1,5 +1,7 @@
 import { Navigate, RouteObject } from "react-router-dom";
-import marketingTargetRoutes from "../../pages/MarketingTargets";
+import marketingTargetRoutes, {
+  marketingLinks,
+} from "../../pages/MarketingTargets";
 
 const routes: RouteObject[] = [
   {
@@ -13,3 +15,5 @@ const routes: RouteObject[] = [
 ];
 
 export default routes;
+
+export const privateLinks = [...marketingLinks] as const;

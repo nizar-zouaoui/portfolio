@@ -30,7 +30,7 @@ export const getMarketingTargetDataById = async (
 };
 
 export const addMarketingTargetData = async (
-  data: IMarketingTarget,
+  data: Omit<IMarketingTarget, "userId">,
   userId: string
 ) => {
   try {

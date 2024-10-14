@@ -1,6 +1,6 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import { ISEO } from "./interface";
+import { Helmet } from "react-helmet-async";
 
 const SEOHelmet: React.FC<ISEO> = ({ description, title }) => {
   return (

@@ -62,7 +62,11 @@ export const addMarketingTargetDataValidation = (
 
 export const addMarketingTargetDataValidator = [
   body("email", "Invalid Email").isEmail(),
-  body("fullName", "Invalid Full Name").isAlpha(),
+  body("fullName", "Invalid Full Name")
+    .matches(/^[a-zA-Z\s'-]+$/) // Regex to allow letters, spaces, apostrophes, and hyphens
+    .withMessage(
+      "Full Name can only contain letters, spaces, hyphens, and apostrophes."
+    ),
   body("phoneNumber", "Invalid Phone Number").isMobilePhone("any"),
 ];
 

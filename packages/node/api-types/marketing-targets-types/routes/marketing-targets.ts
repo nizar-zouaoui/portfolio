@@ -10,7 +10,7 @@ import {
 export type MarketingTargetRouteTypes = {
   "/marketing-targets/": {
     POST: {
-      body: IMarketingTarget;
+      body: Omit<IMarketingTarget, "userId">;
       response: string;
     };
     GET: {

@@ -1,3 +1,5 @@
+import { MdLogin } from "react-icons/md";
+
 import LoginPage from "../../pages/Login";
 import { Navigate, RouteObject } from "react-router-dom";
 
@@ -13,3 +15,11 @@ const routes: RouteObject[] = [
 ];
 
 export default routes;
+
+export const authLinks = [
+  {
+    pageName: "Login",
+    path: "/login",
+    icon: <MdLogin />,
+  },
+] as const;

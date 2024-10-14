@@ -1,12 +1,38 @@
 import React from "react";
-import { ControlledDataTable } from "@nizar-repo/ui";
+import { Button, ControlledDataTable } from "@nizar-repo/ui";
 import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
 import useMarketingTargetsList from "./useMarketingTargetsList";
+import SEOHelmet from "../../../components/SEO";
+import usePageHeaderInit from "../../../contexts/PageHeaderContext/usePageHeaderInit";
+import { FaUsers } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const MarketingTargetsList = () => {
+  usePageHeaderInit({
+    title: "Marketing Targets",
+    description:
+      "Marketing targets list page is destined to show all the marketing targets.",
+    icon: <FaUsers />,
+    buttons: (
+      <>
+        <Link to="/marketing-targets/add">
+          <Button variant="success">Add One</Button>
+        </Link>
+
+        {/* <Link to="/">
+          <Button variant="success">Add In Bulk</Button>
+        </Link> */}
+      </>
+    ),
+  });
+
   const { data, isLoading, query, setQuery } = useMarketingTargetsList();
 
   return (
     <div className="w-4/5 mx-auto">
+      <SEOHelmet
+        description="Marketing targets list page is destined to show all the marketing targets."
+        title="Marketing Targets"
+      />
       <ControlledDataTable<
         MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["response"]["items"][number]
       >

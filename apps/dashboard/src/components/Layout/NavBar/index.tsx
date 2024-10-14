@@ -1,4 +1,4 @@
-import Links, { LinkProp } from "./Links";
+import NavBarLinks, { LinkProp } from "../NavBarLinks";
 import HomeIcon from "./HomeIcon";
 import UserIcon from "./UserIcon";
 const LINKS: LinkProp[] = [
@@ -17,7 +17,7 @@ export default function Navbar() {
     <nav className="bg-gray-800 border-b border-gray-700 text-white px-16 h-16 flex justify-between items-center">
       <HomeIcon />
       <div className="flex items-center space-x-6">
-        <Links links={LINKS} />
+        <NavBarLinks links={LINKS} />
         <UserIcon />
       </div>
     </nav>
