@@ -15,11 +15,11 @@ export type MarketingTargetRouteTypes = {
     };
     GET: {
       query: {
-        page: number;
-        limit: number;
-        ["sort-direction"]: SortDirection;
-        ["sort-field"]: string;
-        keyword: string;
+        page?: number;
+        limit?: number;
+        ["sort-direction"]?: SortDirection;
+        ["sort-field"]?: string;
+        keyword?: string;
       };
       response: PaginatedResult<LeanMarketingTargetDocument>;
     };

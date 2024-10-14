@@ -1,13 +1,13 @@
 export type PaginationQuery = {
-  limit: number;
-  page: number;
-  "sort-direction": SortDirection;
-  "sort-field": string;
-  keyword: string;
+  limit?: number;
+  page?: number;
+  "sort-direction"?: SortDirection;
+  "sort-field"?: string;
+  keyword?: string;
 };
 
 export type PaginatedResult<T> = {
-  data: T[];
+  items: T[];
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   totalPages: number;

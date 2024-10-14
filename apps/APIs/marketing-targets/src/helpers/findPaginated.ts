@@ -9,12 +9,12 @@ const getPaginationPipeline = (
   query: PaginationQuery
 ): PipelineStage[] => {
   const {
-    limit = 10,
-    page = 1,
     keyword = "",
     "sort-direction": sortDirection,
     "sort-field": sortField = "createdAt",
   } = query;
+  const page = isNaN(Number(query.page)) ? 1 : Number(query.page);
+  const limit = isNaN(Number(query.limit)) ? 10 : Number(query.limit);
   const pipeline: PipelineStage[] = [
     {
       $match: {
@@ -37,13 +37,13 @@ const getPaginationPipeline = (
     { $limit: limit },
     {
       $facet: {
-        data: [{ $skip: (page - 1) * limit }, { $limit: limit }],
+        items: [{ $skip: (page - 1) * limit }, { $limit: limit }],
         totalCount: [{ $count: "count" }],
       },
     },
     {
       $project: {
-        data: 1,
+        items: 1,
         totalCount: { $arrayElemAt: ["$totalCount.count", 0] },
         totalPages: {
           $ceil: {

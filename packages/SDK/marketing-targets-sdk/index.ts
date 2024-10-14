@@ -26,9 +26,10 @@ export class MarketingTargetsSDK extends ServerSDK {
   }: {
     query: MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["query"];
   }) {
-    return this.api.get<
+    const response = await this.api.get<
       MarketingTargetRouteTypes["/marketing-targets/"]["GET"]["response"]
     >(`${baseUrl}/marketing-targets`, { params: query });
+    return response.data;
   }
 
   async getMarketingTargetDataById({
@@ -36,9 +37,10 @@ export class MarketingTargetsSDK extends ServerSDK {
   }: {
     params: MarketingTargetRouteTypes["/marketing-targets/:id"]["GET"]["params"];
   }) {
-    return this.api.get<
+    const response = await this.api.get<
       MarketingTargetRouteTypes["/marketing-targets/:id"]["GET"]["response"]
     >(`${baseUrl}/marketing-targets/${params.id}`);
+    return response.data;
   }
 
   async addMarketingTargetData({
@@ -58,9 +60,10 @@ export class MarketingTargetsSDK extends ServerSDK {
     params: MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["params"];
     body: MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["body"];
   }) {
-    return this.api.patch<
+    const response = await this.api.patch<
       MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["response"]
     >(`${baseUrl}/marketing-targets/${params.id}`, body);
+    return response.data;
   }
 
   async deleteMarketingTargetData({
@@ -68,9 +71,10 @@ export class MarketingTargetsSDK extends ServerSDK {
   }: {
     params: MarketingTargetRouteTypes["/marketing-targets/:id"]["DELETE"]["params"];
   }) {
-    return this.api.delete<
+    const response = await this.api.delete<
       MarketingTargetRouteTypes["/marketing-targets/:id"]["DELETE"]["response"]
     >(`${baseUrl}/marketing-targets/${params.id}`);
+    return response.data;
   }
 
   async addMarketingTargetDataBulk({
@@ -78,8 +82,9 @@ export class MarketingTargetsSDK extends ServerSDK {
   }: {
     body: MarketingTargetRouteTypes["/marketing-targets/bulk"]["POST"]["body"];
   }) {
-    return this.api.post<
+    const response = await this.api.post<
       MarketingTargetRouteTypes["/marketing-targets/bulk"]["POST"]["response"]
     >(`${baseUrl}/marketing-targets/bulk`, body);
+    return response.data;
   }
 }
