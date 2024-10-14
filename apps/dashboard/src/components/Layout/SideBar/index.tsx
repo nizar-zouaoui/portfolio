@@ -8,8 +8,8 @@ const SideBar = () => {
   console.log(currentPath === "/" && "underline");
   return (
     <div className="bg-gray-800 w-64 h-full flex flex-col">
-      <div className="flex items-center justify-start ml-4 h-16 border-b border-gray-700">
-        <h1 className="text-white text-2xl">Dashboard</h1>
+      <div className="flex items-center justify-start h-16 border-b border-gray-700">
+        <h1 className="text-white text-2xl ml-4">Dashboard</h1>
       </div>
       <div className="pl-4 flex-grow">
         <ul className="flex flex-col space-y-2">
