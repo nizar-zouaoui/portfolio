@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { Button } from "@nizar-repo/ui";
-import useAuth from "../../../contexts/AuthContext/useAuth";
+import useAuth from "../../../../contexts/AuthContext/useAuth";
 import { Link } from "react-router-dom";
 
 const UserIcon: React.FC = () => {
-  const { logout, userData } = useAuth(); // Access user and logout from AuthContext
+  const { logout, userData } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleLogout = () => {
-    logout(); // Call logout function from AuthContext
-    setDropdownOpen(false); // Close dropdown after logging out
+    logout();
+    setDropdownOpen(false);
   };
   return userData ? (
     <div className="relative">

@@ -1,26 +1,20 @@
 import useAuth from "../../contexts/AuthContext/useAuth";
 import {
   createBrowserRouter,
-  Outlet,
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
 import authRoutes from "../AuthRoutes";
 import privateRoutes from "../PrivateRoutes";
 import publicRoutes from "../PublicRoutes";
-import Navbar from "../../components/NavBar";
+import Layout from "../../components/Layout";
 
 const AppRouter = () => {
   const { isAuthenticated } = useAuth();
   const routes: RouteObject[] = [
     {
       path: "/",
-      element: (
-        <>
-          <Navbar />
-          <Outlet />
-        </>
-      ),
+      element: <Layout />,
       children: isAuthenticated
         ? [...publicRoutes, ...privateRoutes]
         : [...publicRoutes, ...authRoutes],
