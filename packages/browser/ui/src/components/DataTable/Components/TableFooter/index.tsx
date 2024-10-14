@@ -18,7 +18,7 @@ const TableFooter: React.FC<ITableFooterProps> = ({
   hasPreviousPage,
 }) => {
   return (
-    <div className="flex justify-between p-2">
+    <div className="flex justify-center items-center space-x-4 p-2">
       <button
         onClick={() => handlePageChange(page - 1)}
         disabled={!hasPreviousPage}

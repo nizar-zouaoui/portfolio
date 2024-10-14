@@ -1,6 +1,7 @@
 import React from "react";
 import { DataTableColumn } from "../../DataTableColumnInterface";
 import { SortDirection } from "@nizar-repo/shared-types/PaginationTypes";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 interface ITableHeader<T> {
   columns: DataTableColumn<T>[];
@@ -15,24 +16,31 @@ const TableHeader = <T,>({
   columns,
   handleSortChange,
 }: ITableHeader<T>) => {
+  const width = `1/${columns.length}`;
   return (
     <thead>
       <tr className="bg-gray-100">
         {columns.map((column, index) => (
           <th
             key={index}
-            className="p-3 border border-gray-200 text-left text-gray-600 cursor-pointer"
+            className={`p-3 border border-gray-200 text-left text-gray-600 cursor-pointer w-${width}`}
             onClick={() =>
               column.sortable && handleSortChange(column.selector as string)
             }
           >
-            {column.title}
-            {column.sortable &&
-              (sortField === column.selector
-                ? sortDirection === SortDirection.asc
-                  ? " 🔼"
-                  : " 🔽"
-                : "")}
+            <div className="flex items-center justify-between">
+              {column.title}
+              {column.sortable &&
+                (sortField === column.selector ? (
+                  sortDirection === SortDirection.asc ? (
+                    <FaArrowUp />
+                  ) : (
+                    <FaArrowDown />
+                  )
+                ) : (
+                  ""
+                ))}
+            </div>
           </th>
         ))}
       </tr>
