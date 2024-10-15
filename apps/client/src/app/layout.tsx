@@ -2,7 +2,8 @@ import "@nizar-repo/tailwindcss-config/tailwind/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Wrapper from "../Wrappers";
-import Navbar from "../Components/NavBar";
+import Head from "next/head";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,9 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en">
+      <Head>
+        <meta name="theme-color" content="#000000" />
+      </Head>
       <body className={`${inter.className}`}>
         <Wrapper>{children}</Wrapper>
       </body>

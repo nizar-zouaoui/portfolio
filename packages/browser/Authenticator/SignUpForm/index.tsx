@@ -10,7 +10,10 @@ const SignUpForm: React.FC<ISignUpForm> = ({ onSubmit, loading }) => {
   const { formMethods, handleSubmit } = useSignUpForm({ onSubmit });
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={handleSubmit} className="bg-slate-200 p-6 shadow-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-slate-200 dark:bg-slate-800 p-6 shadow-lg rounded"
+      >
         <div className="grid gap-6 mb-6">
           <div>
             <Input

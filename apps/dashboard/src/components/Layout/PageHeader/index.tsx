@@ -5,7 +5,7 @@ const PageHeader = () => {
   const { title, description, buttons, icon } = usePageHeader();
 
   return (
-    <div className="bg-slate-300 h-44 shadow-xl flex flex-col justify-center">
+    <div className="h-44 shadow-xl flex flex-col justify-center">
       <div>
         <div className="flex justify-between items-center w-11/12 mx-auto mt-8">
           <div className="flex items-center space-x-2 text-2xl font-bold flex-grow">

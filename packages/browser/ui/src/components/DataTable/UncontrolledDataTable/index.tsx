@@ -37,7 +37,7 @@ const DataTable = <T extends {}>({
   } = useDataTable(fetchFunction, initialQuery);
 
   return (
-    <div className="flex flex-col gap-4 p-4 bg-white shadow-lg rounded-lg">
+    <div className="flex flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
       {showSearch && (
         <SearchInput
           className="relative w-1/3"
@@ -46,7 +46,7 @@ const DataTable = <T extends {}>({
         />
       )}
       <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse border border-gray-200">
+        <table className="min-w-full border-collapse border border-gray-200 dark:border-gray-700">
           <TableHeader<T>
             columns={columns}
             sortField={query["sort-field"]}

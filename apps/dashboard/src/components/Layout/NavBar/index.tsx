@@ -1,6 +1,8 @@
+import { DarkMode } from "@nizar-repo/ui";
 import NavBarLinks, { LinkProp } from "../NavBarLinks";
 import HomeIcon from "./HomeIcon";
 import UserIcon from "./UserIcon";
+
 const LINKS: LinkProp[] = [
   {
     pageName: "Home",
@@ -19,6 +21,7 @@ export default function Navbar() {
       <div className="flex items-center space-x-6">
         <NavBarLinks links={LINKS} />
         <UserIcon />
+        <DarkMode />
       </div>
     </nav>
   );

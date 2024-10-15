@@ -22,17 +22,23 @@ const TableBody = <T,>({
         <tr>
           <td
             colSpan={columns.length}
-            className="p-3 text-center text-gray-500"
+            className="p-3 text-center text-gray-500 dark:text-gray-400"
           >
             Loading...
           </td>
         </tr>
       ) : items.length > 0 ? (
         items.map((item) => (
-          <tr key={keyExtractor(item)} className="even:bg-gray-50">
+          <tr
+            key={keyExtractor(item)}
+            className="even:bg-gray-50 dark:even:bg-gray-800"
+          >
             {columns.map((column, colIndex) => {
               return (
-                <td key={colIndex} className="p-3 border border-gray-200">
+                <td
+                  key={colIndex}
+                  className="p-3 border border-gray-200 dark:border-gray-700 dark:bg-gray-900"
+                >
                   {renderCell(item, column)}
                 </td>
               );
@@ -43,7 +49,7 @@ const TableBody = <T,>({
         <tr>
           <td
             colSpan={columns.length}
-            className="p-3 text-center text-gray-500"
+            className="p-3 text-center text-gray-500 dark:text-gray-400"
           >
             No results found.
           </td>

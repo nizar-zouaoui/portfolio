@@ -1,5 +1,6 @@
 import React from "react";
 import useToast from "./useToast";
+
 export interface IToast {
   id: string;
   message: string | React.ReactNode;
@@ -9,14 +10,15 @@ export interface IToast {
 
 const Toast: React.FC<IToast> = ({ id, message, timer, type }) => {
   const { handleRemove, isExiting } = useToast({ id, timer });
+
   return (
     <div
       className={`relative p-4 w-52 md:w-80 font-semibold shadow-md border-l-4 transition-transform transform ${
         type === "success"
-          ? "border-green-500 bg-green-100"
+          ? "border-success-500 bg-success-100 dark:border-success-400 dark:bg-success-800"
           : type === "error"
-            ? "border-red-500 bg-red-100"
-            : "border-yellow-500 bg-yellow-100"
+            ? "border-error-500 bg-error-100 dark:border-error-400 dark:bg-error-800"
+            : "border-warning-500 bg-warning-100 dark:border-warning-400 dark:bg-warning-800"
       } ${isExiting ? "toast-exit" : "toast-enter"}`}
     >
       {message}
@@ -24,10 +26,14 @@ const Toast: React.FC<IToast> = ({ id, message, timer, type }) => {
         &#215;
       </button>
       <div
-        className="absolute bottom-0 left-0 h-1 bg-opacity-50"
+        className={`absolute bottom-0 left-0 h-1 ${
+          type === "success"
+            ? "bg-success-500 dark:bg-success-400"
+            : type === "error"
+              ? "bg-error-500 dark:bg-error-400"
+              : "bg-warning-500 dark:bg-warning-400"
+        }`}
         style={{
-          backgroundColor:
-            type === "success" ? "green" : type === "error" ? "red" : "yellow",
           width: "100%",
           animation: `reduce-width ${timer}ms linear forwards`,
         }}
@@ -39,12 +45,14 @@ const Toast: React.FC<IToast> = ({ id, message, timer, type }) => {
             to { width: 0%; }
           }
           @keyframes pop-in {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            0% { transform: scale(0.9); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
           }
           @keyframes pop-out {
-            from { transform: scale(1); opacity: 1; }
-            to { transform: scale(0.9); opacity: 0; }
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0; }
           }
           .toast-enter {
             animation: pop-in 0.3s ease forwards;

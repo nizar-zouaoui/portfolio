@@ -38,6 +38,19 @@ module.exports = {
           800: withOpacityValue("--tw-color-primary-800"),
           900: withOpacityValue("--tw-color-primary-900"),
         },
+        secondary: {
+          // Customize it on globals.css :root
+          50: withOpacityValue("--tw-color-secondary-50"),
+          100: withOpacityValue("--tw-color-secondary-100"),
+          200: withOpacityValue("--tw-color-secondary-200"),
+          300: withOpacityValue("--tw-color-secondary-300"),
+          400: withOpacityValue("--tw-color-secondary-400"),
+          500: withOpacityValue("--tw-color-secondary-500"),
+          600: withOpacityValue("--tw-color-secondary-600"),
+          700: withOpacityValue("--tw-color-secondary-700"),
+          800: withOpacityValue("--tw-color-secondary-800"),
+          900: withOpacityValue("--tw-color-secondary-900"),
+        },
         danger: {
           50: withOpacityValue("--tw-color-danger-50"),
           100: withOpacityValue("--tw-color-danger-100"),
@@ -49,6 +62,18 @@ module.exports = {
           700: withOpacityValue("--tw-color-danger-700"),
           800: withOpacityValue("--tw-color-danger-800"),
           900: withOpacityValue("--tw-color-danger-900"),
+        },
+        error: {
+          50: withOpacityValue("--tw-color-error-50"),
+          100: withOpacityValue("--tw-color-error-100"),
+          200: withOpacityValue("--tw-color-error-200"),
+          300: withOpacityValue("--tw-color-error-300"),
+          400: withOpacityValue("--tw-color-error-400"),
+          500: withOpacityValue("--tw-color-error-500"),
+          600: withOpacityValue("--tw-color-error-600"),
+          700: withOpacityValue("--tw-color-error-700"),
+          800: withOpacityValue("--tw-color-error-800"),
+          900: withOpacityValue("--tw-color-error-900"),
         },
         warning: {
           50: withOpacityValue("--tw-color-warning-50"),

@@ -4,8 +4,7 @@ interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children: ReactNode;
   variant?:
-    | "soft"
-    | "danger"
+    | "error"
     | "warning"
     | "primary"
     | "secondary"
@@ -22,17 +21,16 @@ const Button: React.FC<IButton> = ({
   // Define styles for each variant
   const variantStyles = {
     primary:
-      "bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800",
-    soft: "bg-gray-300 hover:bg-gray-400 focus:ring-gray-200 dark:bg-gray-400 dark:hover:bg-gray-500 dark:focus:ring-gray-600",
-    danger:
-      "bg-red-600 hover:bg-red-700 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-800",
+      "bg-blue-500 hover:bg-blue-600 focus:ring-blue-400 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-600",
+    error:
+      "bg-error-500 hover:bg-error-600 focus:ring-error-400 dark:bg-error-700 dark:hover:bg-error-800 dark:focus:ring-error-600",
     warning:
-      "bg-yellow-500 hover:bg-yellow-600 focus:ring-yellow-300 dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-700",
+      "bg-warning-500 hover:bg-warning-600 focus:ring-warning-400 dark:bg-warning-700 dark:hover:bg-warning-800 dark:focus:ring-warning-600",
     secondary:
-      "bg-gray-600 hover:bg-gray-700 focus:ring-gray-300 dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-800",
+      "bg-secondary-500 hover:bg-secondary-600 focus:ring-secondary-400 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:focus:ring-secondary-600",
     success:
-      "bg-green-500 hover:bg-green-600 focus:ring-green-300 dark:bg-green-400 dark:hover:bg-green-500 dark:focus:ring-green-700",
-    disabled: "bg-gray-400 cursor-not-allowed",
+      "bg-success-500 hover:bg-success-600 focus:ring-success-400 dark:bg-success-700 dark:hover:bg-success-800 dark:focus:ring-success-600",
+    disabled: "bg-gray-500 dark:bg-gray-500 cursor-not-allowed",
   };
 
   return (

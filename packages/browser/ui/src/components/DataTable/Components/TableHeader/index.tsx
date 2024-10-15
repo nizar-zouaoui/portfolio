@@ -17,13 +17,14 @@ const TableHeader = <T,>({
   handleSortChange,
 }: ITableHeader<T>) => {
   const width = `1/${columns.length}`;
+
   return (
     <thead>
-      <tr className="bg-gray-100">
+      <tr className="bg-gray-100 dark:bg-gray-800">
         {columns.map((column, index) => (
           <th
             key={index}
-            className={`p-3 border border-gray-200 text-left text-gray-600 cursor-pointer w-${width}`}
+            className={`p-3 border border-gray-200 dark:border-gray-700 text-left text-gray-600 dark:text-gray-300 cursor-pointer w-${width}`}
             onClick={() =>
               column.sortable && handleSortChange(column.selector as string)
             }

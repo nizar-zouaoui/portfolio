@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { HelmetProvider } from "react-helmet-async";
 import { PageHeaderProvider } from "./contexts/PageHeaderContext";
 import { ToastProvider } from "@nizar-repo/toast/Context/ToastContext";
+import { DarkModeProvider } from "@nizar-repo/ui";
 
 const queryClient = new QueryClient();
 
@@ -15,11 +16,13 @@ createRoot(document.getElementById("root")!).render(
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <PageHeaderProvider>
-          <ToastProvider>
-            <AuthProvider>
-              <AppRouter />
-            </AuthProvider>
-          </ToastProvider>
+          <DarkModeProvider>
+            <ToastProvider>
+              <AuthProvider>
+                <AppRouter />
+              </AuthProvider>
+            </ToastProvider>
+          </DarkModeProvider>
         </PageHeaderProvider>
       </QueryClientProvider>
     </HelmetProvider>

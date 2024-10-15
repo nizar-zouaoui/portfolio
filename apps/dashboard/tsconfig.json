@@ -9,5 +9,12 @@
     "noFallthroughCasesInSwitch": true,
     "allowJs": true
   },
-  "include": ["src", "vite.config.ts", "**/*.ts", "**/*.tsx", ".eslintrc.cjs"]
+  "include": [
+    "src",
+    "vite.config.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".eslintrc.cjs",
+    "../../packages/browser/ui/src/DarkModeProvider/DarkMode"
+  ]
 }

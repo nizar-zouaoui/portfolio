@@ -2,6 +2,7 @@
 import { AuthProvider } from "../Contexts/AuthContext";
 import Navbar from "../Components/NavBar";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { DarkModeProvider } from "@nizar-repo/ui";
 
 const queryClient = new QueryClient();
 
@@ -12,10 +13,12 @@ export default function Wrapper({
 }): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Navbar />
-        {children}
-      </AuthProvider>
+      <DarkModeProvider>
+        <AuthProvider>
+          <Navbar />
+          {children}
+        </AuthProvider>
+      </DarkModeProvider>
     </QueryClientProvider>
   );
 }

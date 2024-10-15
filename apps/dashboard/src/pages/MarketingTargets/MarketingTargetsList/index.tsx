@@ -70,7 +70,7 @@ const MarketingTargetsList = () => {
                 </Link>
                 <Button
                   disabled={isDeleteLoading}
-                  variant="danger"
+                  variant="error"
                   onClick={() => deleteMarketingTarget(row._id.toString())}
                 >
                   Delete

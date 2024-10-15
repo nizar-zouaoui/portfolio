@@ -8,9 +8,13 @@ interface ILoginForm extends IBasicForm<ClassicLoginBodyType> {}
 
 const LoginForm: React.FC<ILoginForm> = ({ onSubmit, loading }) => {
   const { formMethods, handleSubmit } = useLoginForm({ onSubmit });
+
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={handleSubmit} className="bg-slate-200 p-6 shadow-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-slate-200 dark:bg-slate-800 p-6 shadow-lg rounded"
+      >
         <div className="grid gap-6 mb-6">
           <div>
             <Input

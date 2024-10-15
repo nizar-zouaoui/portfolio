@@ -24,7 +24,30 @@
   --color-primary-700: rgb(var(--tw-color-primary-700)); /* #0369a1 */
   --color-primary-800: rgb(var(--tw-color-primary-800)); /* #075985 */
   --color-primary-900: rgb(var(--tw-color-primary-900)); /* #0c4a6e */
-  /* #endregion  /**======== Primary Color =========== */
+
+  /* #region  /**=========== Secondary Color =========== */
+  --tw-color-secondary-50: 250 245 255;
+  --tw-color-secondary-100: 243 232 255;
+  --tw-color-secondary-200: 227 207 255;
+  --tw-color-secondary-300: 191 147 255;
+  --tw-color-secondary-400: 129 67 255;
+  --tw-color-secondary-500: 80 33 202;
+  --tw-color-secondary-600: 62 16 158;
+  --tw-color-secondary-700: 47 6 117;
+  --tw-color-secondary-800: 37 2 83;
+  --tw-color-secondary-900: 25 0 56;
+  --color-secondary-50: rgb(var(--tw-color-secondary-50)); /* #FAF5FF */
+  --color-secondary-100: rgb(var(--tw-color-secondary-100)); /* #F3E8FF */
+  --color-secondary-200: rgb(var(--tw-color-secondary-200)); /* #E3C9FF */
+  --color-secondary-300: rgb(var(--tw-color-secondary-300)); /* #BF93FF */
+  --color-secondary-400: rgb(var(--tw-color-secondary-400)); /* #8143FF */
+  --color-secondary-500: rgb(var(--tw-color-secondary-500)); /* #5021CA */
+  --color-secondary-600: rgb(var(--tw-color-secondary-600)); /* #3E109E */
+  --color-secondary-700: rgb(var(--tw-color-secondary-700)); /* #2F0675 */
+  --color-secondary-800: rgb(var(--tw-color-secondary-800)); /* #250253 */
+  --color-secondary-900: rgb(var(--tw-color-secondary-900)); /* #190038 */
+
+  /* #endregion  /**======== Danger Color =========== */
   --tw-color-danger-50: 255 241 242;
   --tw-color-danger-100: 255 228 230;
   --tw-color-danger-200: 254 205 211;
@@ -46,6 +69,29 @@
   --color-danger-800: rgb(var(--tw-color-danger-800)); /* #9f1239 */
   --color-danger-900: rgb(var(--tw-color-danger-900)); /* #881337 */
 
+  /* #endregion  /**======== Error Color =========== */
+  --tw-color-error-50: 255 241 242;
+  --tw-color-error-100: 255 228 230;
+  --tw-color-error-200: 254 205 211;
+  --tw-color-error-300: 253 164 175;
+  --tw-color-error-400: 251 113 133;
+  --tw-color-error-500: 244 63 94;
+  --tw-color-error-600: 225 29 72;
+  --tw-color-error-700: 190 18 60;
+  --tw-color-error-800: 159 18 57;
+  --tw-color-error-900: 136 19 55;
+  --color-error-50: rgb(var(--tw-color-error-50)); /* #fff1f2 */
+  --color-error-100: rgb(var(--tw-color-error-100)); /* #ffe4e6 */
+  --color-error-200: rgb(var(--tw-color-error-200)); /* #fecdd3 */
+  --color-error-300: rgb(var(--tw-color-error-300)); /* #fda4af */
+  --color-error-400: rgb(var(--tw-color-error-400)); /* #fb7185 */
+  --color-error-500: rgb(var(--tw-color-error-500)); /* #f43f5e */
+  --color-error-600: rgb(var(--tw-color-error-600)); /* #e11d48 */
+  --color-error-700: rgb(var(--tw-color-error-700)); /* #be123c */
+  --color-error-800: rgb(var(--tw-color-error-800)); /* #9f1239 */
+  --color-error-900: rgb(var(--tw-color-error-900)); /* #881337 */
+
+  /* #endregion  /**======== Success Color =========== */
   --tw-color-success-50: 240 253 250;
   --tw-color-success-100: 204 251 241;
   --tw-color-success-200: 153 246 228;
@@ -67,6 +113,7 @@
   --color-success-800: rgb(var(--tw-color-success-800)); /* #115e59 */
   --color-success-900: rgb(var(--tw-color-success-900)); /* #134e4a */
 
+  /* #endregion  /**======== Warning Color =========== */
   --tw-color-warning-50: 255 247 237;
   --tw-color-warning-100: 255 237 213;
   --tw-color-warning-200: 254 215 170;
@@ -88,6 +135,7 @@
   --color-warning-800: rgb(var(--tw-color-warning-800)); /* #9a3412 */
   --color-warning-900: rgb(var(--tw-color-warning-900)); /* #7c2d12 */
 
+  /* #endregion  /**======== Info Color =========== */
   --tw-color-info-50: 240 249 255;
   --tw-color-info-100: 224 242 254;
   --tw-color-info-200: 186 230 253;
@@ -109,6 +157,7 @@
   --color-info-800: rgb(var(--tw-color-info-800)); /* #075985 */
   --color-info-900: rgb(var(--tw-color-info-900)); /* #0c4a6e */
 
+  /* #endregion  /**======== Gray Color =========== */
   --tw-color-gray-50: 249 250 251;
   --tw-color-gray-100: 243 244 246;
   --tw-color-gray-200: 229 231 235;
