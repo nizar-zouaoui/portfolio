@@ -14,7 +14,7 @@ const LINKS: LinkProp[] = [
 
 export default function Navbar() {
   return (
-    <nav className="bg-gray-800 border-b border-gray-700 text-white px-16 h-16 flex justify-between items-center">
+    <nav className="bg-gray-800 border-b border-gray-700 text-white px-16 min-h-16 h-16 flex justify-between items-center">
       <HomeIcon />
       <div className="flex items-center space-x-6">
         <NavBarLinks links={LINKS} />

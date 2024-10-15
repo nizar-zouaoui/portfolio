@@ -10,6 +10,10 @@ export default function generateLinksTree(links: LinkProp[]): LinksTree[] {
   const linksTree: LinksTree[] = [];
 
   links.forEach((link) => {
+    if (link.path.includes("/edit/:id")) {
+      return;
+    }
+
     if (link.path === "/") {
       linksTree.push({
         path: "/",

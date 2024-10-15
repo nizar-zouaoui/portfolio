@@ -18,7 +18,6 @@ const usePageHeaderInit = ({
   const { setTitle, setDescription, setButtons, setIcon } = usePageHeader();
 
   useEffect(() => {
-    console.log("first");
     setTitle(title);
     setDescription(description);
     if (buttons) {

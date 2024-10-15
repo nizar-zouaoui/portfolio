@@ -1,18 +1,9 @@
-import React, { useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
 import { LinkProp } from "../NavBarLinks";
-import generateLinksTree from "../../../helpers/generateLinksTree";
-import renderTree from "./SideBarLinkTrees";
+import useSideBar from "./useSideBar";
 
 const SideBar: React.FC<{ links: LinkProp[] }> = ({ links }) => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  const treeLinks = useMemo(() => generateLinksTree(links), [links]);
-  console.log(treeLinks);
-  const RenderedTree = useMemo(
-    () => renderTree(treeLinks, currentPath),
-    [treeLinks, currentPath]
-  );
+  const { RenderedTree } = useSideBar({ links });
   return (
     <div className="bg-gray-800 w-64 h-full flex flex-col">
       <div className="flex items-center justify-start h-16 border-b border-gray-700">

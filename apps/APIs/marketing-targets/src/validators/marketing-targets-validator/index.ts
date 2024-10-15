@@ -113,7 +113,12 @@ export const updateMarketingTargetDataValidation = (
 export const updateMarketingTargetDataValidator = [
   check("id").isMongoId(),
   body("email", "Invalid Email").optional().isEmail(),
-  body("fullName", "Invalid Full Name").optional().isAlpha(),
+  body("fullName", "Invalid Full Name")
+    .optional()
+    .matches(/^[a-zA-Z\s'-]+$/) // Regex to allow letters, spaces, apostrophes, and hyphens
+    .withMessage(
+      "Full Name can only contain letters, spaces, hyphens, and apostrophes."
+    ),
   body("phoneNumber", "Invalid Phone Number").optional().isMobilePhone("any"),
 ];
 

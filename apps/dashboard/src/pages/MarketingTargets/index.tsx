@@ -2,6 +2,13 @@ import { RouteObject } from "react-router-dom";
 import MarketingTargetsList from "./MarketingTargetsList";
 import { FaUsers } from "react-icons/fa";
 import AddMarketingTarget from "./AddMarketingTarget";
+import EditMarketingTarget from "./EditMarketingTarget";
+import Api from "../../sdks";
+
+const fetchMarketingTarget = async (id: string) =>
+  Api.marketingTargetsSDK.getMarketingTargetDataById({
+    params: { id },
+  });
 
 const routes: RouteObject[] = [
   {
@@ -11,6 +18,17 @@ const routes: RouteObject[] = [
   {
     path: "add",
     element: <AddMarketingTarget />,
+  },
+  {
+    path: "edit/:id",
+    element: <EditMarketingTarget />,
+    loader: async ({ params }) => {
+      const { id } = params;
+      if (!id) throw new Error("Id is required for this route");
+      const marketingTarget = await fetchMarketingTarget(id);
+      return { marketingTarget };
+    },
+    errorElement: <div>Failed to load data</div>,
   },
 ];
 export default routes;
@@ -24,6 +42,12 @@ export const marketingLinks = [
   {
     pageName: "Create New Marketing Target",
     path: "/marketing-targets/add",
+    icon: <FaUsers />,
+  },
+
+  {
+    pageName: "Edit Marketing Target",
+    path: "/marketing-targets/edit/:id",
     icon: <FaUsers />,
   },
 ] as const;

@@ -4,13 +4,9 @@ import { useAuth } from "../../../Contexts/AuthContext";
 
 const useClassicSignUp = () => {
   const { classicSignUp, classicSignUpLoading } = useAuth();
-  const onSubmit: SubmitHandler<ClassicSignUpBodyType> = async (data) => {
-    await classicSignUp(data);
-  };
-  const formMethods = useForm<ClassicSignUpBodyType>();
+  const onSubmit = async (data: ClassicSignUpBodyType) => classicSignUp(data);
   return {
-    formMethods,
-    onSubmit: formMethods.handleSubmit(onSubmit),
+    onSubmit,
     loading: classicSignUpLoading,
   };
 };

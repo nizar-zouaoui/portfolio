@@ -2,17 +2,15 @@ import React from "react";
 import { FormProvider } from "react-hook-form";
 import { Input, Button, IBasicForm } from "@nizar-repo/ui";
 import { ClassicLoginBodyType } from "../types";
+import useLoginForm from "./useLoginForm";
 
 interface ILoginForm extends IBasicForm<ClassicLoginBodyType> {}
 
-const LoginForm: React.FC<ILoginForm> = ({
-  formMethods,
-  onSubmit,
-  loading,
-}) => {
+const LoginForm: React.FC<ILoginForm> = ({ onSubmit, loading }) => {
+  const { formMethods, handleSubmit } = useLoginForm({ onSubmit });
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={onSubmit} className="bg-slate-200 p-6 shadow-lg">
+      <form onSubmit={handleSubmit} className="bg-slate-200 p-6 shadow-lg">
         <div className="grid gap-6 mb-6">
           <div>
             <Input

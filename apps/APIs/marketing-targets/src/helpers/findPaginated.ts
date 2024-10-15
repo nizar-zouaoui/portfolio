@@ -13,17 +13,19 @@ const getPaginationPipeline = (
     "sort-direction": sortDirection,
     "sort-field": sortField = "createdAt",
   } = query;
+
   const page = isNaN(Number(query.page)) ? 1 : Number(query.page);
   const limit = isNaN(Number(query.limit)) ? 10 : Number(query.limit);
+
   const pipeline: PipelineStage[] = [
     {
       $match: {
         userId,
         ...(keyword && {
           $or: [
-            { fullName: { $regex: query.keyword, $options: "i" } },
-            { email: { $regex: query.keyword, $options: "i" } },
-            { phoneNumber: { $regex: query.keyword, $options: "i" } },
+            { fullName: { $regex: keyword, $options: "i" } },
+            { email: { $regex: keyword, $options: "i" } },
+            { phoneNumber: { $regex: keyword, $options: "i" } },
           ],
         }),
       },
@@ -33,8 +35,6 @@ const getPaginationPipeline = (
         [sortField]: sortDirection === SortDirection.asc ? 1 : -1,
       },
     },
-    { $skip: (page - 1) * limit },
-    { $limit: limit },
     {
       $facet: {
         items: [{ $skip: (page - 1) * limit }, { $limit: limit }],
@@ -52,20 +52,14 @@ const getPaginationPipeline = (
         },
         currentPage: { $literal: page },
         hasNextPage: {
-          $gt: [
-            {
-              $ceil: {
-                $divide: [{ $arrayElemAt: ["$totalCount.count", 0] }, limit],
-              },
-            },
-            page,
-          ],
+          $gt: [{ $arrayElemAt: ["$totalCount.count", 0] }, page * limit],
         },
-        hasPreviousPage: { $gt: [page - 1, 0] },
+        hasPreviousPage: { $gt: [page, 1] },
       },
     },
   ];
 
   return pipeline;
 };
+
 export default getPaginationPipeline;

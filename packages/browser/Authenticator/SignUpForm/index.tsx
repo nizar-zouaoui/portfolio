@@ -2,17 +2,15 @@ import React from "react";
 import { FormProvider } from "react-hook-form";
 import { Input, Button, IBasicForm } from "@nizar-repo/ui";
 import { ClassicSignUpBodyType } from "../types";
+import useSignUpForm from "./useSignUpForm";
 
 interface ISignUpForm extends IBasicForm<ClassicSignUpBodyType> {}
 
-const SignUpForm: React.FC<ISignUpForm> = ({
-  formMethods,
-  onSubmit,
-  loading,
-}) => {
+const SignUpForm: React.FC<ISignUpForm> = ({ onSubmit, loading }) => {
+  const { formMethods, handleSubmit } = useSignUpForm({ onSubmit });
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={onSubmit} className="bg-slate-200 p-6 shadow-lg">
+      <form onSubmit={handleSubmit} className="bg-slate-200 p-6 shadow-lg">
         <div className="grid gap-6 mb-6">
           <div>
             <Input

@@ -52,6 +52,16 @@ const MarketingTargetsList = () => {
             selector: "phoneNumber",
             sortable: true,
           },
+          {
+            title: "Actions",
+            cell: (row) => (
+              <div className="flex justify-end">
+                <Link to={`/marketing-targets/edit/${row._id}`}>
+                  <Button variant="warning">Edit</Button>
+                </Link>
+              </div>
+            ),
+          },
         ]}
         keyExtractor={(item) => item._id.toString()}
         showSearch

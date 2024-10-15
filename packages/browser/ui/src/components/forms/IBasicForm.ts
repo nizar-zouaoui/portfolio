@@ -1,8 +1,8 @@
 import { BaseSyntheticEvent } from "react";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { FieldValues, SubmitHandler, UseFormReturn } from "react-hook-form";
 
 export default interface IBasicForm<T extends FieldValues> {
-  formMethods: UseFormReturn<T>;
-  onSubmit: (e?: BaseSyntheticEvent) => Promise<void>;
+  defaultValues?: T;
+  onSubmit: SubmitHandler<T>;
   loading: boolean;
 }

@@ -2,19 +2,26 @@ import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
 import { Button, IBasicForm, Input } from "@nizar-repo/ui";
 import React from "react";
 import { FormProvider } from "react-hook-form";
-export type AddMarketingTargetProps =
+import useMarketingTargetForm from "./useMarketingTargetForm";
+export type AddMarketingTargetType =
   MarketingTargetRouteTypes["/marketing-targets/"]["POST"]["body"];
 
-type IMarketingTargetFormProps = IBasicForm<AddMarketingTargetProps>;
+export type EditMarketingTargetType =
+  MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["body"];
+type IMarketingTargetFormProps = IBasicForm<AddMarketingTargetType>;
 
 const MarketingTargetForm: React.FC<IMarketingTargetFormProps> = ({
-  formMethods,
+  defaultValues,
   onSubmit,
   loading,
 }) => {
+  const { formMethods, handleSubmit } = useMarketingTargetForm({
+    defaultValues,
+    onSubmit,
+  });
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={onSubmit} className="bg-slate-200 p-6 shadow-lg">
+      <form onSubmit={handleSubmit} className="bg-slate-200 p-6 shadow-lg">
         <div className="grid gap-6 mb-6">
           <div>
             <Input
