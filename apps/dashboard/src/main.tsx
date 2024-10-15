@@ -6,6 +6,7 @@ import AppRouter from "./Wrappers/AppRouter";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { HelmetProvider } from "react-helmet-async";
 import { PageHeaderProvider } from "./contexts/PageHeaderContext";
+import { ToastProvider } from "@nizar-repo/toast/Context/ToastContext";
 
 const queryClient = new QueryClient();
 
@@ -14,9 +15,11 @@ createRoot(document.getElementById("root")!).render(
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <PageHeaderProvider>
-          <AuthProvider>
-            <AppRouter />
-          </AuthProvider>
+          <ToastProvider>
+            <AuthProvider>
+              <AppRouter />
+            </AuthProvider>
+          </ToastProvider>
         </PageHeaderProvider>
       </QueryClientProvider>
     </HelmetProvider>

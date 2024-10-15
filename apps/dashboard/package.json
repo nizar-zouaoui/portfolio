@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nizar-repo/toast": "*",
     "@nizar-repo/auth-sdk": "*",
     "@nizar-repo/server-sdk": "*",
     "@nizar-repo/ui": "*",
