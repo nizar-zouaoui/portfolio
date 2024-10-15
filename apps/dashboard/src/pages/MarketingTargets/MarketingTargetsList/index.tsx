@@ -25,7 +25,14 @@ const MarketingTargetsList = () => {
     ),
   });
 
-  const { data, isLoading, query, setQuery } = useMarketingTargetsList();
+  const {
+    data,
+    isLoading,
+    query,
+    setQuery,
+    deleteMarketingTarget,
+    isDeleteLoading,
+  } = useMarketingTargetsList();
 
   return (
     <div className="w-4/5 mx-auto">
@@ -57,8 +64,17 @@ const MarketingTargetsList = () => {
             cell: (row) => (
               <div className="flex justify-end">
                 <Link to={`/marketing-targets/edit/${row._id}`}>
-                  <Button variant="warning">Edit</Button>
+                  <Button disabled={isDeleteLoading} variant="warning">
+                    Edit
+                  </Button>
                 </Link>
+                <Button
+                  disabled={isDeleteLoading}
+                  variant="danger"
+                  onClick={() => deleteMarketingTarget(row._id.toString())}
+                >
+                  Delete
+                </Button>
               </div>
             ),
           },

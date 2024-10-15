@@ -3,14 +3,20 @@ import {
   SortDirection,
 } from "@nizar-repo/shared-types/PaginationTypes";
 import { useState, useEffect } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import Api from "../../../sdks";
 import getInitalQueryParams from "../../../helpers/getInitialQueryParams";
 
 const fetchFunction = (query: PaginationQuery) =>
   Api.marketingTargetsSDK.getMarketingTargetData({ query });
+
+const deleteMarketingTargetData = (id: string) =>
+  Api.marketingTargetsSDK.deleteMarketingTargetData({ params: { id } });
+
 const useMarketingTargetsList = () => {
+  const queryClient = useQueryClient();
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [query, setQuery] = useState<PaginationQuery>(
@@ -36,11 +42,23 @@ const useMarketingTargetsList = () => {
     }
   );
 
+  const { mutate: deleteMarketingTarget, isLoading: isDeleteLoading } =
+    useMutation(async (id: string) => deleteMarketingTargetData(id), {
+      onSuccess: () => {
+        queryClient.invalidateQueries("marketing-targets");
+      },
+      onError: (error) => {
+        console.error(error);
+      },
+    });
+
   return {
     data,
     isLoading,
     query,
     setQuery,
+    deleteMarketingTarget,
+    isDeleteLoading,
   };
 };
 
