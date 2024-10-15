@@ -15,7 +15,6 @@ const Toasts: React.FC<IToasts> = ({ toasts }) => {
           message={toast.message}
           type={toast.type}
           timer={toast.timer}
-          cancel={toast.cancel}
         />
       ))}
     </div>

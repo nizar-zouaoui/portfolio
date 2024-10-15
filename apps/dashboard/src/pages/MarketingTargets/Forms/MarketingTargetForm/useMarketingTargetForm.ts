@@ -13,7 +13,6 @@ const useMarketingTargetForm = ({ defaultValues, onSubmit }: FormProps) => {
   return {
     formMethods,
     handleSubmit: formMethods.handleSubmit((data) => {
-      formMethods.reset();
       onSubmit(data);
     }),
   };

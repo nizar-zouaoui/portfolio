@@ -10,7 +10,6 @@ const useSignUpForm = ({ onSubmit }: SignUpForm) => {
   return {
     formMethods,
     handleSubmit: formMethods.handleSubmit((data) => {
-      formMethods.reset();
       onSubmit(data);
     }),
   };

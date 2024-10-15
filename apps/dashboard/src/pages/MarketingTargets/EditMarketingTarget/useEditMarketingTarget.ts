@@ -5,6 +5,8 @@ import {
   MarketingTargetRouteTypes,
 } from "@nizar-repo/marketing-targets-types";
 import { useMutation, useQueryClient } from "react-query";
+import useToastContext from "@nizar-repo/toast/Context/useToastContext";
+import generateApiMessage from "../../../helpers/generateApiMessage";
 
 type EditMarketingTargetType =
   MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["body"];
@@ -16,6 +18,7 @@ const useEditMarketingTarget = () => {
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { addToast } = useToastContext();
   const { mutate: addMarketingTarget, isLoading } = useMutation(
     async (data: EditMarketingTargetType) => {
       await Api.marketingTargetsSDK.updateMarketingTargetData({
@@ -27,9 +30,18 @@ const useEditMarketingTarget = () => {
       onSuccess: () => {
         queryClient.invalidateQueries("marketing-targets");
         navigate(-1);
+        addToast({
+          type: "success",
+          message: "Successfully updated the marketing target",
+          timer: 2000,
+        });
       },
       onError: (error) => {
-        console.error(error);
+        addToast({
+          type: "error",
+          message: generateApiMessage(error),
+          timer: 2000,
+        });
       },
     }
   );

@@ -11,6 +11,8 @@ import Api from "../../sdks";
 import { Loader } from "@nizar-repo/ui";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import hashPassword from "../../helpers/hashPassword";
+import useToastContext from "@nizar-repo/toast/Context/useToastContext";
+import generateApiMessage from "../../helpers/generateApiMessage";
 
 export interface AuthContextType {
   token: string | null;
@@ -35,6 +37,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const queryClient = useQueryClient();
+  const { addToast } = useToastContext();
 
   const { isLoading: refreshSessionLoading, isSuccess: refreshSessionSuccess } =
     useQuery("refreshSession", updateSession, {
@@ -42,9 +45,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (res?.sessionStatus === SESSION_STATUS.SESSION_UPDATED) {
           setUserData(res.userData);
           setIsAuthenticated(true);
+          addToast({
+            type: "success",
+            message: "Welcome to simple deliver",
+            timer: 2000,
+          });
         } else {
           setUserData(null);
           setIsAuthenticated(false);
+          addToast({
+            type: "warning",
+            message: "Join us to get the best experience",
+            timer: 2000,
+          });
         }
       },
       refetchOnWindowFocus: false,
@@ -69,6 +82,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           });
           queryClient.invalidateQueries("refreshSession");
           window.location.reload();
+        },
+        onError: (error) => {
+          addToast({
+            type: "error",
+            message: generateApiMessage(error),
+            timer: 2000,
+          });
         },
       }
     );

@@ -6,7 +6,6 @@ export interface IToast {
   message: string;
   type: "success" | "error" | "warning";
   timer: number;
-  cancel: () => void;
 }
 
 const useOnInitalRender = (
@@ -23,7 +22,7 @@ const useOnInitalRender = (
   }, [callback, deps]);
 };
 
-const Toast: React.FC<IToast> = ({ id, cancel, message, timer, type }) => {
+const Toast: React.FC<IToast> = ({ id, message, timer, type }) => {
   const { removeToast } = useToastContext();
   const [isExiting, setIsExiting] = useState(false);
 
@@ -42,10 +41,9 @@ const Toast: React.FC<IToast> = ({ id, cancel, message, timer, type }) => {
     };
   }, [timer, id, removeToast]);
 
-  const handleCancel = () => {
+  const handleRemove = () => {
     setIsExiting(true);
     setTimeout(() => {
-      cancel();
       removeToast(id);
     }, 300);
   };
@@ -60,8 +58,15 @@ const Toast: React.FC<IToast> = ({ id, cancel, message, timer, type }) => {
             : "border-yellow-500 bg-yellow-100"
       } ${isExiting ? "toast-exit" : "toast-enter"}`}
     >
-      <p>{message}</p>
-      <button onClick={handleCancel} className="absolute top-0 right-0 p-2">
+      <p>
+        {message.split("\n").map((text, index) => (
+          <React.Fragment key={index}>
+            {text}
+            {index < message.split("\n").length - 1 && <br />}
+          </React.Fragment>
+        ))}
+      </p>
+      <button onClick={handleRemove} className="absolute top-0 right-0 p-2">
         &#215;
       </button>
       <div

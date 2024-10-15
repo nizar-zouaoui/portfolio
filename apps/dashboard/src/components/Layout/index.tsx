@@ -2,17 +2,20 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./NavBar";
 import SideBar from "./SideBar";
-import useAuth from "../../contexts/AuthContext/useAuth";
 import PageHeader from "./PageHeader";
 import { links, sideBarLinks } from "./links";
+import Toasts from "@nizar-repo/toast/Toasts";
+import useLayout from "./useLayout";
 
 // Extract PageName as a union of pageName values
 export type PageName = (typeof links)[number]["pageName"];
 
 const Layout = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, toasts } = useLayout();
+
   return (
     <div className="flex flex-col h-screen">
+      <Toasts toasts={toasts} />
       <Navbar />
       <div className="flex flex-grow">
         {isAuthenticated && <SideBar links={sideBarLinks} />}

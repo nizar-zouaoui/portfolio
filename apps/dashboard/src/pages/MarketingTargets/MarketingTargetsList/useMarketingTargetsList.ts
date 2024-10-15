@@ -7,6 +7,8 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import Api from "../../../sdks";
 import getInitalQueryParams from "../../../helpers/getInitialQueryParams";
+import generateApiMessage from "../../../helpers/generateApiMessage";
+import useToastContext from "@nizar-repo/toast/Context/useToastContext";
 
 const fetchFunction = (query: PaginationQuery) =>
   Api.marketingTargetsSDK.getMarketingTargetData({ query });
@@ -41,14 +43,24 @@ const useMarketingTargetsList = () => {
       refetchOnWindowFocus: false,
     }
   );
+  const { addToast } = useToastContext();
 
   const { mutate: deleteMarketingTarget, isLoading: isDeleteLoading } =
     useMutation(async (id: string) => deleteMarketingTargetData(id), {
       onSuccess: () => {
         queryClient.invalidateQueries("marketing-targets");
+        addToast({
+          type: "success",
+          message: "Successfully deleted the marketing target",
+          timer: 2000,
+        });
       },
       onError: (error) => {
-        console.error(error);
+        addToast({
+          type: "error",
+          message: generateApiMessage(error),
+          timer: 2000,
+        });
       },
     });
 
