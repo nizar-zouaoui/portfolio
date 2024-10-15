@@ -1,56 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import useToastContext from "./Context/useToastContext";
-
+import React from "react";
+import useToast from "./useToast";
 export interface IToast {
   id: string;
-  message: string;
+  message: string | React.ReactNode;
   type: "success" | "error" | "warning";
   timer: number;
 }
 
-const useOnInitalRender = (
-  callback: () => void,
-  deps?: React.DependencyList
-) => {
-  const hasRendered = useRef(false);
-
-  useEffect(() => {
-    if (!hasRendered.current) {
-      callback();
-      hasRendered.current = true;
-    }
-  }, [callback, deps]);
-};
-
 const Toast: React.FC<IToast> = ({ id, message, timer, type }) => {
-  const { removeToast } = useToastContext();
-  const [isExiting, setIsExiting] = useState(false);
-
-  useOnInitalRender(() => {
-    const displayTimer = setTimeout(() => {
-      setIsExiting(true);
-    }, timer);
-
-    const exitTimer = setTimeout(() => {
-      removeToast(id);
-    }, timer + 300);
-
-    return () => {
-      clearTimeout(displayTimer);
-      clearTimeout(exitTimer);
-    };
-  }, [timer, id, removeToast]);
-
-  const handleRemove = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      removeToast(id);
-    }, 300);
-  };
-
+  const { handleRemove, isExiting } = useToast({ id, timer });
   return (
     <div
-      className={`relative p-4 w-64 shadow-md border-l-4 transition-transform transform ${
+      className={`relative p-4 w-52 md:w-80 font-semibold shadow-md border-l-4 transition-transform transform ${
         type === "success"
           ? "border-green-500 bg-green-100"
           : type === "error"
@@ -58,14 +19,7 @@ const Toast: React.FC<IToast> = ({ id, message, timer, type }) => {
             : "border-yellow-500 bg-yellow-100"
       } ${isExiting ? "toast-exit" : "toast-enter"}`}
     >
-      <p>
-        {message.split("\n").map((text, index) => (
-          <React.Fragment key={index}>
-            {text}
-            {index < message.split("\n").length - 1 && <br />}
-          </React.Fragment>
-        ))}
-      </p>
+      {message}
       <button onClick={handleRemove} className="absolute top-0 right-0 p-2">
         &#215;
       </button>
