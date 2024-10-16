@@ -15,6 +15,7 @@ import {
   useQuery,
   useQueryClient,
 } from "react-query";
+import { Loader } from "@nizar-repo/ui";
 
 interface AuthContextType {
   token: string | null;
@@ -57,19 +58,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
-  useQuery("refreshSession", updateSession, {
-    onSuccess: async (res) => {
-      if (res?.sessionStatus === "SESSION_UPDATED") {
-        setUserData(res.userData);
-        setIsAuthenticated(true);
-      } else {
-        setUserData(null);
-        setIsAuthenticated(false);
-      }
-    },
-    refetchOnWindowFocus: false,
-  });
-
+  const { isLoading: sessionLoading } = useQuery(
+    "refreshSession",
+    updateSession,
+    {
+      onSuccess: async (res) => {
+        if (res?.sessionStatus === "SESSION_UPDATED") {
+          setUserData(res.userData);
+          setIsAuthenticated(true);
+        } else {
+          setUserData(null);
+          setIsAuthenticated(false);
+        }
+      },
+      refetchOnWindowFocus: false,
+    }
+  );
+  console.log(sessionLoading);
   const router = useRouter();
 
   const { mutate: classicLoginMutation, isLoading: classicLoginLoading } =
@@ -147,7 +152,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     userData,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!sessionLoading ? children : <Loader />}
+    </AuthContext.Provider>
+  );
 };
 
 async function hashPassword(password: string): Promise<string> {
