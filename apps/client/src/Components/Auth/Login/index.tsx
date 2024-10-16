@@ -12,7 +12,10 @@ const Login = () => {
       <div className="mt-4 text-center">
         <p className="text-gray-600">
           New here?{" "}
-          <Link href="/sign-up" className="text-blue-500 hover:underline">
+          <Link
+            href="/sign-up"
+            className="text-blue-500 dark:text-blue-300 hover:underline"
+          >
             Sign up
           </Link>
         </p>

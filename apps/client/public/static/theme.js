@@ -3,13 +3,13 @@
     window.__theme = newTheme;
     if (newTheme === "light") {
       document.documentElement.classList.remove("dark");
-      // Set Safari status bar color to white
+
       document
         .querySelector('meta[name="theme-color"]')
         .setAttribute("content", "#fffff");
     } else {
       document.documentElement.classList.add("dark");
-      // Set Safari status bar color to gray-900
+
       document
         .querySelector('meta[name="theme-color"]')
         .setAttribute("content", "#111827");
@@ -20,7 +20,6 @@
   var preferredTheme;
 
   try {
-    // Obtain the local user theme setting if available
     preferredTheme = localStorage.getItem("theme");
   } catch (error) {}
 
@@ -37,7 +36,6 @@
   };
 
   prefersDarkQuery.addEventListener("change", function (e) {
-    // window.__setPreferredTheme(e.matches ? "dark" : "light");
     window.__setPreferredTheme("system");
   });
 

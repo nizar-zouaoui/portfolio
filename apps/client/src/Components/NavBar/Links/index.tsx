@@ -12,7 +12,7 @@ const Links: React.FC<{ links: LinkProp[] }> = ({ links }) => {
         <Link
           key={`${path}-${pageName}`}
           href={path}
-          className="text-lg hover:text-gray-400"
+          className="text-lg text-white hover:text-gray-400"
         >
           {pageName}
         </Link>

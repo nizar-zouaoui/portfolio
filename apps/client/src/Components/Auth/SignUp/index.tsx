@@ -12,7 +12,11 @@ const SignUp = () => {
       <div className="mt-4 text-center">
         <p className="text-gray-600">
           Already have an account?{" "}
-          <Link href="/login" className="text-blue-500 hover:underline">
+          {/* create Link to login page with dark mode text color */}
+          <Link
+            href="/login"
+            className="text-blue-500 dark:text-blue-300 hover:underline"
+          >
             Login
           </Link>
         </p>

@@ -12,7 +12,7 @@ const UserIcon: React.FC = () => {
     <div className="relative">
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center space-x-2"
+        className="flex items-center text-white space-x-2"
       >
         <FaUserCircle className="text-2xl" />
         <span>
@@ -26,10 +26,10 @@ const UserIcon: React.FC = () => {
 
       {/* Dropdown Menu */}
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg">
+        <div className="absolute right-0 mt-2 w-48 border-solid bg-white dark:bg-zinc-800 rounded-lg shadow-lg">
           <div className="p-4">
             <p className="font-bold">{userData.username}</p>
-            <p className="text-sm text-gray-600">{userData.email}</p>
+            <p className="text-sm">{userData.email}</p>
             <hr className="my-2" />
             <Button
               onClick={() => {
@@ -43,11 +43,8 @@ const UserIcon: React.FC = () => {
       )}
     </div>
   ) : (
-    <Link
-      href="/login"
-      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-    >
-      Login
+    <Link href="/login">
+      <Button variant="primary">Login</Button>
     </Link>
   );
 };
