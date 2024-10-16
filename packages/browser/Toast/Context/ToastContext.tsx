@@ -4,7 +4,7 @@ import { IToast } from "..";
 
 export type ToastContextType = {
   toasts: IToast[];
-  addToast: (toast: Omit<IToast, "id">) => void;
+  toast: (newToast: Omit<IToast, "id">) => void;
   removeToast: (id: string) => void;
 };
 
@@ -16,18 +16,20 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [toasts, setToasts] = useState<IToast[]>([]);
-  const addToast = (toast: Omit<IToast, "id">) => {
+  const toast = (newToast: Omit<IToast, "id">) => {
     const id = Math.random().toString(36).slice(2, 9);
-    setToasts((prevToasts) => [...prevToasts, { ...toast, id }]);
+    setToasts((prevToasts) => [...prevToasts, { ...newToast, id }]);
   };
   const removeToast = (id: string) => {
-    setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
+    setToasts((prevToasts) =>
+      prevToasts.filter((currToast) => currToast.id !== id)
+    );
   };
   return (
     <ToastContext.Provider
       value={{
         toasts,
-        addToast,
+        toast,
         removeToast,
       }}
     >

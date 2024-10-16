@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const queryClient = useQueryClient();
-  const { addToast } = useToastContext();
+  const { toast } = useToastContext();
 
   const { isLoading: sessionLoading } = useQuery(
     "refreshSession",
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (res?.sessionStatus === SESSION_STATUS.SESSION_UPDATED) {
           setUserData(res.userData);
           setIsAuthenticated(true);
-          addToast({
+          toast({
             type: "success",
             message: "Welcome to simple deliver",
             timer: 2000,
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
       },
       onError: (error) => {
-        addToast({
+        toast({
           type: "error",
           message: generateApiMessage(error),
           timer: 2000,
@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           router.push("/");
         },
         onError: (error) => {
-          addToast({
+          toast({
             type: "error",
             message: generateApiMessage(error),
             timer: 2000,
@@ -150,7 +150,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           router.push("/");
         },
         onError: (error) => {
-          addToast({
+          toast({
             type: "error",
             message: generateApiMessage(error),
             timer: 2000,

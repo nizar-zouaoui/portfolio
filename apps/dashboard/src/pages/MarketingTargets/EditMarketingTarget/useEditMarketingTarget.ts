@@ -18,7 +18,7 @@ const useEditMarketingTarget = () => {
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { addToast } = useToastContext();
+  const { toast } = useToastContext();
   const { mutate: addMarketingTarget, isLoading } = useMutation(
     async (data: EditMarketingTargetType) => {
       await Api.marketingTargetsSDK.updateMarketingTargetData({
@@ -30,14 +30,14 @@ const useEditMarketingTarget = () => {
       onSuccess: () => {
         queryClient.invalidateQueries("marketing-targets");
         navigate(-1);
-        addToast({
+        toast({
           type: "success",
           message: "Successfully updated the marketing target",
           timer: 2000,
         });
       },
       onError: (error) => {
-        addToast({
+        toast({
           type: "error",
           message: generateApiMessage(error),
           timer: 2000,

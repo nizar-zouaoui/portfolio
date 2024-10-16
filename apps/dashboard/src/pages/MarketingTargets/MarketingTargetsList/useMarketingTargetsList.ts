@@ -43,20 +43,20 @@ const useMarketingTargetsList = () => {
       refetchOnWindowFocus: false,
     }
   );
-  const { addToast } = useToastContext();
+  const { toast } = useToastContext();
 
   const { mutate: deleteMarketingTarget, isLoading: isDeleteLoading } =
     useMutation(async (id: string) => deleteMarketingTargetData(id), {
       onSuccess: () => {
         queryClient.invalidateQueries("marketing-targets");
-        addToast({
+        toast({
           type: "success",
           message: "Successfully deleted the marketing target",
           timer: 2000,
         });
       },
       onError: (error) => {
-        addToast({
+        toast({
           type: "error",
           message: generateApiMessage(error),
           timer: 2000,
