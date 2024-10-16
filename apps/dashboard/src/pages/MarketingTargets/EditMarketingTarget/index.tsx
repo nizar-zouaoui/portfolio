@@ -11,19 +11,6 @@ const EditMarketingTarget = () => {
     description:
       "Edit Marketing Target page is destined to edit a marketing target.",
     icon: <FaUsers />,
-    // buttons: (
-    //     <>
-    //         <Button
-    //             className="shadow-lg"
-    //             variant={isLoading ? "disabled" : "success"}
-    //             type="button"
-    //             onClick={onSubmit}
-    //             disabled={isLoading}
-    //         >
-    //             {isLoading ? "Submitting..." : "Submit"}
-    //         </Button>
-    //     </>
-    // ),
   });
   return (
     <div className="w-2/3 lg:w-1/2 mx-auto mt-8">

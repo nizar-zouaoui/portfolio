@@ -1,6 +1,5 @@
 import {
   PaginationQuery,
-  PaginatedResult,
   SortDirection,
 } from "@nizar-repo/shared-types/PaginationTypes";
 import { useState, useEffect } from "react";

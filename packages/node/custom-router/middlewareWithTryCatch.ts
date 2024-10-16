@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { AxiosError } from "axios";
 import { IMiddleware } from "./IMiddleware";
 import { ValidationError } from "express-validator";
 type ErrorType = {

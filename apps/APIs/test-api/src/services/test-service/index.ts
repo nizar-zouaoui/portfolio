@@ -1,4 +1,3 @@
-import createHttpError from "http-errors";
 import { TestType, Tester } from "../../models";
 
 export const getTestData = async () => {

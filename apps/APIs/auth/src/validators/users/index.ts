@@ -1,11 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, param, validationResult } from "express-validator";
-import {
-  ACCESS_PRIVILEGE,
-  IAccessResource,
-  RESOURCE,
-  UserRouteTypes,
-} from "@nizar-repo/auth-types";
+import { UserRouteTypes } from "@nizar-repo/auth-types";
 import createHttpError from "http-errors";
 import { formatValidationErrors } from "helpers/formatValidationErrors";
 

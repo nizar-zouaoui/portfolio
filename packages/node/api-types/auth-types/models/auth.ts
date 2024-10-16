@@ -1,4 +1,4 @@
-import { Types, HydratedDocument, FlattenMaps } from "mongoose";
+import { HydratedDocument, FlattenMaps } from "mongoose";
 import { AuthMethods } from "../enums/auth-methods";
 
 export interface IAuth {
