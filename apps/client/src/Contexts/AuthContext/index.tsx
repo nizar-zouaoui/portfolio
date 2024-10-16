@@ -16,6 +16,9 @@ import {
   useQueryClient,
 } from "react-query";
 import { Loader } from "@nizar-repo/ui";
+import useToastContext from "@nizar-repo/toast/Context/useToastContext";
+import generateApiMessage from "../../helpers/generateApiMessage";
+import { SESSION_STATUS } from "../../helpers/session-management/SessionTypes";
 
 interface AuthContextType {
   token: string | null;
@@ -57,24 +60,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const queryClient = useQueryClient();
+  const { addToast } = useToastContext();
 
   const { isLoading: sessionLoading } = useQuery(
     "refreshSession",
     updateSession,
     {
       onSuccess: async (res) => {
-        if (res?.sessionStatus === "SESSION_UPDATED") {
+        if (res?.sessionStatus === SESSION_STATUS.SESSION_UPDATED) {
           setUserData(res.userData);
           setIsAuthenticated(true);
+          addToast({
+            type: "success",
+            message: "Welcome to simple deliver",
+            timer: 2000,
+          });
         } else {
           setUserData(null);
           setIsAuthenticated(false);
         }
       },
+      onError: (error) => {
+        addToast({
+          type: "error",
+          message: generateApiMessage(error),
+          timer: 2000,
+        });
+      },
       refetchOnWindowFocus: false,
     }
   );
-  console.log(sessionLoading);
   const router = useRouter();
 
   const { mutate: classicLoginMutation, isLoading: classicLoginLoading } =
@@ -90,13 +105,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {
         onSuccess: async (res) => {
           await createSession(res.accessToken);
-          setIsAuthenticated(true);
           setUserData({
             email: res.email,
             username: res.username,
           });
           queryClient.invalidateQueries("refreshSession");
           router.push("/");
+        },
+        onError: (error) => {
+          addToast({
+            type: "error",
+            message: generateApiMessage(error),
+            timer: 2000,
+          });
         },
       }
     );
@@ -121,13 +142,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {
         onSuccess: async (res) => {
           await createSession(res.accessToken);
-          setIsAuthenticated(true);
           setUserData({
             email: res.email,
             username: res.username,
           });
           queryClient.invalidateQueries("refreshSession");
           router.push("/");
+        },
+        onError: (error) => {
+          addToast({
+            type: "error",
+            message: generateApiMessage(error),
+            timer: 2000,
+          });
         },
       }
     );

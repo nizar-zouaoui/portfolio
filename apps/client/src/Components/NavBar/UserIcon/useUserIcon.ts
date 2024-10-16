@@ -1,5 +1,3 @@
-import { useQuery } from "react-query";
-import { updateSession } from "../../../Contexts/AuthContext/sessionHandlers";
 import { useAuth } from "../../../Contexts/AuthContext";
 import { useState } from "react";
 

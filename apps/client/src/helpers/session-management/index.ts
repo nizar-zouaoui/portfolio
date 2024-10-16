@@ -1,6 +1,7 @@
 import "server-only";
 import { cookies } from "next/headers";
 import Api from "../../sdks";
+import { UpdateSessionReturnType, SESSION_STATUS } from "./SessionTypes";
 
 const expiresIn = process.env.NEXT_PUBLIC_JWT_EXPIRES_IN
   ? Number(process.env.NEXT_PUBLIC_JWT_EXPIRES_IN)
@@ -51,22 +52,3 @@ export const updateSession = async (): Promise<UpdateSessionReturnType> => {
 export const deleteSession = () => {
   cookies().delete("AUTH_SESSION");
 };
-
-export enum SESSION_STATUS {
-  SESSION_UPDATED = "SESSION_UPDATED",
-  SESSION_DELETED = "SESSION_DELETED",
-}
-
-export type UpdateSessionReturnType =
-  | {
-      sessionStatus: SESSION_STATUS.SESSION_UPDATED;
-      userData: {
-        email: string;
-        username: string;
-      };
-    }
-  | {
-      sessionStatus: SESSION_STATUS.SESSION_DELETED;
-      userData: null;
-    }
-  | null;

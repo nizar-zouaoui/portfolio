@@ -2,7 +2,6 @@
 import {
   createSession,
   deleteSession,
-  SESSION_STATUS,
   updateSession,
 } from "../../../helpers/session-management";
 import { NextResponse } from "next/server";

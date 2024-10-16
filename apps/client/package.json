@@ -9,6 +9,7 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@nizar-repo/toast": "*",
     "@nizar-repo/auth-sdk": "*",
     "@nizar-repo/authenticator": "*",
     "@nizar-repo/server-sdk": "*",

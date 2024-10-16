@@ -4,6 +4,7 @@ import Navbar from "../Components/NavBar";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { DarkModeProvider } from "@nizar-repo/ui";
 import Script from "next/script";
+import { ToastProvider } from "@nizar-repo/toast/Context/ToastContext";
 
 const queryClient = new QueryClient();
 
@@ -64,10 +65,12 @@ export default function Wrapper({
       `}</Script>
       <QueryClientProvider client={queryClient}>
         <DarkModeProvider>
-          <AuthProvider>
-            <Navbar />
-            {children}
-          </AuthProvider>
+          <ToastProvider>
+            <AuthProvider>
+              <Navbar />
+              {children}
+            </AuthProvider>
+          </ToastProvider>
         </DarkModeProvider>
       </QueryClientProvider>
     </>
