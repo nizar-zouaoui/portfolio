@@ -1,16 +1,16 @@
+import Toasts from "@nizar-repo/toast/Toasts";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./NavBar";
-import SideBar from "./SideBar";
 import PageHeader from "./PageHeader";
+import SideBar from "./SideBar";
 import { links, sideBarLinks } from "./links";
-import Toasts from "@nizar-repo/toast/Toasts";
 import useLayout from "./useLayout";
 
 // Extract PageName as a union of pageName values
 export type PageName = (typeof links)[number]["pageName"];
 
-const Layout = () => {
+const Layout: React.FC = () => {
   const { isAuthenticated, toasts } = useLayout();
 
   return (

@@ -1,8 +1,7 @@
-import React from "react";
-import useAddMarketingTarget from "./useAddMarketingTarget";
-import MarketingTargetForm from "../Forms/MarketingTargetForm";
-import usePageHeaderInit from "../../../contexts/PageHeaderContext/usePageHeaderInit";
+import usePageHeaderInit from "contexts/PageHeaderContext/usePageHeaderInit";
 import { FaUsers } from "react-icons/fa";
+import MarketingTargetForm from "../Forms/MarketingTargetForm";
+import useAddMarketingTarget from "./useAddMarketingTarget";
 
 const AddMarketingTarget = () => {
   const { onSubmit, isLoading } = useAddMarketingTarget();

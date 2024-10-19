@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
 import { SignUpForm } from "@nizar-repo/authenticator";
-import useClassicSignUp from "./useClassicSignUp";
 import Link from "next/link";
+import useClassicSignUp from "./useClassicSignUp";
 
 const SignUp = () => {
   const { onSubmit, loading } = useClassicSignUp();

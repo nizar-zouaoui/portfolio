@@ -1,11 +1,10 @@
-import React from "react";
-import { Button, ControlledDataTable } from "@nizar-repo/ui";
 import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
-import useMarketingTargetsList from "./useMarketingTargetsList";
-import SEOHelmet from "../../../components/SEO";
-import usePageHeaderInit from "../../../contexts/PageHeaderContext/usePageHeaderInit";
+import { Button, ControlledDataTable } from "@nizar-repo/ui";
+import SEOHelmet from "components/SEO";
+import usePageHeaderInit from "contexts/PageHeaderContext/usePageHeaderInit";
 import { FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useMarketingTargetsList from "./useMarketingTargetsList";
 const MarketingTargetsList = () => {
   usePageHeaderInit({
     title: "Marketing Targets",

@@ -1,7 +1,5 @@
+import marketingTargetRoutes, { marketingLinks } from "pages/MarketingTargets";
 import { Navigate, RouteObject } from "react-router-dom";
-import marketingTargetRoutes, {
-  marketingLinks,
-} from "../../pages/MarketingTargets";
 
 const routes: RouteObject[] = [
   {

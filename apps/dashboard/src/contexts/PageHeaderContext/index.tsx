@@ -1,4 +1,4 @@
-import { PageName } from "../../components/Layout";
+import { PageName } from "components/Layout";
 import React, { createContext, ReactNode, useState } from "react";
 
 export type PageHeaderContextType = {

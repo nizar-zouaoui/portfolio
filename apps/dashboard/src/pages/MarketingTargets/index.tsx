@@ -1,9 +1,9 @@
-import { RouteObject } from "react-router-dom";
-import MarketingTargetsList from "./MarketingTargetsList";
 import { FaUsers } from "react-icons/fa";
+import { RouteObject } from "react-router-dom";
+import Api from "sdks";
 import AddMarketingTarget from "./AddMarketingTarget";
 import EditMarketingTarget from "./EditMarketingTarget";
-import Api from "../../sdks";
+import MarketingTargetsList from "./MarketingTargetsList";
 
 const fetchMarketingTarget = async (id: string) =>
   Api.marketingTargetsSDK.getMarketingTargetDataById({

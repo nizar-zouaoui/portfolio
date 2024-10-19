@@ -1,12 +1,12 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
-import Api from "../../../sdks";
 import {
   LeanMarketingTargetDocument,
   MarketingTargetRouteTypes,
 } from "@nizar-repo/marketing-targets-types";
-import { useMutation, useQueryClient } from "react-query";
 import useToastContext from "@nizar-repo/toast/Context/useToastContext";
-import generateApiMessage from "../../../helpers/generateApiMessage";
+import generateApiMessage from "helpers/generateApiMessage";
+import { useMutation, useQueryClient } from "react-query";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import Api from "sdks";
 
 type EditMarketingTargetType =
   MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["body"];

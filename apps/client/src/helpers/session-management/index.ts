@@ -1,7 +1,7 @@
-import "server-only";
 import { cookies } from "next/headers";
-import Api from "../../sdks";
-import { UpdateSessionReturnType, SESSION_STATUS } from "./SessionTypes";
+import Api from "sdks";
+import "server-only";
+import { SESSION_STATUS, UpdateSessionReturnType } from "./SessionTypes";
 
 const expiresIn = process.env.NEXT_PUBLIC_JWT_EXPIRES_IN
   ? Number(process.env.NEXT_PUBLIC_JWT_EXPIRES_IN)

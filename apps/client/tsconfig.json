@@ -1,6 +1,7 @@
 {
   "extends": "@nizar-repo/typescript-config/nextjs.json",
   "compilerOptions": {
+    "baseUrl": "./src",
     "plugins": [
       {
         "name": "next"

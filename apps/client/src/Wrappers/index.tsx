@@ -1,10 +1,10 @@
 "use client";
-import { AuthProvider } from "../Contexts/AuthContext";
-import Navbar from "../Components/NavBar";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { DarkModeProvider } from "@nizar-repo/ui";
-import Script from "next/script";
 import { ToastProvider } from "@nizar-repo/toast/Context/ToastContext";
+import { DarkModeProvider } from "@nizar-repo/ui";
+import Navbar from "Components/NavBar";
+import { AuthProvider } from "Contexts/AuthContext";
+import Script from "next/script";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 

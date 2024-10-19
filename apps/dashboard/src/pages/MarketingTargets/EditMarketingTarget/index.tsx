@@ -1,8 +1,7 @@
+import usePageHeaderInit from "contexts/PageHeaderContext/usePageHeaderInit";
 import { FaUsers } from "react-icons/fa";
-import usePageHeaderInit from "../../../contexts/PageHeaderContext/usePageHeaderInit";
-import React from "react";
-import useEditMarketingTarget from "./useEditMarketingTarget";
 import MarketingTargetForm from "../Forms/MarketingTargetForm";
+import useEditMarketingTarget from "./useEditMarketingTarget";
 
 const EditMarketingTarget = () => {
   const { defaultValues, onSubmit, isLoading } = useEditMarketingTarget();

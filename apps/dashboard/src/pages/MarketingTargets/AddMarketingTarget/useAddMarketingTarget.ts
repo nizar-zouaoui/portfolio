@@ -1,9 +1,9 @@
 import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
-import { useMutation, useQueryClient } from "react-query";
-import Api from "../.././../sdks";
-import { useNavigate } from "react-router-dom";
 import useToastContext from "@nizar-repo/toast/Context/useToastContext";
-import generateApiMessage from "../../../helpers/generateApiMessage";
+import generateApiMessage from "helpers/generateApiMessage";
+import { useMutation, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
+import Api from "sdks";
 export type AddMarketingTargetProps =
   MarketingTargetRouteTypes["/marketing-targets/"]["POST"]["body"];
 

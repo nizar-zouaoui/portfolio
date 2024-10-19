@@ -1,9 +1,9 @@
 "use client";
+import { Button } from "@nizar-repo/ui";
+import Link from "next/link";
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { Button } from "@nizar-repo/ui";
 import useUserIcon from "./useUserIcon";
-import Link from "next/link";
 
 const UserIcon: React.FC = () => {
   const { dropdownOpen, setDropdownOpen, userData, handleLogout } =

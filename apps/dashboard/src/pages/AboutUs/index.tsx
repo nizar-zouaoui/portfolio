@@ -1,6 +1,5 @@
-import usePageHeaderInit from "../../contexts/PageHeaderContext/usePageHeaderInit";
-import SEOHelmet from "../../components/SEO";
-import React from "react";
+import SEOHelmet from "components/SEO";
+import usePageHeaderInit from "contexts/PageHeaderContext/usePageHeaderInit";
 import { FaQuestionCircle } from "react-icons/fa";
 
 const AboutUs = () => {

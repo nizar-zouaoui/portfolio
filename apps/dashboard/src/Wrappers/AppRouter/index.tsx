@@ -1,4 +1,5 @@
-import useAuth from "../../contexts/AuthContext/useAuth";
+import Layout from "components/Layout";
+import useAuth from "contexts/AuthContext/useAuth";
 import {
   createBrowserRouter,
   RouteObject,
@@ -7,7 +8,6 @@ import {
 import authRoutes from "../AuthRoutes";
 import privateRoutes from "../PrivateRoutes";
 import publicRoutes from "../PublicRoutes";
-import Layout from "../../components/Layout";
 
 const AppRouter = () => {
   const { isAuthenticated } = useAuth();

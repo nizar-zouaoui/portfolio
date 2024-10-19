@@ -2,13 +2,13 @@ import {
   PaginationQuery,
   SortDirection,
 } from "@nizar-repo/shared-types/PaginationTypes";
-import { useState, useEffect } from "react";
+import useToastContext from "@nizar-repo/toast/Context/useToastContext";
+import generateApiMessage from "helpers/generateApiMessage";
+import getInitalQueryParams from "helpers/getInitialQueryParams";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSearchParams } from "react-router-dom";
-import Api from "../../../sdks";
-import getInitalQueryParams from "../../../helpers/getInitialQueryParams";
-import generateApiMessage from "../../../helpers/generateApiMessage";
-import useToastContext from "@nizar-repo/toast/Context/useToastContext";
+import Api from "sdks";
 
 const fetchFunction = (query: PaginationQuery) =>
   Api.marketingTargetsSDK.getMarketingTargetData({ query });

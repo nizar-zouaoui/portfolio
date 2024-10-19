@@ -2,7 +2,6 @@ import { DarkMode } from "@nizar-repo/ui";
 import NavBarLinks, { LinkProp } from "../NavBarLinks";
 import HomeIcon from "./HomeIcon";
 import UserIcon from "./UserIcon";
-
 const LINKS: LinkProp[] = [
   {
     pageName: "Home",

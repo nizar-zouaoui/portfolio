@@ -1,5 +1,5 @@
 import useToastContext from "@nizar-repo/toast/Context/useToastContext";
-import useAuth from "../../contexts/AuthContext/useAuth";
+import useAuth from "contexts/AuthContext/useAuth";
 
 const useLayout = () => {
   const { isAuthenticated } = useAuth();

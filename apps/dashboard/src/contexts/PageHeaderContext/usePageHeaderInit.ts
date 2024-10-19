@@ -1,6 +1,6 @@
+import { PageName } from "components/Layout";
 import { useEffect } from "react";
 import usePageHeader from "./usePageHeader";
-import { PageName } from "../../components/Layout";
 
 interface PageHeaderInitProps {
   title: PageName;

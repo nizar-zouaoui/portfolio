@@ -1,6 +1,6 @@
+import LoginPage from "pages/Login";
 import { MdLogin } from "react-icons/md";
 
-import LoginPage from "../../pages/Login";
 import { Navigate, RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [

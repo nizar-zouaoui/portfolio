@@ -1,8 +1,8 @@
-import SEOHelmet from "../../components/SEO";
-import Login from "../../components/Login";
+import Login from "components/Login";
+import SEOHelmet from "components/SEO";
 import React from "react";
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   return (
     <>
       <SEOHelmet

@@ -1,8 +1,8 @@
-import generateLinksTree from "../../../helpers/generateLinksTree";
+import generateLinksTree from "helpers/generateLinksTree";
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import renderTree from "./SideBarLinkTrees";
 import { LinkProp } from "../NavBarLinks";
+import renderTree from "./SideBarLinkTrees";
 
 const useSideBar = ({ links }: { links: LinkProp[] }) => {
   const location = useLocation();

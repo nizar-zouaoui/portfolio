@@ -1,7 +1,7 @@
+import { Button } from "@nizar-repo/ui";
+import useAuth from "contexts/AuthContext/useAuth";
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { Button } from "@nizar-repo/ui";
-import useAuth from "../../../../contexts/AuthContext/useAuth";
 import { Link } from "react-router-dom";
 
 const UserIcon: React.FC = () => {

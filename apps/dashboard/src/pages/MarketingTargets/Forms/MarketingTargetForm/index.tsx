@@ -2,14 +2,12 @@ import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
 import countryCodes from "./countryCodes.json";
 
 import { Button, IBasicForm, Input, Select } from "@nizar-repo/ui";
+import { isValidNumber } from "libphonenumber-js";
 import React from "react";
 import { FormProvider } from "react-hook-form";
 import useMarketingTargetForm from "./useMarketingTargetForm";
-import { isValidNumber } from "libphonenumber-js";
 export type AddMarketingTargetType =
-  MarketingTargetRouteTypes["/marketing-targets/"]["POST"]["body"] & {
-    countryCode: string;
-  };
+  MarketingTargetRouteTypes["/marketing-targets/"]["POST"]["body"];
 
 export type EditMarketingTargetType =
   MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["body"];

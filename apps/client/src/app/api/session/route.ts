@@ -3,9 +3,9 @@ import {
   createSession,
   deleteSession,
   updateSession,
-} from "../../../helpers/session-management";
-import { NextResponse } from "next/server";
+} from "helpers/session-management";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   if (req.method === "POST") {

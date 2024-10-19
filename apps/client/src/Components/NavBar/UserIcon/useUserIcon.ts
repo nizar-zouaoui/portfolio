@@ -1,4 +1,4 @@
-import { useAuth } from "../../../Contexts/AuthContext";
+import { useAuth } from "Contexts/AuthContext";
 import { useState } from "react";
 
 const useUserIcon = () => {

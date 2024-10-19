@@ -1,7 +1,7 @@
-import AboutUs from "../../pages/AboutUs";
-import Home from "../../pages/Home";
-import { RouteObject } from "react-router-dom";
+import AboutUs from "pages/AboutUs";
+import Home from "pages/Home";
 import { FaHome, FaQuestionCircle } from "react-icons/fa";
+import { RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [
   {

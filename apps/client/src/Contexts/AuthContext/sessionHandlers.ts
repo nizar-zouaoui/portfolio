@@ -1,4 +1,4 @@
-import { UpdateSessionReturnType } from "../../helpers/session-management/SessionTypes";
+import { UpdateSessionReturnType } from "helpers/session-management/SessionTypes";
 
 export const createSession = (accessToken: string) =>
   fetch("/api/session", {

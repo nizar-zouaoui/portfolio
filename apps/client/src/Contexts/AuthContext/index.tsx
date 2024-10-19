@@ -1,24 +1,24 @@
 "use client";
 import { AuthMethods } from "@nizar-repo/auth-types";
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import Api from "../../sdks";
-import { useRouter } from "next/navigation";
-import { createSession, deleteSession, updateSession } from "./sessionHandlers";
 import {
   ClassicLoginBodyType,
   ClassicSignUpBodyType,
   UserData,
 } from "@nizar-repo/authenticator";
+import useToastContext from "@nizar-repo/toast/Context/useToastContext";
+import { Loader } from "@nizar-repo/ui";
+import generateApiMessage from "helpers/generateApiMessage";
+import { SESSION_STATUS } from "helpers/session-management/SessionTypes";
+import { useRouter } from "next/navigation";
+import { createContext, ReactNode, useContext, useState } from "react";
 import {
   UseMutateFunction,
   useMutation,
   useQuery,
   useQueryClient,
 } from "react-query";
-import { Loader } from "@nizar-repo/ui";
-import useToastContext from "@nizar-repo/toast/Context/useToastContext";
-import generateApiMessage from "../../helpers/generateApiMessage";
-import { SESSION_STATUS } from "../../helpers/session-management/SessionTypes";
+import Api from "../../sdks";
+import { createSession, deleteSession, updateSession } from "./sessionHandlers";
 
 interface AuthContextType {
   token: string | null;

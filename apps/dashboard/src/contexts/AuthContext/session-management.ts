@@ -1,4 +1,4 @@
-import Api from "../../sdks";
+import Api from "sdks";
 
 const expiresIn = process.env.VITE_JWT_EXPIRES_IN
   ? Number(process.env.VITE_JWT_EXPIRES_IN)

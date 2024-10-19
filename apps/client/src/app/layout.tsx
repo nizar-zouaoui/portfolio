@@ -2,8 +2,6 @@ import "@nizar-repo/tailwindcss-config/tailwind/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Wrapper from "../Wrappers";
-import Head from "next/head";
-import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 

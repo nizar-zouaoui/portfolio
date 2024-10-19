@@ -1,5 +1,4 @@
-import usePageHeader from "../../../contexts/PageHeaderContext/usePageHeader";
-import React from "react";
+import usePageHeader from "contexts/PageHeaderContext/usePageHeader";
 
 const PageHeader = () => {
   const { title, description, buttons, icon } = usePageHeader();

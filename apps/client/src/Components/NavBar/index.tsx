@@ -1,9 +1,9 @@
-import UserIcon from "./UserIcon";
-import Links, { LinkProp } from "./Links";
-import HomeIcon from "./HomeIcon";
-import { DarkMode } from "@nizar-repo/ui";
 import useToastContext from "@nizar-repo/toast/Context/useToastContext";
 import Toasts from "@nizar-repo/toast/Toasts";
+import { DarkMode } from "@nizar-repo/ui";
+import HomeIcon from "./HomeIcon";
+import Links, { LinkProp } from "./Links";
+import UserIcon from "./UserIcon";
 
 const LINKS: LinkProp[] = [
   {

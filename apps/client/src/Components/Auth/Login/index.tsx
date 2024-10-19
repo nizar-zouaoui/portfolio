@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
-import useClassicLogin from "./useClassicLogin";
 import { LoginForm } from "@nizar-repo/authenticator";
 import Link from "next/link";
+import useClassicLogin from "./useClassicLogin";
 
 const Login = () => {
   const { onSubmit, loading } = useClassicLogin();

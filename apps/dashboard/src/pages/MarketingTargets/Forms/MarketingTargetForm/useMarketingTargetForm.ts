@@ -1,6 +1,6 @@
+import { isValidNumber } from "libphonenumber-js";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddMarketingTargetType, EditMarketingTargetType } from ".";
-import { isValidNumber } from "libphonenumber-js";
 
 type FormProps = {
   defaultValues?: EditMarketingTargetType;
@@ -10,7 +10,11 @@ type FormProps = {
 const useMarketingTargetForm = ({ defaultValues, onSubmit }: FormProps) => {
   const isPhoneNumber = isValidNumber(defaultValues?.phoneNumber || "");
 
-  const formMethods = useForm<AddMarketingTargetType>({
+  const formMethods = useForm<
+    AddMarketingTargetType & {
+      countryCode: string;
+    }
+  >({
     defaultValues: {
       ...defaultValues,
       countryCode: isPhoneNumber

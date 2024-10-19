@@ -1,5 +1,4 @@
-import { LinksTree } from "../../../../helpers/generateLinksTree";
-import React from "react";
+import { LinksTree } from "helpers/generateLinksTree";
 import { Link } from "react-router-dom";
 
 const renderTree = (nodes: LinksTree[], currentPath: string) => {
