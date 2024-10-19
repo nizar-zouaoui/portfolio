@@ -1,5 +1,5 @@
 {
-  "name": "@nizar-repo/protfolio-marketing-targets",
+  "name": "@nizar-repo/marketing-targets",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -11,6 +11,7 @@
     "@nizar-repo/marketing-targets-types": "*",
     "@nizar-repo/route-protection": "*",
     "@nizar-repo/shared-types": "*",
+    "@edonec/logger": "0.0.9",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-validator": "7.0.1",

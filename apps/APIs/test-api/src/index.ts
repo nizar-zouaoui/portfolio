@@ -5,6 +5,7 @@ import { json } from "body-parser";
 import router from "./routes";
 import mongoose, { ConnectOptions, connect } from "mongoose";
 import cors from "cors";
+import logger from "@edonec/logger";
 const databaseConfig: ConnectOptions = {
   user: process.env.DATABASE_USER,
   pass: process.env.DATABASE_PASSWORD,
@@ -24,7 +25,7 @@ mongoose.Promise = Promise;
 connect(`${process.env.DATABASE_URI}`, databaseConfig)
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`🚀 Server listening at http://localhost:${PORT}`);
+      logger.info(`🚀 Server listening at http://localhost:${PORT}`);
     });
   })
   .catch(console.error);

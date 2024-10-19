@@ -1,3 +1,4 @@
+import logger from "@edonec/logger";
 import { AuthMethods, IAuth, IUser } from "@nizar-repo/auth-types";
 import {
   DEFAULT_ROLES_NAMES,
@@ -34,13 +35,13 @@ async function hashPassword(password: string): Promise<string> {
 const seedRole = async () => {
   try {
     const role = await Role.create(godRole);
-    console.log("GOD Role Created Successfully");
+    logger.info("GOD Role Created Successfully");
     await Role.create(userRole);
-    console.log("USER Role Created Successfully");
+    logger.info("USER Role Created Successfully");
     return role;
   } catch (error) {
     if (!(error instanceof mongo.MongoServerError && error.code === 11000)) {
-      console.log("============error=============");
+      logger.info("============error=============");
       throw error;
     }
     return;
@@ -53,20 +54,20 @@ const seedAuth = async () => {
       ...rootAuth,
       password: await hashPassword(rootAuth.password),
     });
-    console.log("Root Auth Created Successfully");
+    logger.info("Root Auth Created Successfully");
     return auth;
   } catch (error) {
-    console.log(error);
+    logger.error(error);
   }
 };
 
 const seedUser = async () => {
   try {
     const user = new User(rootUser);
-    console.log("Root User Created Successfully");
+    logger.info("Root User Created Successfully");
     return user;
   } catch (error) {
-    console.log(error);
+    logger.error(error);
   }
 };
 const seed = async () => {
@@ -83,12 +84,12 @@ const seed = async () => {
     await auth.save();
     await user.save();
   } catch (error) {
-    console.log("Auth and User already seeded!");
+    logger.info("Auth and User already seeded!");
     return;
   }
-  console.log("GOD Role Seeded Successfully");
-  console.log("Root Auth Seeded Successfully");
-  console.log("Root User Seeded Successfully");
+  logger.info("GOD Role Seeded Successfully");
+  logger.info("Root Auth Seeded Successfully");
+  logger.info("Root User Seeded Successfully");
 };
 
 seed();

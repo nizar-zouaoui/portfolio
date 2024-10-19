@@ -5,6 +5,7 @@ import router from "./routes";
 import mongoose, { ConnectOptions, connect } from "mongoose";
 import cors from "cors";
 import "dotenv/config";
+import logger from "@edonec/logger";
 
 const databaseConfig: ConnectOptions = {
   user: process.env.DATABASE_USER,
@@ -25,7 +26,7 @@ connect(`${process.env.DATABASE_URI}`, databaseConfig)
   .then(() => {
     app.listen(PORT, () => {
       import("helpers/seed");
-      console.log(`🚀 Server listening at http://localhost:${PORT}`);
+      logger.info(`🚀 Server listening at http://localhost:${PORT}`);
     });
   })
   .catch(console.error);
