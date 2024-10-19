@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import {
   body,
-  validationResult,
   check,
   Result,
   ValidationError,
+  validationResult,
 } from "express-validator";
-import { TestType } from "../../models";
 import createHttpError from "http-errors";
+import { TestType } from "models";
 
 const formatErrors = (errors: Result<ValidationError>) => ({
   fields: errors.array(),

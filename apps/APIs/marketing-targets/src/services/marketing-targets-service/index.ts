@@ -1,8 +1,8 @@
-import { IMarketingTarget } from "@nizar-repo/marketing-targets-types";
-import MarketingTargets from "models";
-import createHttpError from "http-errors";
 import { handleDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
+import { IMarketingTarget } from "@nizar-repo/marketing-targets-types";
 import { PaginationQuery } from "@nizar-repo/shared-types/PaginationTypes";
+import createHttpError from "http-errors";
+import MarketingTargets from "models";
 
 export const getMarketingTargetData = async (
   userId: string,

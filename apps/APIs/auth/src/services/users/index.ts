@@ -6,13 +6,13 @@ import {
   UserRouteTypes,
 } from "@nizar-repo/auth-types";
 import { DEFAULT_ROLES_NAMES } from "@nizar-repo/auth-types/enums/defaultRoles";
+import { handleDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
 import getFullUserAggregation from "helpers/getFullUserAggregation";
 import getUserWithRoleAggregation from "helpers/getUserWithRoleAggregation";
 import createHttpError from "http-errors";
 import User from "models/users";
 import { FilterQuery } from "mongoose";
 import * as rolesServices from "services/roles";
-import { handleDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
 
 export const getUsers = async () => {
   const godRole = await rolesServices.getRoleByName(DEFAULT_ROLES_NAMES.GOD);

@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import * as marketingTargetServices from "../../services/marketing-targets-service";
 import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
 import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType";
+import { Request, Response } from "express";
+import * as marketingTargetServices from "services/marketing-targets-service";
 
 export const getMarketingTargetData = async (
   req: Request<

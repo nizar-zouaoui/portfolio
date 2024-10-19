@@ -3,12 +3,12 @@ import {
   MarketingTargetModel,
   MarketingTargetsTypeStaticMethods,
 } from "@nizar-repo/marketing-targets-types";
-import { model, Schema } from "mongoose";
 import {
   PaginatedResult,
   PaginationQuery,
 } from "@nizar-repo/shared-types/PaginationTypes";
 import getPaginationPipeline from "helpers/findPaginated";
+import { model, Schema } from "mongoose";
 
 const marketingTargetsSchema = new Schema<
   LeanMarketingTargetDocument,

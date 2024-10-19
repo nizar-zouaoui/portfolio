@@ -4,17 +4,17 @@ import {
   LeanAuthDocument,
   LeanUserDocument,
 } from "@nizar-repo/auth-types";
-import getAuthWithUserAggregation from "helpers/getAuthWithUserAggregation";
-import Auth from "models/auth";
-import createHtpError from "http-errors";
-import User from "models/users";
-import { sign } from "jsonwebtoken";
-import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType";
-import * as usersServices from "services/users";
-import * as rolesServices from "services/roles";
 import { DEFAULT_ROLES_NAMES } from "@nizar-repo/auth-types/enums/defaultRoles";
 import { handleDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
 import { validateToken } from "@nizar-repo/route-protection";
+import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType";
+import getAuthWithUserAggregation from "helpers/getAuthWithUserAggregation";
+import createHtpError from "http-errors";
+import { sign } from "jsonwebtoken";
+import Auth from "models/auth";
+import User from "models/users";
+import * as rolesServices from "services/roles";
+import * as usersServices from "services/users";
 
 export const classicSignIn = async ({
   email,

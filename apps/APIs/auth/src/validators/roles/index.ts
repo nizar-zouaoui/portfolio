@@ -1,13 +1,13 @@
-import { NextFunction, Request, Response } from "express";
-import { body, param, validationResult } from "express-validator";
 import {
   ACCESS_PRIVILEGE,
   IAccessResource,
   RESOURCE,
   RoleRouteTypes,
 } from "@nizar-repo/auth-types";
-import createHttpError from "http-errors";
+import { NextFunction, Request, Response } from "express";
+import { body, param, validationResult } from "express-validator";
 import { formatValidationErrors } from "helpers/formatValidationErrors";
+import createHttpError from "http-errors";
 
 export const createRoleValidation = (
   req: Request<any, any, RoleRouteTypes["/roles/"]["POST"]["body"], any>,

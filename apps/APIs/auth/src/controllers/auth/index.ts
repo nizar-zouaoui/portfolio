@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import * as authServices from "../../services/auth";
 import { AuthRouteTypes } from "@nizar-repo/auth-types";
 import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType";
+import { Request, Response } from "express";
 import createHttpError from "http-errors";
+import * as authServices from "services/auth";
 
 export const classicSignIn = async (
   req: Request<

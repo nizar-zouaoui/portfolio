@@ -1,8 +1,8 @@
-import * as rolesController from "../../controllers/roles";
-import * as rolesValidator from "../../validators/roles";
-import { router } from "../../init";
-import { protectRoute } from "@nizar-repo/route-protection";
 import { ACCESS_PRIVILEGE, RESOURCE } from "@nizar-repo/auth-types";
+import { protectRoute } from "@nizar-repo/route-protection";
+import * as rolesController from "controllers/roles";
+import { router } from "init";
+import * as rolesValidator from "validators/roles";
 
 const BASE_ROUTE = "/roles";
 

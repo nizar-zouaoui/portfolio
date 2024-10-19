@@ -1,6 +1,6 @@
 import { RoleRouteTypes } from "@nizar-repo/auth-types";
-import Role from "models/roles";
 import createHttpError from "http-errors";
+import Role from "models/roles";
 import * as usersServices from "services/users";
 
 export const createRole = async (

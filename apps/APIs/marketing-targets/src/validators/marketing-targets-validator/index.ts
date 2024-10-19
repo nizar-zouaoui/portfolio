@@ -3,10 +3,10 @@ import { SortDirection } from "@nizar-repo/shared-types/PaginationTypes";
 import { NextFunction, Request, Response } from "express";
 import {
   body,
-  validationResult,
   check,
   Result,
   ValidationError,
+  validationResult,
 } from "express-validator";
 import createHttpError from "http-errors";
 import { isValidNumber } from "libphonenumber-js";

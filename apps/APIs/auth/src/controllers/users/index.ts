@@ -1,10 +1,7 @@
 import { UserRouteTypes } from "@nizar-repo/auth-types";
-import createHttpError from "http-errors";
-import User from "models/users";
-import { mongo } from "mongoose";
-import * as usersServices from "services/users";
-import { Request, Response } from "express";
 import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType";
+import { Request, Response } from "express";
+import * as usersServices from "services/users";
 export const getUsers = async (
   _: Request<unknown, unknown, unknown, unknown>,
   res: Response<UserRouteTypes["/users/"]["GET"]["response"]>

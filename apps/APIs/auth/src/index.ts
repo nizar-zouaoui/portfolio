@@ -1,11 +1,11 @@
-import express from "express";
-import { baseUrl } from "./init";
+import logger from "@edonec/logger";
 import { json } from "body-parser";
-import router from "./routes";
-import mongoose, { ConnectOptions, connect } from "mongoose";
 import cors from "cors";
 import "dotenv/config";
-import logger from "@edonec/logger";
+import express from "express";
+import { baseUrl } from "init";
+import mongoose, { ConnectOptions, connect } from "mongoose";
+import router from "routes";
 
 const databaseConfig: ConnectOptions = {
   user: process.env.DATABASE_USER,

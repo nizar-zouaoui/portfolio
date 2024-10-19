@@ -1,4 +1,4 @@
-import { TestType, Tester } from "../../models";
+import { TestType, Tester } from "models";
 
 export const getTestData = async () => {
   const testData = await Tester.find();

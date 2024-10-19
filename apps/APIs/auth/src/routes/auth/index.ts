@@ -1,8 +1,8 @@
-import * as authController from "../../controllers/auth";
-import * as authValidator from "../../validators/auth";
-import { router } from "../../init";
 import { ACCESS_PRIVILEGE, RESOURCE } from "@nizar-repo/auth-types";
 import { protectRoute } from "@nizar-repo/route-protection";
+import * as authController from "controllers/auth";
+import { router } from "init";
+import * as authValidator from "validators/auth";
 
 const BASE_ROUTE = "/auth";
 

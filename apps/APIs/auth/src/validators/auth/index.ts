@@ -1,8 +1,8 @@
+import { AuthRouteTypes } from "@nizar-repo/auth-types";
 import { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import { AuthRouteTypes } from "@nizar-repo/auth-types";
-import createHttpError from "http-errors";
 import { formatValidationErrors } from "helpers/formatValidationErrors";
+import createHttpError from "http-errors";
 
 export const classicSignInValidation = (
   req: Request<

@@ -1,8 +1,8 @@
+import { UserRouteTypes } from "@nizar-repo/auth-types";
 import { NextFunction, Request, Response } from "express";
 import { body, param, validationResult } from "express-validator";
-import { UserRouteTypes } from "@nizar-repo/auth-types";
-import createHttpError from "http-errors";
 import { formatValidationErrors } from "helpers/formatValidationErrors";
+import createHttpError from "http-errors";
 
 export const createUserValidation = (
   req: Request<any, any, UserRouteTypes["/users/"]["POST"]["body"], any>,
