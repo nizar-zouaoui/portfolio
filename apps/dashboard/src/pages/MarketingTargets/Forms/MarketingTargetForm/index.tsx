@@ -1,10 +1,15 @@
 import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
-import { Button, IBasicForm, Input } from "@nizar-repo/ui";
+import countryCodes from "./countryCodes.json";
+
+import { Button, IBasicForm, Input, Select } from "@nizar-repo/ui";
 import React from "react";
 import { FormProvider } from "react-hook-form";
 import useMarketingTargetForm from "./useMarketingTargetForm";
+import { isValidNumber } from "libphonenumber-js";
 export type AddMarketingTargetType =
-  MarketingTargetRouteTypes["/marketing-targets/"]["POST"]["body"];
+  MarketingTargetRouteTypes["/marketing-targets/"]["POST"]["body"] & {
+    countryCode: string;
+  };
 
 export type EditMarketingTargetType =
   MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["body"];
@@ -21,7 +26,10 @@ const MarketingTargetForm: React.FC<IMarketingTargetFormProps> = ({
   });
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={handleSubmit} className="bg-slate-200 p-6 shadow-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-slate-200 dark:bg-slate-800 p-6 shadow-lg"
+      >
         <div className="grid gap-6 mb-6">
           <div>
             <Input
@@ -57,19 +65,38 @@ const MarketingTargetForm: React.FC<IMarketingTargetFormProps> = ({
             />
           </div>
 
-          <div>
-            <Input
-              control={formMethods.control}
-              name="phoneNumber"
-              defaultValue=""
-              displayName="Phone Number"
-              label="Phone Number"
-              placeholder="Insert phone number"
-              autoComplete="phoneNumber"
-              rules={{
-                required: "Phone Number is required",
-              }}
-            />
+          <div className="flex space-x-2">
+            <div>
+              <Select
+                control={formMethods.control}
+                name="countryCode"
+                options={countryCodes}
+                displayName="Country code"
+                label="Country code"
+                placeholder="Select country code"
+                rules={{
+                  required: "Country code is required",
+                }}
+              />
+            </div>
+            <div className="flex-grow">
+              <Input
+                control={formMethods.control}
+                name="phoneNumber"
+                defaultValue=""
+                displayName="Phone Number"
+                label="Phone Number"
+                placeholder="Insert phone number"
+                autoComplete="phoneNumber"
+                rules={{
+                  required: "Phone Number is required",
+                  validate: (value) =>
+                    isValidNumber(
+                      `+${formMethods.getValues("countryCode")}-${value}`
+                    ) || "Invalid Phone Number",
+                }}
+              />
+            </div>
           </div>
         </div>
 

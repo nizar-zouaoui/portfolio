@@ -7,14 +7,15 @@
     "start": "nodemon --exec ts-node -r dotenv/config src/index.ts"
   },
   "dependencies": {
-    "@nizar-repo/shared-types": "*",
     "@nizar-repo/custom-router": "*",
-    "@nizar-repo/route-protection": "*",
     "@nizar-repo/marketing-targets-types": "*",
+    "@nizar-repo/route-protection": "*",
+    "@nizar-repo/shared-types": "*",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-validator": "7.0.1",
     "http-errors": "^2.0.0",
+    "libphonenumber-js": "^1.11.12",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3"
   },

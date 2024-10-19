@@ -21,6 +21,8 @@ interface IInput<TFieldValues extends FieldValues> {
   type?: HTMLInputTypeAttribute;
   defaultValue?: TFieldValues[Path<TFieldValues>];
   autoComplete?: string;
+  leftIcon?: React.ReactNode; // Optional left icon
+  rightIcon?: React.ReactNode; // Optional right icon
 }
 
 const Input = <TFieldValues extends FieldValues>({
@@ -32,6 +34,8 @@ const Input = <TFieldValues extends FieldValues>({
   type = "text",
   defaultValue,
   autoComplete,
+  leftIcon, // Optional left icon
+  rightIcon, // Optional right icon
 }: IInput<TFieldValues>) => {
   const {
     formState: { errors },
@@ -54,7 +58,12 @@ const Input = <TFieldValues extends FieldValues>({
           {label}
         </label>
       )}
-      <div className="relative">
+      <div className="relative flex items-center">
+        {leftIcon && (
+          <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
+            {leftIcon}
+          </span>
+        )}
         <Controller
           name={name}
           control={control}
@@ -64,14 +73,16 @@ const Input = <TFieldValues extends FieldValues>({
             <input
               id={inputId}
               autoComplete={autoComplete}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-${
+                leftIcon ? "10" : "2.5"
+              } pr-${rightIcon || type === "password" ? "10" : "2.5"} dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500`}
               type={inputType}
               placeholder={placeholder || ""}
               {...field}
             />
           )}
         />
-        {type === "password" && (
+        {type === "password" ? (
           <button
             type="button"
             onClick={toggleViewPassword}
@@ -79,7 +90,11 @@ const Input = <TFieldValues extends FieldValues>({
           >
             {viewPassword ? "Hide" : "Show"}
           </button>
-        )}
+        ) : rightIcon ? (
+          <span className="absolute inset-y-0 right-0 pr-3 flex items-center">
+            {rightIcon}
+          </span>
+        ) : null}
       </div>
       {errors[name] && (
         <span className="text-red-600 dark:text-red-400 text-sm mt-1">

@@ -9,6 +9,7 @@ import {
   ValidationError,
 } from "express-validator";
 import createHttpError from "http-errors";
+import { isValidNumber } from "libphonenumber-js";
 
 const formatErrors = (errors: Result<ValidationError>) => ({
   fields: errors.array(),
@@ -67,7 +68,9 @@ export const addMarketingTargetDataValidator = [
     .withMessage(
       "Full Name can only contain letters, spaces, hyphens, and apostrophes."
     ),
-  body("phoneNumber", "Invalid Phone Number").isMobilePhone("any"),
+  body("phoneNumber")
+    .custom((value) => isValidNumber(value))
+    .withMessage("Invalid Phone Number"),
 ];
 
 export const getMarketingTargetDataByIdValidation = (
@@ -119,7 +122,10 @@ export const updateMarketingTargetDataValidator = [
     .withMessage(
       "Full Name can only contain letters, spaces, hyphens, and apostrophes."
     ),
-  body("phoneNumber", "Invalid Phone Number").optional().isMobilePhone("any"),
+  body("phoneNumber")
+    .optional()
+    .custom((value) => isValidNumber(value))
+    .withMessage("Invalid Phone Number"),
 ];
 
 export const deleteMarketingTargetDataValidation = (

@@ -7,3 +7,5 @@ export { default as ControlledDataTable } from "./src/components/DataTable/Contr
 export { useDarkMode } from "./src/DarkModeProvider/useDarkMode";
 export { default as DarkModeProvider } from "./src/DarkModeProvider";
 export { default as DarkMode } from "./src/DarkModeProvider/DarkMode";
+export { default as Select } from "./src/components/forms/Select";
+export { default as Option } from "./src/components/forms/Select/Option";
