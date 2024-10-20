@@ -6,9 +6,9 @@ import useAddMarketingTarget from "./useAddCategory";
 const AddMarketingTarget = () => {
   const { onSubmit, isLoading } = useAddMarketingTarget();
   usePageHeaderInit({
-    title: "Create New Marketing Target",
+    title: "Create New Category",
     description:
-      "Create New Marketing Target page is destined to create a new marketing target.",
+      "Create New Categroy page is destined to create a new categroy.",
     icon: <FaUsers />,
   });
   return (

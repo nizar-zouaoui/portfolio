@@ -43,14 +43,14 @@ export const categoriesLinks = [
   },
   {
     main: false,
-    pageName: "Create New Categroy",
+    pageName: "Create New Category",
     path: "/categories/add",
     icon: <BiSolidCategory />,
   },
 
   {
     main: false,
-    pageName: "Edit Categroy",
+    pageName: "Edit Category",
     path: "/categories/edit/:id",
     icon: <BiSolidCategory />,
   },
