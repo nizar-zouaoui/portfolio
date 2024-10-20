@@ -172,5 +172,7 @@ export const addMarketingTargetDataBulkValidator = [
   body().isArray(),
   body("*.email", "Invalid Email").isEmail(),
   body("*.fullName", "Invalid Full Name").isAlpha(),
-  body("*.phoneNumber", "Invalid Phone Number").isMobilePhone("any"),
+  body("*.phoneNumber")
+    .custom((value) => isValidNumber(value))
+    .withMessage("Invalid Phone Number"),
 ];
