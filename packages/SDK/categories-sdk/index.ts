@@ -12,7 +12,7 @@ const _baseUrl = !isClientRequest
 
 let baseUrl = "";
 
-export class MarketingTargetsSDK extends ServerSDK {
+export class CategoriesSDK extends ServerSDK {
   constructor(api: ApiSDK) {
     super(api);
     if (api.baseURL.force) baseUrl = api.baseURL.hostname + suffix;

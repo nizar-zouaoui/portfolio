@@ -18,6 +18,7 @@ export default routes;
 
 export const homeLinks = [
   {
+    main: true,
     pageName: "Simple Deliver",
     path: "/",
     icon: <FaHome />,
@@ -26,6 +27,7 @@ export const homeLinks = [
 
 export const aboutUsLinks = [
   {
+    main: true,
     pageName: "About Us",
     path: "/about-us",
     icon: <FaQuestionCircle />,

@@ -12,7 +12,7 @@ import { model, Schema } from "mongoose";
 
 const categoriesSchema = new Schema<LeanCategoryDocument, CategoryModel>(
   {
-    description: { type: String },
+    description: { type: String, required: true },
     title: { type: String, required: true },
     imgUrl: { type: String },
     userId: { type: String, required: true, ref: "Users" },

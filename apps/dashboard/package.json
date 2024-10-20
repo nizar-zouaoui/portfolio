@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nizar-repo/auth-sdk": "*",
+    "@nizar-repo/categories-sdk": "*",
     "@nizar-repo/server-sdk": "*",
     "@nizar-repo/toast": "*",
     "@nizar-repo/ui": "*",

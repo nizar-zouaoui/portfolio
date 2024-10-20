@@ -18,6 +18,7 @@ export default routes;
 
 export const authLinks = [
   {
+    main: true,
     pageName: "Login",
     path: "/login",
     icon: <MdLogin />,

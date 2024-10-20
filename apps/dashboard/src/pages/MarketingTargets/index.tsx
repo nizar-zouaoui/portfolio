@@ -35,17 +35,20 @@ export default routes;
 
 export const marketingLinks = [
   {
+    main: true,
     pageName: "Marketing Targets",
     path: "/marketing-targets",
     icon: <FaUsers />,
   },
   {
+    main: false,
     pageName: "Create New Marketing Target",
     path: "/marketing-targets/add",
     icon: <FaUsers />,
   },
 
   {
+    main: false,
     pageName: "Edit Marketing Target",
     path: "/marketing-targets/edit/:id",
     icon: <FaUsers />,

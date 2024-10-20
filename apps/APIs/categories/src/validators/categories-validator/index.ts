@@ -58,7 +58,8 @@ export const addCategoryValidation = (
 
 export const addCategoryValidator = [
   body("title", "Invalid Title").isString(),
-  body("description", "Invalid Description").optional().isString(),
+  body("description", "Invalid Description").isString(),
+  body("imgUrl", "Invalid Image Url").optional().isString(),
 ];
 
 export const getCategoryByIdValidation = (
@@ -101,6 +102,7 @@ export const updateCategoryValidator = [
   check("id").isMongoId(),
   body("title", "Invalid Title").optional().isString(),
   body("description", "Invalid Description").optional().isString(),
+  body("imgUrl", "Invalid Image Url").optional().isString(),
 ];
 
 export const deleteCategoryValidation = (
@@ -142,5 +144,6 @@ export const addCategoryBulkValidation = (
 export const addCategoryBulkValidator = [
   body().isArray(),
   body("*.title", "Invalid Title").isString(),
-  body("*.description", "Invalid Description").optional().isString(),
+  body("*.description", "Invalid Description").isString(),
+  body("*.imgUrl", "Invalid Image Url").optional().isString(),
 ];
