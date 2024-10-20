@@ -12,5 +12,6 @@ export enum RESOURCE {
   USERS = "USERS",
   ROLES = "ROLES",
   MARKETING_TARGETS = "MARKETING_TARGETS",
+  CATEGORIES = "CATEGORIES",
   "*" = "*",
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@nizar-repo/test-api",
+  "name": "@nizar-repo/categories",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,7 +9,7 @@
   "dependencies": {
     "@nizar-repo/custom-router": "*",
     "@nizar-repo/route-protection": "*",
-    "@nizar-repo/auth-types": "*",
+    "@nizar-repo/categories-types": "*",
     "@nizar-repo/shared-types": "*",
     "@edonec/logger": "0.0.9",
     "cors": "^2.8.5",
