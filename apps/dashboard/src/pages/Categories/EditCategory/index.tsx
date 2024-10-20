@@ -6,9 +6,8 @@ import useEditMarketingTarget from "./useEditCategory";
 const EditMarketingTarget = () => {
   const { defaultValues, onSubmit, isLoading } = useEditMarketingTarget();
   usePageHeaderInit({
-    title: "Edit Marketing Target",
-    description:
-      "Edit Marketing Target page is destined to edit a marketing target.",
+    title: "Edit Category",
+    description: "Edit Category page is destined to edit a category.",
     icon: <FaUsers />,
   });
   return (
