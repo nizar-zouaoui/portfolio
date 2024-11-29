@@ -21,7 +21,13 @@ export class CategoriesSDK extends ServerSDK {
     }
   }
 
-  async getCategory({
+  async getAllCategoriesTitles() {
+    const response = await this.api.get<
+      CategoryRouteTypes["/categories/all-titles"]["GET"]["response"]
+    >(`${baseUrl}/categories/all-titles`);
+    return response.data;
+  }
+  async getCategoriesPaginated({
     query,
   }: {
     query: CategoryRouteTypes["/categories/"]["GET"]["query"];

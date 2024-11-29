@@ -4,7 +4,7 @@ import MarketingTargetForm from "../Forms/MarketingTargetForm";
 import useAddMarketingTarget from "./useAddMarketingTarget";
 
 const AddMarketingTarget = () => {
-  const { onSubmit, isLoading } = useAddMarketingTarget();
+  const { onSubmit, isLoading, categoryTitles } = useAddMarketingTarget();
   usePageHeaderInit({
     title: "Create New Marketing Target",
     description:
@@ -13,7 +13,11 @@ const AddMarketingTarget = () => {
   });
   return (
     <div className="w-2/3 lg:w-1/2 mx-auto mt-8">
-      <MarketingTargetForm loading={isLoading} onSubmit={onSubmit} />
+      <MarketingTargetForm
+        categoryTitles={categoryTitles}
+        loading={isLoading}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 };

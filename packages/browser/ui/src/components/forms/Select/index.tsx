@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Control,
   Controller,
@@ -8,12 +7,14 @@ import {
   useFormContext,
 } from "react-hook-form";
 
+export type ISelectOption = { value: string; label: string };
+
 interface ISelect<TFieldValues extends FieldValues> {
   name: Path<TFieldValues>;
   label?: string;
   displayName?: string;
   placeholder?: string;
-  options: { value: string; label: string }[]; // Array of options for the select
+  options: ISelectOption[]; // Array of options for the select
   rules?: Omit<
     RegisterOptions<TFieldValues, Path<TFieldValues>>,
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"

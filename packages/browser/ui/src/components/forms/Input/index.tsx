@@ -21,8 +21,8 @@ interface IInput<TFieldValues extends FieldValues> {
   type?: HTMLInputTypeAttribute;
   defaultValue?: TFieldValues[Path<TFieldValues>];
   autoComplete?: string;
-  leftIcon?: React.ReactNode; // Optional left icon
-  rightIcon?: React.ReactNode; // Optional right icon
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
 
 const Input = <TFieldValues extends FieldValues>({
@@ -34,8 +34,8 @@ const Input = <TFieldValues extends FieldValues>({
   type = "text",
   defaultValue,
   autoComplete,
-  leftIcon, // Optional left icon
-  rightIcon, // Optional right icon
+  leftIcon,
+  rightIcon,
 }: IInput<TFieldValues>) => {
   const {
     formState: { errors },

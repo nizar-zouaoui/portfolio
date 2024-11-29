@@ -14,6 +14,11 @@ router.get(
   categoryController.getCategories
 );
 router.get(
+  `${BASE_ROUTE}/all-titles`,
+  protectRoute(ACCESS_PRIVILEGE.READ_ALL, RESOURCE.CATEGORIES),
+  categoryController.getAllCategoriesTitles
+);
+router.get(
   `${BASE_ROUTE}/:id`,
   protectRoute(ACCESS_PRIVILEGE.READ, RESOURCE.CATEGORIES),
   ...categoryValidator.getCategoryByIdValidator,

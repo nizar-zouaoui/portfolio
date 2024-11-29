@@ -50,4 +50,10 @@ export type CategoryRouteTypes = {
       response: string;
     };
   };
+
+  "/categories/all-titles": {
+    GET: {
+      response: Pick<LeanCategoryDocument, "_id" | "title">[];
+    };
+  };
 };

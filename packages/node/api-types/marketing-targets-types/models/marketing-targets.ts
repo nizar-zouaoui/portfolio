@@ -1,13 +1,14 @@
-import { Types, HydratedDocument, FlattenMaps, Model } from "mongoose";
 import {
-  PaginationQuery,
   PaginatedResult,
+  PaginationQuery,
 } from "@nizar-repo/shared-types/PaginationTypes";
+import { FlattenMaps, HydratedDocument, Model, Types } from "mongoose";
 export interface IMarketingTarget {
   email: string;
   fullName: string;
   phoneNumber: string;
   userId: string;
+  categoryIds: string[];
 }
 
 export interface IMarketingTargetDocument extends IMarketingTarget {}

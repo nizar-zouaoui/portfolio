@@ -19,6 +19,7 @@ const marketingTargetsSchema = new Schema<
     fullName: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     userId: { type: String, required: true, ref: "Users" },
+    categoryIds: [{ type: String }],
   },
   { timestamps: true }
 );

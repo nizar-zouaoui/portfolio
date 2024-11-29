@@ -1,7 +1,8 @@
 import { MarketingTargetRouteTypes } from "@nizar-repo/marketing-targets-types";
 import countryCodes from "./countryCodes.json";
 
-import { Button, IBasicForm, Input, Select } from "@nizar-repo/ui";
+import { Button, IBasicForm, Input, MultiSelect, Select } from "@nizar-repo/ui";
+import { ISelectOption } from "@nizar-repo/ui/src/components/forms/Select";
 import { isValidNumber } from "libphonenumber-js";
 import React from "react";
 import { FormProvider } from "react-hook-form";
@@ -11,12 +12,15 @@ export type AddMarketingTargetType =
 
 export type EditMarketingTargetType =
   MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["body"];
-type IMarketingTargetFormProps = IBasicForm<AddMarketingTargetType>;
+type IMarketingTargetFormProps = IBasicForm<AddMarketingTargetType> & {
+  categoryTitles: ISelectOption[];
+};
 
 const MarketingTargetForm: React.FC<IMarketingTargetFormProps> = ({
   defaultValues,
   onSubmit,
   loading,
+  categoryTitles,
 }) => {
   const { formMethods, handleSubmit } = useMarketingTargetForm({
     defaultValues,
@@ -95,6 +99,16 @@ const MarketingTargetForm: React.FC<IMarketingTargetFormProps> = ({
                 }}
               />
             </div>
+          </div>
+
+          <div>
+            <MultiSelect
+              control={formMethods.control}
+              name="categoryIds"
+              options={categoryTitles}
+              label="Categories"
+              placeholder="Select categories"
+            />
           </div>
         </div>
 

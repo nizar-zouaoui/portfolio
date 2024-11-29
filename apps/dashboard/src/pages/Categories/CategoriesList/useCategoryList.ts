@@ -11,7 +11,7 @@ import { useSearchParams } from "react-router-dom";
 import Api from "sdks";
 
 const fetchFunction = (query: PaginationQuery) =>
-  Api.categoriesSDK.getCategory({ query });
+  Api.categoriesSDK.getCategoriesPaginated({ query });
 
 const useCategoriesList = () => {
   const queryClient = useQueryClient();

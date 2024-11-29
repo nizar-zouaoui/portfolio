@@ -3,6 +3,16 @@ import { PaginationQuery } from "@nizar-repo/shared-types/PaginationTypes";
 import createHttpError from "http-errors";
 import Category from "models";
 
+export const getAllCategoriesTitles = async (userId: string) => {
+  const categories = await Category.find(
+    { userId },
+    {
+      title: 1,
+    }
+  ).lean();
+  return categories;
+};
+
 export const getCategories = async (userId: string, query: PaginationQuery) => {
   const categories = await Category.findPaginated(userId, query);
   return categories;

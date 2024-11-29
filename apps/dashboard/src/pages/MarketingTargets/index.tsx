@@ -4,11 +4,17 @@ import Api from "sdks";
 import AddMarketingTarget from "./AddMarketingTarget";
 import EditMarketingTarget from "./EditMarketingTarget";
 import MarketingTargetsList from "./MarketingTargetsList";
+const formatCategories = (category: { _id: string; title: string }) => ({
+  label: category.title,
+  value: category._id,
+});
 
 const fetchMarketingTarget = async (id: string) =>
   Api.marketingTargetsSDK.getMarketingTargetDataById({
     params: { id },
   });
+const fetchCategoriesTitles = async () =>
+  Api.categoriesSDK.getAllCategoriesTitles();
 
 const routes: RouteObject[] = [
   {
@@ -18,6 +24,17 @@ const routes: RouteObject[] = [
   {
     path: "add",
     element: <AddMarketingTarget />,
+    loader: async () => {
+      const categoryTitles = await fetchCategoriesTitles();
+      return {
+        categoryTitles: categoryTitles.map((category) =>
+          formatCategories({
+            _id: category._id.toString(),
+            title: category.title,
+          })
+        ),
+      };
+    },
   },
   {
     path: "edit/:id",
@@ -26,7 +43,16 @@ const routes: RouteObject[] = [
       const { id } = params;
       if (!id) throw new Error("Id is required for this route");
       const marketingTarget = await fetchMarketingTarget(id);
-      return { marketingTarget };
+      const categoryTitles = await fetchCategoriesTitles();
+      return {
+        marketingTarget,
+        categoryTitles: categoryTitles.map((category) =>
+          formatCategories({
+            _id: category._id.toString(),
+            title: category.title,
+          })
+        ),
+      };
     },
     errorElement: <div>Failed to load data</div>,
   },

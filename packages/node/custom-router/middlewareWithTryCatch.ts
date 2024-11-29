@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { IMiddleware } from "./IMiddleware";
 import { ValidationError } from "express-validator";
+import { IMiddleware } from "./IMiddleware";
 type ErrorType = {
   stack?: string;
   message: string;

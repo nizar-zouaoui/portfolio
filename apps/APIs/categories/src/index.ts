@@ -28,4 +28,4 @@ connect(`${process.env.DATABASE_URI}`, databaseConfig)
       logger.info(`🚀 Server listening at http://localhost:${PORT}`);
     });
   })
-  .catch(console.error);
+  .catch(logger.error);

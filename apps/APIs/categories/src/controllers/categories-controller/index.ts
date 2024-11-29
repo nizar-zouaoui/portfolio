@@ -22,6 +22,19 @@ export const getCategories = async (
   res.status(200).send(response);
 };
 
+export const getAllCategoriesTitles = async (
+  _: Request<unknown, unknown, unknown, unknown>,
+  res: Response<
+    CategoryRouteTypes["/categories/all-titles"]["GET"]["response"],
+    { token: TokenPayloadType }
+  >
+) => {
+  const response = await categoryServices.getAllCategoriesTitles(
+    res.locals.token.userId
+  );
+  res.status(200).send(response);
+};
+
 export const getCategoryById = async (
   req: Request<
     CategoryRouteTypes["/categories/:id"]["GET"]["params"],

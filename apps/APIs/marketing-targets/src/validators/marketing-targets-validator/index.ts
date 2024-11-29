@@ -10,6 +10,7 @@ import {
 } from "express-validator";
 import createHttpError from "http-errors";
 import { isValidNumber } from "libphonenumber-js";
+import { isValidObjectId } from "mongoose";
 
 const formatErrors = (errors: Result<ValidationError>) => ({
   fields: errors.array(),
@@ -64,13 +65,24 @@ export const addMarketingTargetDataValidation = (
 export const addMarketingTargetDataValidator = [
   body("email", "Invalid Email").isEmail(),
   body("fullName", "Invalid Full Name")
-    .matches(/^[a-zA-Z\s'-]+$/) // Regex to allow letters, spaces, apostrophes, and hyphens
+    .matches(/^[a-zA-Z\s'-]+$/)
     .withMessage(
       "Full Name can only contain letters, spaces, hyphens, and apostrophes."
     ),
   body("phoneNumber")
     .custom((value) => isValidNumber(value))
     .withMessage("Invalid Phone Number"),
+  body("categoryIds")
+    .optional()
+    .isArray()
+    .custom((categoryIds: string[]) => {
+      if (categoryIds.length === 0) {
+        return true;
+      }
+      return categoryIds.every((categoryId) => {
+        return isValidObjectId(categoryId);
+      });
+    }),
 ];
 
 export const getMarketingTargetDataByIdValidation = (
@@ -118,7 +130,7 @@ export const updateMarketingTargetDataValidator = [
   body("email", "Invalid Email").optional().isEmail(),
   body("fullName", "Invalid Full Name")
     .optional()
-    .matches(/^[a-zA-Z\s'-]+$/) // Regex to allow letters, spaces, apostrophes, and hyphens
+    .matches(/^[a-zA-Z\s'-]+$/)
     .withMessage(
       "Full Name can only contain letters, spaces, hyphens, and apostrophes."
     ),
@@ -126,6 +138,8 @@ export const updateMarketingTargetDataValidator = [
     .optional()
     .custom((value) => isValidNumber(value))
     .withMessage("Invalid Phone Number"),
+  body("categoryIds").optional().isArray(),
+  body("categoryIds.*").isMongoId(),
 ];
 
 export const deleteMarketingTargetDataValidation = (

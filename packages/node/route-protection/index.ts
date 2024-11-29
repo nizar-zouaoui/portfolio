@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from "express";
 import { ACCESS_PRIVILEGE, RESOURCE } from "@nizar-repo/auth-types";
 import { DEFAULT_ROLES_NAMES } from "@nizar-repo/auth-types/enums/defaultRoles";
+import { NextFunction, Request, Response } from "express";
 import createError from "http-errors";
-import { IAccessResource, IRole, TokenPayloadType } from "./tokenPayloadType";
 import { verify } from "jsonwebtoken";
+import { IAccessResource, IRole, TokenPayloadType } from "./tokenPayloadType";
 
 export const protectRoute =
   (accessPrivilege: ACCESS_PRIVILEGE, resource: RESOURCE) =>

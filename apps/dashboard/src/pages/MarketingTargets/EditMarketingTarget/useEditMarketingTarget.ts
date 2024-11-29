@@ -3,6 +3,7 @@ import {
   MarketingTargetRouteTypes,
 } from "@nizar-repo/marketing-targets-types";
 import useToastContext from "@nizar-repo/toast/Context/useToastContext";
+import { ISelectOption } from "@nizar-repo/ui/src/components/forms/Select";
 import generateApiMessage from "helpers/generateApiMessage";
 import { useMutation, useQueryClient } from "react-query";
 import { useLoaderData, useNavigate } from "react-router-dom";
@@ -12,8 +13,9 @@ type EditMarketingTargetType =
   MarketingTargetRouteTypes["/marketing-targets/:id"]["PATCH"]["body"];
 
 const useEditMarketingTarget = () => {
-  const { marketingTarget } = useLoaderData() as {
+  const { marketingTarget, categoryTitles } = useLoaderData() as {
     marketingTarget: LeanMarketingTargetDocument;
+    categoryTitles: ISelectOption[];
   };
 
   const queryClient = useQueryClient();
@@ -51,8 +53,10 @@ const useEditMarketingTarget = () => {
       email: marketingTarget.email,
       fullName: marketingTarget.fullName,
       phoneNumber: marketingTarget.phoneNumber,
+      categoryIds: marketingTarget.categoryIds,
     },
     onSubmit: (data: EditMarketingTargetType) => addMarketingTarget(data),
+    categoryTitles,
     isLoading,
   };
 };

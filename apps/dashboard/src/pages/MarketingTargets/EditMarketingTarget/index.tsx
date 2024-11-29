@@ -4,7 +4,8 @@ import MarketingTargetForm from "../Forms/MarketingTargetForm";
 import useEditMarketingTarget from "./useEditMarketingTarget";
 
 const EditMarketingTarget = () => {
-  const { defaultValues, onSubmit, isLoading } = useEditMarketingTarget();
+  const { defaultValues, onSubmit, isLoading, categoryTitles } =
+    useEditMarketingTarget();
   usePageHeaderInit({
     title: "Edit Marketing Target",
     description:
@@ -17,6 +18,7 @@ const EditMarketingTarget = () => {
         defaultValues={defaultValues}
         loading={isLoading}
         onSubmit={onSubmit}
+        categoryTitles={categoryTitles}
       />
     </div>
   );
