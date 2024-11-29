@@ -1,8 +1,8 @@
 import { ACCESS_PRIVILEGE, RESOURCE } from "@nizar-repo/auth-types";
 import { protectRoute } from "@nizar-repo/route-protection";
-import * as marketingTargetsController from "controllers/marketing-targets-controller";
+import * as marketingTargetsController from "controllers/marketing-targets";
 import { router } from "init";
-import * as marketingTargetsValidator from "validators/marketing-targets-validator";
+import * as marketingTargetsValidator from "validators/marketing-targets";
 
 const BASE_ROUTE = "/marketing-targets";
 

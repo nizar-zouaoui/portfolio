@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { TestType } from "models";
-import * as testServices from "services/test-service";
+import * as testServices from "services/testservice";
 
 export const getTestData = async (_req: Request, res: Response) => {
   const response = await testServices.getTestData();

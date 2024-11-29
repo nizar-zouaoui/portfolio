@@ -1,5 +1,5 @@
 import { router } from "init";
-import testRoute from "./test-route";
+import testRoute from "./testroute";
 router.use(testRoute);
 
 export default router;

@@ -1,7 +1,7 @@
 import { CategoryRouteTypes } from "@nizar-repo/categories-types";
 import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType";
 import { Request, Response } from "express";
-import * as categoryServices from "services/categories-service";
+import * as categoryServices from "services/categories";
 
 export const getCategories = async (
   req: Request<

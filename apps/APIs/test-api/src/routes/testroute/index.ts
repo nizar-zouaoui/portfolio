@@ -1,6 +1,6 @@
-import * as testController from "controllers/test-controller";
+import * as testController from "controllers/testcontroller";
 import { router } from "init";
-import * as testValidator from "validators/test-validator";
+import * as testValidator from "validators/testvalidator";
 
 router.get("/", testController.getTestData);
 router.get(

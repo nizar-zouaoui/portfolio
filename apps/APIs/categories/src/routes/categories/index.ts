@@ -1,8 +1,8 @@
 import { ACCESS_PRIVILEGE, RESOURCE } from "@nizar-repo/auth-types";
 import { protectRoute } from "@nizar-repo/route-protection";
-import * as categoryController from "controllers/categories-controller";
+import * as categoryController from "controllers/categories";
 import { router } from "init";
-import * as categoryValidator from "validators/categories-validator";
+import * as categoryValidator from "validators/categories";
 
 const BASE_ROUTE = "/categories";
 
