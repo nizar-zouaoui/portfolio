@@ -181,12 +181,27 @@ export const addMarketingTargetDataBulkValidation = (
   }
   throw createHttpError(422, formatErrors(errors));
 };
-
+// instead of checking req.body, i want to check res.locals.data
 export const addMarketingTargetDataBulkValidator = [
-  body().isArray(),
-  body("*.email", "Invalid Email").isEmail(),
-  body("*.fullName", "Invalid Full Name").isAlpha(),
-  body("*.phoneNumber")
+  body("data").isArray(),
+  body("data.*.email", "Invalid Email").isEmail(),
+  body("data.*.fullName", "Invalid Full Name")
+    .matches(/^[a-zA-Z\s'-]+$/)
+    .withMessage(
+      "Full Name can only contain letters, spaces, hyphens, and apostrophes."
+    ),
+  body("data.*.phoneNumber")
     .custom((value) => isValidNumber(value))
     .withMessage("Invalid Phone Number"),
+  body("data.*.categoryIds")
+    .optional()
+    .isArray()
+    .custom((categoryIds: string[]) => {
+      if (categoryIds.length === 0) {
+        return true;
+      }
+      return categoryIds.every((categoryId) => {
+        return isValidObjectId(categoryId);
+      });
+    }),
 ];
