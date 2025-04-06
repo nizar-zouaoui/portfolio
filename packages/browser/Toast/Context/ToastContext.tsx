@@ -1,5 +1,4 @@
 import React, { createContext, ReactNode, useState } from "react";
-import Toasts from "../Toasts";
 import { IToast } from "..";
 
 export type ToastContextType = {

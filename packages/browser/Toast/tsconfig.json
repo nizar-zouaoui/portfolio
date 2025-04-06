@@ -1,8 +1,15 @@
 {
   "extends": "@nizar-repo/typescript-config/react-library.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "noEmit": false,
+    "composite": false,
+    "declarationMap": false,
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "strict": true
   },
-  "include": ["src", "index.tsx"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["."],
+  "exclude": ["node_modules", "dist", "build"]
 }
