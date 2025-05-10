@@ -7,7 +7,7 @@ import {
 export type PatientRouteTypes = {
   "/patients/": {
     POST: {
-      body: Omit<IPatient, "userId">;
+      body: IPatient;
       response: string;
     };
     GET: {
