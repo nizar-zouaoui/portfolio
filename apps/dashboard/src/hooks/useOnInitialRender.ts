@@ -1,6 +1,6 @@
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-const useOnInitalRender = (
+const useOnInitialRender = (
   callback: () => void,
   deps?: React.DependencyList
 ) => {
@@ -14,4 +14,4 @@ const useOnInitalRender = (
   }, [callback, deps]);
 };
 
-export default useOnInitalRender;
+export default useOnInitialRender;

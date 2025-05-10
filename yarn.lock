@@ -607,13 +607,6 @@
   dependencies:
     eslint-scope "5.1.1"
 
-"@nizar-repo/toast@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@nizar-repo/toast/-/toast-1.0.0.tgz#fc757eb3be0e6b0939a73ea195c5797ea3cade74"
-  integrity sha512-69ArtEtJiKMXUTQmns26Q0xSbdYeu1R5G4RpSgWKehVLdj1ZCsLDBdS+AhrSjUn+ohbTVgP4H5KySwoA3PGTSA==
-  dependencies:
-    react "18.3.1"
-
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"

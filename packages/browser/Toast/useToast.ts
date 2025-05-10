@@ -1,12 +1,12 @@
 import { useState } from "react";
 import useToastContext from "./Context/useToastContext";
-import useOnInitalRender from "./helpers/useOnInitalRender";
+import useOnInitialRender from "./helpers/useOnInitialRender";
 
 const useToast = ({ id, timer }: { id: string; timer: number }) => {
   const { removeToast } = useToastContext();
   const [isExiting, setIsExiting] = useState(false);
 
-  useOnInitalRender(() => {
+  useOnInitialRender(() => {
     const displayTimer = setTimeout(() => {
       setIsExiting(true);
     }, timer);
