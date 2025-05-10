@@ -1,11 +1,17 @@
 import categoryRoutes, { categoriesLinks } from "pages/Categories";
 import marketingTargetRoutes, { marketingLinks } from "pages/MarketingTargets";
+import patientRoutes, { patientsLinks } from "pages/Patients";
 import { Navigate, RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [
   {
     path: "/marketing-targets",
     children: marketingTargetRoutes,
+  },
+
+  {
+    path: "/patients",
+    children: patientRoutes,
   },
   {
     path: "/categories",
@@ -19,4 +25,8 @@ const routes: RouteObject[] = [
 
 export default routes;
 
-export const privateLinks = [...marketingLinks, ...categoriesLinks] as const;
+export const privateLinks = [
+  ...marketingLinks,
+  ...categoriesLinks,
+  ...patientsLinks,
+] as const;
