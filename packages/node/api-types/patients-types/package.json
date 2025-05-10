@@ -1,6 +1,10 @@
 {
+  "name": "@nizar-repo/patients-types",
   "version": "0.0.1",
-  "name": "@nizar-repo/auth-sdk",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
   "scripts": {
     "clean": "rimraf build",
     "build": "yarn clean && yarn build:cjs",
@@ -9,8 +13,7 @@
     "build:types": "tsc --p tsconfig.types.prod.json"
   },
   "dependencies": {
-    "axios": "1.4.0",
-    "@nizar-repo/auth-types": "*",
-    "@nizar-repo/server-sdk": "*"
+    "mongoose": "8.4.4",
+    "shared-types": "*"
   }
 }
