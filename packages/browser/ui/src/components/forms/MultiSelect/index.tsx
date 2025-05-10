@@ -53,6 +53,7 @@ const MultiSelect = <TFieldValues extends FieldValues>({
     };
   }, []);
 
+  const required = rules?.required;
   return (
     <>
       <div>
@@ -62,6 +63,9 @@ const MultiSelect = <TFieldValues extends FieldValues>({
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100"
           >
             {label}
+            {required ? (
+              <span className="text-red-600 dark:text-red-400"> *</span>
+            ) : null}
           </label>
         )}
         <Controller

@@ -38,6 +38,7 @@ const Select = <TFieldValues extends FieldValues>({
 
   const selectId = `${name}-select`;
 
+  const required = rules?.required;
   return (
     <>
       {label && (
@@ -46,6 +47,9 @@ const Select = <TFieldValues extends FieldValues>({
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100"
         >
           {label}
+          {required ? (
+            <span className="text-red-600 dark:text-red-400"> *</span>
+          ) : null}
         </label>
       )}
       <div className="relative flex items-center">
