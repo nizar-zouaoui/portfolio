@@ -55,9 +55,16 @@ export const addPatientDataValidator = [
       "Full Name can only contain letters, spaces, hyphens, and apostrophes."
     ),
   body("phoneNumber")
-    .custom((value) => isValidNumber(value))
+    .custom((value) => isValidNumber(`+216-${value}`))
     .withMessage("Invalid Phone Number"),
-  body("birthDate").isDate().withMessage("Invalid Birth Date"),
+  body("birthDate")
+    .custom((value) => {
+      if (value) {
+        return !isNaN(Date.parse(value));
+      }
+      return true;
+    })
+    .withMessage("Invalid Birth Date"),
 ];
 
 export const getPatientDataByIdValidation = (
@@ -107,9 +114,17 @@ export const updatePatientDataValidator = [
     ),
   body("phoneNumber")
     .optional()
-    .custom((value) => isValidNumber(value))
+    .custom((value) => isValidNumber(`+216-${value}`))
     .withMessage("Invalid Phone Number"),
-  body("birthDate").optional().isDate().withMessage("Invalid Birth Date"),
+  body("birthDate")
+    .optional()
+    .custom((value) => {
+      if (value) {
+        return !isNaN(Date.parse(value));
+      }
+      return true;
+    })
+    .withMessage("Invalid Birth Date"),
 ];
 
 export const deletePatientDataValidation = (
@@ -157,10 +172,15 @@ export const addPatientDataBulkValidator = [
       "Full Name can only contain letters, spaces, hyphens, and apostrophes."
     ),
   body("data.*.phoneNumber")
-    .custom((value) => isValidNumber(value))
+    .custom((value) => isValidNumber(`+216-${value}`))
     .withMessage("Invalid Phone Number"),
   body("data.*.birthDate")
     .optional()
-    .isDate()
+    .custom((value) => {
+      if (value) {
+        return !isNaN(Date.parse(value));
+      }
+      return true;
+    })
     .withMessage("Invalid Birth Date"),
 ];
