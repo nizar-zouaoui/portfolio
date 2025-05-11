@@ -9,6 +9,7 @@
   "dependencies": {
     "@nizar-repo/custom-router": "*",
     "@nizar-repo/patients-types": "*",
+    "@nizar-repo/medical-histories-sdk": "*",
     "@nizar-repo/route-protection": "*",
     "@nizar-repo/shared-types": "*",
     "@edonec/logger": "0.0.9",

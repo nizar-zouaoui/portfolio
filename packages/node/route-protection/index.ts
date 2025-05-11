@@ -1,8 +1,11 @@
 import { ACCESS_PRIVILEGE, RESOURCE } from "@nizar-repo/auth-types";
-import { DEFAULT_ROLES_NAMES } from "@nizar-repo/auth-types/enums/defaultRoles";
+import {
+  DEFAULT_ROLES_NAMES,
+  godRole,
+} from "@nizar-repo/auth-types/enums/defaultRoles";
 import { NextFunction, Request, Response } from "express";
 import createError from "http-errors";
-import { verify } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 import { IAccessResource, IRole, TokenPayloadType } from "./tokenPayloadType";
 
 export const protectRoute =
@@ -59,4 +62,13 @@ const validateRole = (role: IRole, requiredAccessResource: IAccessResource) => {
     );
   }
   return hasAccess;
+};
+
+export const createFakeToken = () => {
+  if (!process.env.JWT_SECRET_KEY)
+    throw createError(500, "JWT_SECRET_KEY env is not provided!");
+  const payload = {
+    role: godRole,
+  };
+  return sign(payload, process.env.JWT_SECRET_KEY);
 };

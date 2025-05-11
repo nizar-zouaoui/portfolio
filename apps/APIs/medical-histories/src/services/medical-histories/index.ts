@@ -20,7 +20,8 @@ export const getMedicalHistoryDataById = async (
 
 export const addMedicalHistoryData = async (data: IMedicalHistory) => {
   try {
-    await MedicalHistories.create({ ...data });
+    const medicalHistory = await MedicalHistories.create({ ...data });
+    return medicalHistory._id.toString();
   } catch (error) {
     throw handleDuplicateFieldsError(error);
   }

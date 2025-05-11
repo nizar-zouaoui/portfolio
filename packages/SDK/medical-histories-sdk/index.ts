@@ -99,9 +99,10 @@ export class MedicalHistoriesSDK extends ServerSDK {
   }: {
     body: MedicalHistoryRouteTypes["/medical-histories/"]["POST"]["body"];
   }) {
-    return this.api.post<
+    const response = await this.api.post<
       MedicalHistoryRouteTypes["/medical-histories/"]["POST"]["response"]
     >(`${baseUrl}/medical-histories`, body);
+    return response.data;
   }
 
   async updateMedicalHistoryData({

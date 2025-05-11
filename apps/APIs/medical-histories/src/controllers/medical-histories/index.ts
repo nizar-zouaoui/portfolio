@@ -34,8 +34,10 @@ export const addMedicalHistoryData = async (
     { token: TokenPayloadType }
   >
 ) => {
-  await medicalHistoryServices.addMedicalHistoryData(req.body);
-  res.status(201).send("OK");
+  const medicalHistoryId = await medicalHistoryServices.addMedicalHistoryData(
+    req.body
+  );
+  res.status(201).send(medicalHistoryId);
 };
 
 export const updateMedicalHistoryData = async (
