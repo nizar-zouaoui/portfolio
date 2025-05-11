@@ -2,7 +2,7 @@ import { handleDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
 import { IPatient } from "@nizar-repo/patients-types";
 import { PaginationQuery } from "@nizar-repo/shared-types/PaginationTypes";
 import createHttpError from "http-errors";
-import Patients from "models";
+import Patients from "models/patients";
 
 export const getPatientData = async (query: PaginationQuery) => {
   const patientData = await Patients.findPaginated(query);

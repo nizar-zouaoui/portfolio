@@ -8,6 +8,7 @@ export interface IPatient {
   birthDate: Date;
   phoneNumber: string;
   email?: string;
+  medicalHistoryId: string;
 }
 
 export interface IPatientDocument extends IPatient {}

@@ -18,7 +18,7 @@
     "http-errors": "^2.0.0",
     "libphonenumber-js": "^1.11.12",
     "mongodb": "^6.3.0",
-    "mongoose": "^8.0.3"
+    "mongoose": "8.4.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

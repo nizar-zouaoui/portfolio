@@ -1,0 +1,94 @@
+import {
+  PaginationQuery,
+  SortDirection,
+} from "@nizar-repo/shared-types/PaginationTypes";
+import { PipelineStage, Types } from "mongoose";
+
+const getAppointmentsPaginationPipeline = (
+  medicalHistoryId: string,
+  query: PaginationQuery
+): PipelineStage[] => {
+  const {
+    "sort-direction": sortDirection = SortDirection.desc,
+    "sort-field": sortField = "date",
+  } = query;
+
+  const page = isNaN(Number(query.page)) ? 1 : Number(query.page);
+  const limit = isNaN(Number(query.limit)) ? 10 : Number(query.limit);
+
+  const pipeline: PipelineStage[] = [
+    {
+      $match: {
+        _id: new Types.ObjectId(medicalHistoryId),
+      },
+    },
+
+    {
+      $unwind: "$appointments",
+    },
+
+    {
+      $addFields: {
+        "appointments.actId": {
+          $toObjectId: "$appointments.actId",
+        },
+      },
+    },
+
+    {
+      $lookup: {
+        from: "acts",
+        localField: "appointments.actId",
+        foreignField: "_id",
+        as: "appointments.act",
+      },
+    },
+
+    {
+      $unwind: {
+        path: "$appointments.act",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+
+    {
+      $replaceRoot: {
+        newRoot: "$appointments",
+      },
+    },
+
+    {
+      $sort: {
+        [sortField]: sortDirection === SortDirection.asc ? 1 : -1,
+      },
+    },
+
+    {
+      $facet: {
+        items: [{ $skip: (page - 1) * limit }, { $limit: limit }],
+        totalCount: [{ $count: "count" }],
+      },
+    },
+
+    {
+      $project: {
+        items: 1,
+        totalCount: { $arrayElemAt: ["$totalCount.count", 0] },
+        totalPages: {
+          $ceil: {
+            $divide: [{ $arrayElemAt: ["$totalCount.count", 0] }, limit],
+          },
+        },
+        currentPage: { $literal: page },
+        hasNextPage: {
+          $gt: [{ $arrayElemAt: ["$totalCount.count", 0] }, page * limit],
+        },
+        hasPreviousPage: { $gt: [page, 1] },
+      },
+    },
+  ];
+
+  return pipeline;
+};
+
+export default getAppointmentsPaginationPipeline;
