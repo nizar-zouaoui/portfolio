@@ -2,7 +2,7 @@ import {
   PaginationQuery,
   SortDirection,
 } from "@nizar-repo/shared-types/PaginationTypes";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DataTableColumn } from "../DataTableColumnInterface";
 
 const useControlledDataTable = <T>(
@@ -28,7 +28,7 @@ const useControlledDataTable = <T>(
 
   const renderCell = (item: T, column: DataTableColumn<T>) => {
     if (column.cell) return column.cell(item);
-    const value = column.selector ? item[column.selector] : "";
+    const value = column.selector ? getValueByPath(item, column.selector) : "";
     return typeof value === "string" ||
       typeof value === "number" ||
       typeof value === "boolean"
@@ -46,3 +46,7 @@ const useControlledDataTable = <T>(
 };
 
 export default useControlledDataTable;
+
+function getValueByPath(obj: any, path: string): any {
+  return path.split(".").reduce((o, key) => (o ? o[key] : undefined), obj);
+}

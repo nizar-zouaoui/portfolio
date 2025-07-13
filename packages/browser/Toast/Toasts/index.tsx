@@ -7,7 +7,7 @@ export interface IToasts {
 
 const Toasts: React.FC<IToasts> = ({ toasts }) => {
   return (
-    <div className="fixed bottom-8 right-8 absolute z-50 m-4 flex flex-col space-y-2">
+    <div className="bottom-8 right-8 absolute z-50 m-4 flex flex-col space-y-2">
       {toasts.map((currToast) => (
         <Toast
           id={currToast.id}
