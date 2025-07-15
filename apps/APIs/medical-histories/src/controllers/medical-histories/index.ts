@@ -40,25 +40,6 @@ export const addMedicalHistoryData = async (
   res.status(201).send(medicalHistoryId);
 };
 
-export const updateMedicalHistoryData = async (
-  req: Request<
-    MedicalHistoryRouteTypes["/medical-histories/:id"]["PATCH"]["params"],
-    unknown,
-    MedicalHistoryRouteTypes["/medical-histories/:id"]["PATCH"]["body"],
-    unknown
-  >,
-  res: Response<
-    MedicalHistoryRouteTypes["/medical-histories/:id"]["PATCH"]["response"],
-    { token: TokenPayloadType }
-  >
-) => {
-  await medicalHistoryServices.updateMedicalHistoryData(
-    req.params.id,
-    req.body
-  );
-  res.status(200).send("OK");
-};
-
 export const deleteMedicalHistoryData = async (
   req: Request<
     MedicalHistoryRouteTypes["/medical-histories/:id"]["DELETE"]["params"],

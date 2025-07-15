@@ -19,13 +19,6 @@ router.post(
   medicalHistoriesController.addMedicalHistoryData
 );
 
-router.patch(
-  `${BASE_ROUTE}/:id`,
-  protectRoute(ACCESS_PRIVILEGE.WRITE, RESOURCE.MEDICAL_HISTORIES),
-  // ...actsValidator.updateMedicalHistoryDataValidator,
-  // actsValidator.updateMedicalHistoryDataValidation,
-  medicalHistoriesController.updateMedicalHistoryData
-);
 router.delete(
   `${BASE_ROUTE}/:id`,
   protectRoute(ACCESS_PRIVILEGE.DELETE, RESOURCE.MEDICAL_HISTORIES),

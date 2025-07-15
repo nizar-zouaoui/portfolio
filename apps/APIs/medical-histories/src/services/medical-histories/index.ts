@@ -27,26 +27,6 @@ export const addMedicalHistoryData = async (data: IMedicalHistory) => {
   }
 };
 
-export const updateMedicalHistoryData = async (
-  id: string,
-  data: Partial<IMedicalHistory>
-) => {
-  try {
-    const medicalHistoryData = await MedicalHistories.findOneAndUpdate(
-      { _id: id },
-      data,
-      {
-        new: true,
-      }
-    );
-    if (!medicalHistoryData) {
-      throw createHttpError(404, "MedicalHistory not found");
-    }
-  } catch (error) {
-    throw handleDuplicateFieldsError(error);
-  }
-};
-
 export const deleteMedicalHistoryData = async (id: string) => {
   const medicalHistoryData = await MedicalHistories.findOneAndDelete({
     _id: id,

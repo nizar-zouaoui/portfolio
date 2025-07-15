@@ -48,6 +48,7 @@ const PatientsList = () => {
           },
           {
             title: "Birth Date",
+            selector: "birthDate",
             cell: (row) => {
               const date = new Date(row.birthDate);
               return date.toLocaleDateString("fr-TN", {
@@ -60,6 +61,7 @@ const PatientsList = () => {
           },
           {
             title: "Email",
+            selector: "email",
             cell: (row) => row.email || "N/A",
             sortable: true,
           },
@@ -67,6 +69,11 @@ const PatientsList = () => {
             title: "Actions",
             cell: (row) => (
               <div className="flex justify-end">
+                <Link to={`/patients/${row._id}/medical-histories`}>
+                  <Button disabled={isDeleteLoading} variant="primary">
+                    Medical History
+                  </Button>
+                </Link>
                 <Link to={`/patients/edit/${row._id}`}>
                   <Button disabled={isDeleteLoading} variant="warning">
                     Edit

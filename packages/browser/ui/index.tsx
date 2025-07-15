@@ -4,6 +4,7 @@ export { default as UncontrolledDataTable } from "./src/components/DataTable/Unc
 export type { default as IBasicForm } from "./src/components/forms/IBasicForm";
 export { default as Input } from "./src/components/forms/Input";
 export { default as MultiSelect } from "./src/components/forms/MultiSelect";
+export { default as RadioInput } from "./src/components/forms/RadioInput";
 export { default as Select } from "./src/components/forms/Select";
 export { default as Loader } from "./src/components/Loader";
 export { default as DarkModeProvider } from "./src/DarkModeProvider";

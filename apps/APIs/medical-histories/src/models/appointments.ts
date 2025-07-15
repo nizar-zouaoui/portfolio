@@ -3,7 +3,7 @@ import {
   LeanAppointmentDocument,
 } from "@nizar-repo/medical-histories-types";
 import { PAYMENT_STATUS } from "@nizar-repo/medical-histories-types/enums";
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 export const appointmentsSchema = new Schema<
   LeanAppointmentDocument,
   AppointmentModel
@@ -30,3 +30,10 @@ export const appointmentsSchema = new Schema<
   },
   { timestamps: true }
 );
+
+const Appointments = model<LeanAppointmentDocument, AppointmentModel>(
+  "Appointments",
+  appointmentsSchema
+);
+
+export default Appointments;

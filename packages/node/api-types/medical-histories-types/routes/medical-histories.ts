@@ -1,4 +1,8 @@
-import { SortDirection } from "@nizar-repo/shared-types/PaginationTypes";
+import {
+  PaginatedResult,
+  SortDirection,
+} from "@nizar-repo/shared-types/PaginationTypes";
+import { LeanActDocument } from "../models/acts";
 import {
   IMedicalHistory,
   LeanMedicalHistoryDocument,
@@ -12,13 +16,6 @@ export type MedicalHistoryRouteTypes = {
     };
   };
   "/medical-histories/:id": {
-    PATCH: {
-      body: Partial<IMedicalHistory>;
-      response: string;
-      params: {
-        id: string;
-      };
-    };
     DELETE: {
       response: string;
       params: {
@@ -26,7 +23,11 @@ export type MedicalHistoryRouteTypes = {
       };
     };
     GET: {
-      response: LeanMedicalHistoryDocument["appointments"];
+      response: PaginatedResult<
+        LeanMedicalHistoryDocument["appointments"][number] & {
+          act: LeanActDocument;
+        }
+      >;
       params: {
         id: string;
       };

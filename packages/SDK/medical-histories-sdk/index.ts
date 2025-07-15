@@ -1,5 +1,6 @@
 import {
   ActRouteTypes,
+  AppointmentRouteTypes,
   MedicalHistoryRouteTypes,
 } from "@nizar-repo/medical-histories-types";
 import ApiSDK from "@nizar-repo/server-sdk";
@@ -81,7 +82,7 @@ export class MedicalHistoriesSDK extends ServerSDK {
     return response.data;
   }
 
-  async getMedicalHistoryData({
+  async getMedicalHistoryDataById({
     params,
     query,
   }: {
@@ -105,19 +106,6 @@ export class MedicalHistoriesSDK extends ServerSDK {
     return response.data;
   }
 
-  async updateMedicalHistoryData({
-    params,
-    body,
-  }: {
-    params: MedicalHistoryRouteTypes["/medical-histories/:id"]["PATCH"]["params"];
-    body: MedicalHistoryRouteTypes["/medical-histories/:id"]["PATCH"]["body"];
-  }) {
-    const response = await this.api.patch<
-      MedicalHistoryRouteTypes["/medical-histories/:id"]["PATCH"]["response"]
-    >(`${baseUrl}/medical-histories/${params.id}`, body);
-    return response.data;
-  }
-
   async deleteMedicalHistoryData({
     params,
   }: {
@@ -126,6 +114,54 @@ export class MedicalHistoriesSDK extends ServerSDK {
     const response = await this.api.delete<
       MedicalHistoryRouteTypes["/medical-histories/:id"]["DELETE"]["response"]
     >(`${baseUrl}/medical-histories/${params.id}`);
+    return response.data;
+  }
+
+  async addAppointmentData({
+    params,
+    body,
+  }: {
+    params: AppointmentRouteTypes["/appointments/:medicalHistoryId"]["POST"]["params"];
+    body: AppointmentRouteTypes["/appointments/:medicalHistoryId"]["POST"]["body"];
+  }) {
+    const response = await this.api.post<
+      AppointmentRouteTypes["/appointments/:medicalHistoryId"]["POST"]["response"]
+    >(`${baseUrl}/appointments/${params.medicalHistoryId}`, body);
+    return response.data;
+  }
+
+  async getAppointmentDataById({
+    params,
+  }: {
+    params: AppointmentRouteTypes["/appointments/:id"]["GET"]["params"];
+  }) {
+    const response = await this.api.get<
+      AppointmentRouteTypes["/appointments/:id"]["GET"]["response"]
+    >(`${baseUrl}/appointments/${params.id}`);
+    return response.data;
+  }
+
+  async updateAppointmentData({
+    params,
+    body,
+  }: {
+    params: AppointmentRouteTypes["/appointments/:id"]["PATCH"]["params"];
+    body: AppointmentRouteTypes["/appointments/:id"]["PATCH"]["body"];
+  }) {
+    const response = await this.api.patch<
+      AppointmentRouteTypes["/appointments/:id"]["PATCH"]["response"]
+    >(`${baseUrl}/appointments/${params.id}`, body);
+    return response.data;
+  }
+
+  async deleteAppointmentData({
+    params,
+  }: {
+    params: AppointmentRouteTypes["/appointments/:id"]["DELETE"]["params"];
+  }) {
+    const response = await this.api.delete<
+      AppointmentRouteTypes["/appointments/:id"]["DELETE"]["response"]
+    >(`${baseUrl}/appointments/${params.id}`);
     return response.data;
   }
 }
