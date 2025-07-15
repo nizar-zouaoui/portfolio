@@ -1,7 +1,13 @@
 import { LeanActDocument } from "@nizar-repo/medical-histories-types";
 import { PAYMENT_STATUS } from "@nizar-repo/medical-histories-types/enums";
 import { PaginatedResult } from "@nizar-repo/shared-types/PaginationTypes";
-import { Button, IBasicForm, Input, RadioInput, Select } from "@nizar-repo/ui";
+import {
+  Button,
+  IBasicForm,
+  Input,
+  MultiSelect,
+  RadioInput,
+} from "@nizar-repo/ui";
 import { FormProvider } from "react-hook-form";
 import useAppointmentForm, { AddAppointmentType } from "./useAppointmentForm";
 
@@ -77,16 +83,12 @@ const AppointmentForm: React.FC<IAppointmentFormProps> = ({
             />
           </div>
           <div>
-            <Select
+            <MultiSelect
               control={formMethods.control}
-              name="actId"
+              name="actIds"
               options={actsOptions}
-              displayName="Act"
-              label="Act"
-              placeholder="Select act"
-              rules={{
-                required: "Act is required",
-              }}
+              label="Acts"
+              placeholder="Select acts"
             />
           </div>
         </div>

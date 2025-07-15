@@ -42,7 +42,9 @@ export const addAppointmentDataValidator = [
     .isString()
     .isIn(paymentStatuses)
     .notEmpty(),
-  body("actId", "Invalid Act ID").isMongoId().notEmpty(),
+  body("actIds", "Invalid Act IDs").isArray().notEmpty(),
+  body("actIds.*", "Invalid Act ID").isMongoId(),
+  body("confirmedPrice", "Invalid Confirmed Price").isNumeric().notEmpty(),
   check("medicalHistoryId", "Invalid Medical History ID")
     .isMongoId()
     .notEmpty(),
@@ -92,7 +94,9 @@ export const updateAppointmentDataValidator = [
     .isString()
     .isIn(paymentStatuses)
     .optional(),
-  body("actId", "Invalid Act ID").isMongoId().optional(),
+  body("actIds", "Invalid Act IDs").isArray().optional(),
+  body("actIds.*", "Invalid Act ID").isMongoId().optional(),
+  body("confirmedPrice", "Invalid Confirmed Price").isNumeric().optional(),
 ];
 
 export const deleteAppointmentDataValidation = (

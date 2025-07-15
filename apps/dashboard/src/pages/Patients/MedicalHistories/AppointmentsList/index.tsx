@@ -9,8 +9,14 @@ import { Link } from "react-router-dom";
 import useAppointmentsList from "./useAppointmentsList";
 
 const AppointmentsList = () => {
-  const { medicalHistory, query, setQuery, appointmentFormVisible, patient } =
-    useAppointmentsList();
+  const {
+    medicalHistory,
+    query,
+    setQuery,
+    patient,
+    deleteAppointment,
+    isDeleteLoading,
+  } = useAppointmentsList();
 
   usePageHeaderInit({
     title: "Appointments",
@@ -34,7 +40,6 @@ const AppointmentsList = () => {
         description="appointments list page is destined to show all the appointments."
         title="Appointments"
       />
-      {appointmentFormVisible && <>Hello</>}
       <ControlledDataTable<
         MedicalHistoryRouteTypes["/medical-histories/:id"]["GET"]["response"]["items"][number]
       >
@@ -46,9 +51,19 @@ const AppointmentsList = () => {
             sortable: true,
           },
           {
-            title: "Act Name",
-            selector: "act.name",
-            sortable: true,
+            title: "Acts",
+            cell: (row) => (
+              <div className="flex flex-col gap-2">
+                {row.acts.map((act) => (
+                  <span
+                    key={act._id.toString()}
+                    className="p-1 dark:text-slate-400 text-slate-500 dark:bg-slate-800 bg-slate-100 rounded-md"
+                  >
+                    {act.name}
+                  </span>
+                ))}
+              </div>
+            ),
           },
           {
             title: "Payment Status",
@@ -90,20 +105,17 @@ const AppointmentsList = () => {
                 <Link
                   to={`/patients/${patient._id}/medical-histories/${patient.medicalHistoryId}/appointments/edit/${row._id}`}
                 >
-                  <Button
-                    // disabled={isDeleteLoading}
-                    variant="warning"
-                  >
+                  <Button disabled={isDeleteLoading} variant="warning">
                     Edit
                   </Button>
                 </Link>
-                {/* <Button
+                <Button
                   disabled={isDeleteLoading}
                   variant="error"
-                  onClick={() => deletePatient(row._id.toString())}
+                  onClick={() => deleteAppointment(row._id.toString())}
                 >
                   Delete
-                </Button> */}
+                </Button>
               </div>
             ),
           },

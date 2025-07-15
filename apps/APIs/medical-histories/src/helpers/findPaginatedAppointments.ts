@@ -22,54 +22,53 @@ const getAppointmentsPaginationPipeline = (
         _id: new Types.ObjectId(medicalHistoryId),
       },
     },
-
     {
       $unwind: "$appointments",
     },
-
     {
+      // Convert actIds (strings) to ObjectId
       $addFields: {
-        "appointments.actId": {
-          $toObjectId: "$appointments.actId",
+        "appointments.actObjectIds": {
+          $map: {
+            input: "$appointments.actIds",
+            as: "id",
+            in: { $toObjectId: "$$id" },
+          },
         },
       },
     },
-
     {
       $lookup: {
         from: "acts",
-        localField: "appointments.actId",
+        localField: "appointments.actObjectIds",
         foreignField: "_id",
-        as: "appointments.act",
+        as: "appointments.acts",
       },
     },
-
     {
-      $unwind: {
-        path: "$appointments.act",
-        preserveNullAndEmptyArrays: true,
-      },
-    },
-
-    {
+      // Replace the root with the appointment only
       $replaceRoot: {
         newRoot: "$appointments",
       },
     },
-
+    {
+      $project: {
+        // Exclude the original actIds and temporary actObjectIds
+        actIds: 0,
+        actObjectIds: 0,
+      },
+    },
     {
       $sort: {
         [sortField]: sortDirection === SortDirection.asc ? 1 : -1,
       },
     },
-
     {
       $facet: {
         items: [{ $skip: (page - 1) * limit }, { $limit: limit }],
         totalCount: [{ $count: "count" }],
       },
     },
-
     {
       $project: {
         items: 1,

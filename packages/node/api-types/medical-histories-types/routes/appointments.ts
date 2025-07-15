@@ -1,4 +1,3 @@
-import { LeanActDocument } from "../models/acts";
 import { IAppointment, LeanAppointmentDocument } from "../models/appointments";
 
 export type AppointmentRouteTypes = {
@@ -26,9 +25,7 @@ export type AppointmentRouteTypes = {
       };
     };
     GET: {
-      response: LeanAppointmentDocument & {
-        act: LeanActDocument;
-      };
+      response: LeanAppointmentDocument;
       params: {
         id: string;
       };

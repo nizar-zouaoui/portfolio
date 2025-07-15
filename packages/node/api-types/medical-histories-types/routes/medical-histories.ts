@@ -25,7 +25,7 @@ export type MedicalHistoryRouteTypes = {
     GET: {
       response: PaginatedResult<
         LeanMedicalHistoryDocument["appointments"][number] & {
-          act: LeanActDocument;
+          acts: LeanActDocument[];
         }
       >;
       params: {

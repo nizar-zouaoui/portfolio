@@ -5,19 +5,18 @@ import {
 import createHttpError from "http-errors";
 import Appointments from "models/appointments";
 import MedicalHistories from "models/medical-histories";
-import * as actsServices from "services/acts";
 
 export const getAppointmentDataById = async (
   id: string
 ): Promise<AppointmentRouteTypes["/appointments/:id"]["GET"]["response"]> => {
+  // I want to populate the appointment with acts: actIds => acts
   const appointmentData = await Appointments.findById(id).lean();
 
   if (!appointmentData) {
     throw createHttpError(404, "Appointment not found");
   }
 
-  const act = await actsServices.getActDataById(appointmentData.actId);
-  return { ...appointmentData, act };
+  return appointmentData;
 };
 
 export const addAppointmentData = async (
@@ -55,7 +54,8 @@ export const updateAppointmentData = async (
         "appointments.$.date": data.date,
         "appointments.$.notes": data.notes,
         "appointments.$.paymentStatus": data.paymentStatus,
-        "appointments.$.actId": data.actId,
+        "appointments.$.actIds": data.actIds,
+        "appointments.$.confirmedPrice": data.confirmedPrice,
       },
     }
   );
@@ -68,4 +68,8 @@ export const deleteAppointmentData = async (id: string) => {
   if (!appointmentData) {
     throw createHttpError(404, "Appointment not found");
   }
+  await MedicalHistories.updateOne(
+    { "appointments._id": id },
+    { $pull: { appointments: { _id: id } } }
+  );
 };
