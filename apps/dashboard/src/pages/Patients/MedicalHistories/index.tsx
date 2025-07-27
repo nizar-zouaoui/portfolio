@@ -37,7 +37,7 @@ const routes: RouteObject[] = [
     loader: async ({ params }) => {
       const { medicalHistoryId } = params;
       if (!medicalHistoryId) throw new Error("Id is required for this route");
-      const acts = await Api.medicalHistoriesSDK.getActData({
+      const acts = await Api.medicalHistoriesSDK.getActsPaginated({
         query: {},
       });
       return {
@@ -57,7 +57,7 @@ const routes: RouteObject[] = [
           id: appointmentId,
         },
       });
-      const acts = await Api.medicalHistoriesSDK.getActData({
+      const acts = await Api.medicalHistoriesSDK.getActsPaginated({
         query: {},
       });
       return {

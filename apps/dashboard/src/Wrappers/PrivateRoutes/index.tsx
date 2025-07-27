@@ -1,3 +1,4 @@
+import actsRoutes, { actsLinks } from "pages/Acts";
 import categoryRoutes, { categoriesLinks } from "pages/Categories";
 import marketingTargetRoutes, { marketingLinks } from "pages/MarketingTargets";
 import patientRoutes, { patientsLinks } from "pages/Patients";
@@ -18,6 +19,10 @@ const routes: RouteObject[] = [
     children: categoryRoutes,
   },
   {
+    path: "/acts",
+    children: actsRoutes,
+  },
+  {
     path: "*",
     element: <Navigate to="/" />, // Redirect to login if route doesn't match
   },
@@ -29,4 +34,5 @@ export const privateLinks = [
   ...marketingLinks,
   ...categoriesLinks,
   ...patientsLinks,
+  ...actsLinks,
 ] as const;

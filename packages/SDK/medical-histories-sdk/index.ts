@@ -25,7 +25,7 @@ export class MedicalHistoriesSDK extends ServerSDK {
     }
   }
 
-  async getActData({
+  async getActsPaginated({
     query,
   }: {
     query: ActRouteTypes["/acts/"]["GET"]["query"];
@@ -36,7 +36,7 @@ export class MedicalHistoriesSDK extends ServerSDK {
     return response.data;
   }
 
-  async getActDataById({
+  async getActById({
     params,
   }: {
     params: ActRouteTypes["/acts/:id"]["GET"]["params"];
@@ -47,18 +47,14 @@ export class MedicalHistoriesSDK extends ServerSDK {
     return response.data;
   }
 
-  async addActData({
-    body,
-  }: {
-    body: ActRouteTypes["/acts/"]["POST"]["body"];
-  }) {
+  async addAct({ body }: { body: ActRouteTypes["/acts/"]["POST"]["body"] }) {
     return this.api.post<ActRouteTypes["/acts/"]["POST"]["response"]>(
       `${baseUrl}/acts`,
       body
     );
   }
 
-  async updateActData({
+  async updateAct({
     params,
     body,
   }: {

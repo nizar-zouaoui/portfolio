@@ -3,7 +3,7 @@ import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType"
 import { Request, Response } from "express";
 import * as actServices from "services/acts";
 
-export const getActData = async (
+export const getActsPaginated = async (
   req: Request<
     unknown,
     unknown,
@@ -15,11 +15,11 @@ export const getActData = async (
     { token: TokenPayloadType }
   >
 ) => {
-  const response = await actServices.getActData(req.query);
+  const response = await actServices.getActsPaginated(req.query);
   res.status(200).send(response);
 };
 
-export const getActDataById = async (
+export const getActById = async (
   req: Request<
     ActRouteTypes["/acts/:id"]["GET"]["params"],
     unknown,
@@ -31,11 +31,11 @@ export const getActDataById = async (
     { token: TokenPayloadType }
   >
 ) => {
-  const response = await actServices.getActDataById(req.params.id);
+  const response = await actServices.getActById(req.params.id);
   res.status(200).send(response);
 };
 
-export const addActData = async (
+export const addAct = async (
   req: Request<
     unknown,
     unknown,
@@ -47,11 +47,11 @@ export const addActData = async (
     { token: TokenPayloadType }
   >
 ) => {
-  await actServices.addActData(req.body);
+  await actServices.addAct(req.body);
   res.status(201).send("OK");
 };
 
-export const updateActData = async (
+export const updateAct = async (
   req: Request<
     ActRouteTypes["/acts/:id"]["PATCH"]["params"],
     unknown,
@@ -63,7 +63,7 @@ export const updateActData = async (
     { token: TokenPayloadType }
   >
 ) => {
-  await actServices.updateActData(req.params.id, req.body);
+  await actServices.updateAct(req.params.id, req.body);
   res.status(200).send("OK");
 };
 

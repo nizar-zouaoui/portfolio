@@ -4,12 +4,12 @@ import { PaginationQuery } from "@nizar-repo/shared-types/PaginationTypes";
 import createHttpError from "http-errors";
 import Acts from "models/acts";
 
-export const getActData = async (query: PaginationQuery) => {
+export const getActsPaginated = async (query: PaginationQuery) => {
   const actData = await Acts.findPaginated(query);
   return actData;
 };
 
-export const getActDataById = async (id: string) => {
+export const getActById = async (id: string) => {
   const actData = await Acts.findOne({
     _id: id,
   });
@@ -19,7 +19,7 @@ export const getActDataById = async (id: string) => {
   return actData;
 };
 
-export const addActData = async (data: IAct) => {
+export const addAct = async (data: IAct) => {
   try {
     await Acts.create({ ...data });
   } catch (error) {
@@ -27,7 +27,7 @@ export const addActData = async (data: IAct) => {
   }
 };
 
-export const updateActData = async (id: string, data: Partial<IAct>) => {
+export const updateAct = async (id: string, data: Partial<IAct>) => {
   try {
     const actData = await Acts.findOneAndUpdate({ _id: id }, data, {
       new: true,

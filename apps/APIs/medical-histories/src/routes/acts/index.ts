@@ -11,21 +11,21 @@ router.get(
   protectRoute(ACCESS_PRIVILEGE.READ_ALL, RESOURCE.ACTS),
   ...actsValidator.getActDataValidator,
   actsValidator.getActDataValidation,
-  actsController.getActData
+  actsController.getActsPaginated
 );
 router.get(
   `${BASE_ROUTE}/:id`,
   protectRoute(ACCESS_PRIVILEGE.READ, RESOURCE.ACTS),
   ...actsValidator.getActDataByIdValidator,
   actsValidator.getActDataByIdValidation,
-  actsController.getActDataById
+  actsController.getActById
 );
 router.post(
   `${BASE_ROUTE}/`,
   protectRoute(ACCESS_PRIVILEGE.WRITE, RESOURCE.ACTS),
   ...actsValidator.addActDataValidator,
   actsValidator.addActDataValidation,
-  actsController.addActData
+  actsController.addAct
 );
 
 router.patch(
@@ -33,7 +33,7 @@ router.patch(
   protectRoute(ACCESS_PRIVILEGE.WRITE, RESOURCE.ACTS),
   ...actsValidator.updateActDataValidator,
   actsValidator.updateActDataValidation,
-  actsController.updateActData
+  actsController.updateAct
 );
 router.delete(
   `${BASE_ROUTE}/:id`,
