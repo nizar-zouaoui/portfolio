@@ -16,14 +16,14 @@ const useEditPatient = () => {
   const { toast } = useToastContext();
   const { mutate: addPatient, isLoading } = useMutation(
     async (data: EditPatientType) => {
-      console.log(data);
       let body = {};
       if (data.birthDate) {
         body = {
-          ...body,
+          ...data,
           birthDate: new Date(data.birthDate),
         };
       }
+      body = data;
       await Api.patientsSDK.updatePatientData({
         params: { id: patient._id.toString() },
         body,

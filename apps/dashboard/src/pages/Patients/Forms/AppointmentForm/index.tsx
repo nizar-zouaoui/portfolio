@@ -8,6 +8,7 @@ import {
   MultiSelect,
   RadioInput,
 } from "@nizar-repo/ui";
+import { useEffect, useState } from "react";
 import { FormProvider } from "react-hook-form";
 import useAppointmentForm, { AddAppointmentType } from "./useAppointmentForm";
 
@@ -31,9 +32,47 @@ const AppointmentForm: React.FC<IAppointmentFormProps> = ({
     onSubmit,
   });
   const actsOptions = acts.items.map((act) => ({
-    label: act.name,
+    label: `${act.name} - ${act.price}`,
     value: act._id.toString(),
   }));
+
+  const [isManualConfirmedPrice, setIsManualConfirmedPrice] = useState(false);
+  const isFreePaymentStatus =
+    formMethods.watch("paymentStatus") === PAYMENT_STATUS.FREE;
+
+  useEffect(() => {
+    if (formMethods.control._formState.dirtyFields.actIds) {
+      return;
+    }
+
+    if (isFreePaymentStatus) {
+      formMethods.setValue("confirmedPrice", 0);
+    } else {
+      const selectedActIds = formMethods.watch("actIds") || [];
+      const selectedActs = actsOptions.filter((act) =>
+        selectedActIds.includes(act.value)
+      );
+      const totalPrice = selectedActs.reduce(
+        (sum, act) => sum + parseFloat(act.label.split(" - ")[1]),
+        0
+      );
+      formMethods.setValue("confirmedPrice", totalPrice);
+    }
+  }, [actsOptions, formMethods, isManualConfirmedPrice, isFreePaymentStatus]);
+
+  useEffect(() => {
+    const subscription = formMethods.watch((value, { name }) => {
+      if (
+        (name === "paymentStatus" &&
+          value.paymentStatus !== PAYMENT_STATUS.FREE) ||
+        name === "actIds"
+      ) {
+        setIsManualConfirmedPrice(false);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [formMethods]);
+
   return (
     <FormProvider {...formMethods}>
       <form
@@ -89,6 +128,24 @@ const AppointmentForm: React.FC<IAppointmentFormProps> = ({
               options={actsOptions}
               label="Acts"
               placeholder="Select acts"
+            />
+          </div>
+          <div>
+            <Input
+              control={formMethods.control}
+              name="confirmedPrice"
+              displayName="Confirmed Price"
+              label="Confirmed Price"
+              placeholder="Insert confirmed price"
+              autoComplete="confirmedPrice"
+              type="number"
+              rules={{
+                required: "Confirmed Price is required",
+              }}
+              disabled={isFreePaymentStatus}
+              onChange={() => {
+                setIsManualConfirmedPrice(true);
+              }}
             />
           </div>
         </div>

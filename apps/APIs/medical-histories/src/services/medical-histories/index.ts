@@ -1,5 +1,8 @@
 import { handleDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
-import { IMedicalHistory } from "@nizar-repo/medical-histories-types";
+import {
+  IMedicalHistory,
+  MedicalHistoryRouteTypes,
+} from "@nizar-repo/medical-histories-types";
 import { PaginationQuery } from "@nizar-repo/shared-types/PaginationTypes";
 import getAppointmentsPaginationPipeline from "helpers/findPaginatedAppointments";
 import createHttpError from "http-errors";
@@ -10,7 +13,10 @@ export const getMedicalHistoryDataById = async (
   query: PaginationQuery
 ) => {
   const pipeline = getAppointmentsPaginationPipeline(id, query);
-  const medicalHistoryData = await MedicalHistories.aggregate(pipeline);
+  const medicalHistoryData =
+    await MedicalHistories.aggregate<
+      MedicalHistoryRouteTypes["/medical-histories/:id"]["GET"]["response"]
+    >(pipeline);
 
   if (!medicalHistoryData || !medicalHistoryData.length) {
     throw createHttpError(404, "MedicalHistory not found");

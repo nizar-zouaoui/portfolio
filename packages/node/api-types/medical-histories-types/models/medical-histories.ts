@@ -3,10 +3,9 @@ import {
   PaginationQuery,
 } from "@nizar-repo/shared-types/PaginationTypes";
 import { FlattenMaps, HydratedDocument, Model, Types } from "mongoose";
-import { LeanAppointmentDocument } from "./appointments";
 
 export interface IMedicalHistory {
-  appointments: LeanAppointmentDocument[];
+  appointmentIds: string[];
 }
 export interface IMedicalHistoryDocument extends IMedicalHistory {}
 export type HydratedMedicalHistoryDocument =

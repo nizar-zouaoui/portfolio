@@ -21,7 +21,6 @@ const TableHeader = <T,>({
     <thead>
       <tr className="bg-gray-100 dark:bg-gray-800">
         {columns.map((column, index) => {
-          console.log(column);
           return (
             <th
               key={index}

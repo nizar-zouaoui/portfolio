@@ -23,6 +23,8 @@ interface IInput<TFieldValues extends FieldValues> {
   autoComplete?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  onChange?: (value: TFieldValues[Path<TFieldValues>]) => void;
+  disabled?: boolean;
 }
 
 const Input = <TFieldValues extends FieldValues>({
@@ -36,6 +38,8 @@ const Input = <TFieldValues extends FieldValues>({
   autoComplete,
   leftIcon,
   rightIcon,
+  onChange,
+  disabled = false,
 }: IInput<TFieldValues>) => {
   const {
     formState: { errors },
@@ -83,6 +87,11 @@ const Input = <TFieldValues extends FieldValues>({
               type={inputType}
               placeholder={placeholder || ""}
               {...field}
+              onChange={(e) => {
+                field.onChange(e);
+                onChange?.(e.target.value as any);
+              }}
+              disabled={disabled}
             />
           )}
         />

@@ -3,14 +3,14 @@ import {
   MedicalHistoryModel,
 } from "@nizar-repo/medical-histories-types";
 import { model, Schema } from "mongoose";
-import { appointmentsSchema } from "./appointments";
 const medicalHistoriesSchema = new Schema<
   LeanMedicalHistoryDocument,
   MedicalHistoryModel
 >(
   {
-    appointments: {
-      type: [appointmentsSchema],
+    appointmentIds: {
+      type: [String],
+      ref: "Appointments",
       default: [],
     },
   },

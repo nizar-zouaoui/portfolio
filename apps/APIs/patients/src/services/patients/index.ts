@@ -29,7 +29,7 @@ export const addPatientData = async (data: IPatient) => {
   try {
     const medicalHistoryId = await medicalHistorySDK.addMedicalHistoryData({
       body: {
-        appointments: [],
+        appointmentIds: [],
       },
     });
     await Patients.create({

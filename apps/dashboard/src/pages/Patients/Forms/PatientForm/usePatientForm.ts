@@ -29,7 +29,6 @@ const usePatientForm = ({ defaultValues, onSubmit }: FormProps) => {
         : new Date().toISOString().split("T")[0],
     },
   });
-
   const handleSubmit = formMethods.handleSubmit(
     omitUnchangedFormFields(formMethods.formState.dirtyFields, onSubmit)
   );

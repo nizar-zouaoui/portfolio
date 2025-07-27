@@ -23,10 +23,28 @@ const getAppointmentsPaginationPipeline = (
       },
     },
     {
+      $addFields: {
+        appointmentObjectIds: {
+          $map: {
+            input: "$appointmentIds",
+            as: "id",
+            in: { $toObjectId: "$$id" },
+          },
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "appointments",
+        localField: "appointmentObjectIds",
+        foreignField: "_id",
+        as: "appointments",
+      },
+    },
+    {
       $unwind: "$appointments",
     },
     {
-      // Convert actIds (strings) to ObjectId
       $addFields: {
         "appointments.actObjectIds": {
           $map: {
@@ -53,7 +71,6 @@ const getAppointmentsPaginationPipeline = (
     },
     {
       $project: {
-        // Exclude the original actIds and temporary actObjectIds
         actIds: 0,
         actObjectIds: 0,
       },

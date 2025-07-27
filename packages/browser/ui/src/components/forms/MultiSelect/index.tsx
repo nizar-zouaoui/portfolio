@@ -84,14 +84,20 @@ const MultiSelect = <TFieldValues extends FieldValues>({
                 onClick={() => setIsOpen((prev) => !prev)}
                 className="flex justify-between items-center"
               >
-                <span>
+                <p>
                   {field.value.length > 0
                     ? options
                         .filter((option) => field.value.includes(option.value))
-                        .map((option) => option.label)
-                        .join(", ")
+                        .map((option) => (
+                          <span
+                            className="bg-slate-200 dark:bg-slate-600 text-slate-800 dark:text-slate-200 rounded-md px-2 py-1 mr-1"
+                            key={option.value}
+                          >
+                            {option.label}
+                          </span>
+                        ))
                     : placeholder}
-                </span>
+                </p>
                 <span>{isOpen ? "▲" : "▼"}</span>
               </div>
               {isOpen && (

@@ -3,10 +3,8 @@ import {
   SortDirection,
 } from "@nizar-repo/shared-types/PaginationTypes";
 import { LeanActDocument } from "../models/acts";
-import {
-  IMedicalHistory,
-  LeanMedicalHistoryDocument,
-} from "../models/medical-histories";
+import { LeanAppointmentDocument } from "../models/appointments";
+import { IMedicalHistory } from "../models/medical-histories";
 
 export type MedicalHistoryRouteTypes = {
   "/medical-histories/": {
@@ -24,7 +22,7 @@ export type MedicalHistoryRouteTypes = {
     };
     GET: {
       response: PaginatedResult<
-        LeanMedicalHistoryDocument["appointments"][number] & {
+        LeanAppointmentDocument & {
           acts: LeanActDocument[];
         }
       >;

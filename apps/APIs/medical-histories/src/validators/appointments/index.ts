@@ -36,7 +36,14 @@ export const addAppointmentDataValidation = (
 };
 
 export const addAppointmentDataValidator = [
-  body("date", "Invalid Date").isDate().notEmpty(),
+  body("date")
+    .custom((value) => {
+      if (value) {
+        return !isNaN(Date.parse(value));
+      }
+      return true;
+    })
+    .withMessage("Invalid Birth Date"),
   body("notes", "Invalid Notes").isString().optional(),
   body("paymentStatus", "Invalid Payment Status")
     .isString()
@@ -88,7 +95,15 @@ export const updateAppointmentDataValidation = (
 
 export const updateAppointmentDataValidator = [
   check("id").isMongoId(),
-  body("date", "Invalid Date").isDate().optional(),
+  body("date")
+    .custom((value) => {
+      if (value) {
+        return !isNaN(Date.parse(value));
+      }
+      return true;
+    })
+    .withMessage("Invalid Birth Date")
+    .optional(),
   body("notes", "Invalid Notes").isString().optional(),
   body("paymentStatus", "Invalid Payment Status")
     .isString()

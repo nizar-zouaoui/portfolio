@@ -21,9 +21,13 @@ const useEditAppointment = () => {
   const { toast } = useToastContext();
   const { mutate: addAppointment, isLoading } = useMutation(
     async (data: EditAppointmentType) => {
+      const body = {
+        ...data,
+        ...(data.date ? { date: new Date(data.date) } : {}),
+      };
       await Api.medicalHistoriesSDK.updateAppointmentData({
         params: { id: appointment._id.toString() },
-        body: data,
+        body,
       });
     },
     {

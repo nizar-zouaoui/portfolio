@@ -11,7 +11,7 @@ export const omitUnchangedFormFields = <TFieldValues extends FieldValues>(
 ): SubmitHandler<TFieldValues> => {
   return (data: TFieldValues) => {
     const changedFields = Object.keys(dirtyFields) as Array<keyof TFieldValues>;
-
+    console.log(changedFields);
     const changedData = changedFields.reduce((acc, field) => {
       acc[field] = data[field];
       return acc;
