@@ -4,7 +4,7 @@ import { Button, ControlledDataTable } from "@nizar-repo/ui";
 import SEOHelmet from "components/SEO";
 import usePageHeaderInit from "contexts/PageHeaderContext/usePageHeaderInit";
 import { format } from "date-fns";
-import { FaUsers } from "react-icons/fa";
+import { FaNotesMedical } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAppointmentsList from "./useAppointmentsList";
 
@@ -22,7 +22,7 @@ const AppointmentsList = () => {
     title: "Appointments",
     description:
       "appointments list page is destined to show all the appointments.",
-    icon: <FaUsers />,
+    icon: <FaNotesMedical />,
     buttons: (
       <>
         <Link

@@ -1,6 +1,6 @@
 import usePageHeaderInit from "contexts/PageHeaderContext/usePageHeaderInit";
 import AppointmentForm from "pages/Patients/Forms/AppointmentForm";
-import { FaUsers } from "react-icons/fa";
+import { FaNotesMedical } from "react-icons/fa";
 import useEditAppointment from "./useEditAppointment";
 
 const EditAppointment = () => {
@@ -8,7 +8,7 @@ const EditAppointment = () => {
   usePageHeaderInit({
     title: "Edit Appointment",
     description: "Edit Appointment page is destined to edit a appointment.",
-    icon: <FaUsers />,
+    icon: <FaNotesMedical />,
   });
   return (
     <div className="w-2/3 lg:w-1/2 mx-auto my-8">

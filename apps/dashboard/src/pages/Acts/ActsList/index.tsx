@@ -2,14 +2,14 @@ import { ActRouteTypes } from "@nizar-repo/medical-histories-types";
 import { Button, ControlledDataTable } from "@nizar-repo/ui";
 import SEOHelmet from "components/SEO";
 import usePageHeaderInit from "contexts/PageHeaderContext/usePageHeaderInit";
-import { FaUsers } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useActsList from "./useActList";
 const ActsList = () => {
   usePageHeaderInit({
     title: "Acts",
     description: "Acts list page is destined to show all the acts.",
-    icon: <FaUsers />,
+    icon: <FaEdit />,
     buttons: (
       <>
         <Link to="/acts/add">
