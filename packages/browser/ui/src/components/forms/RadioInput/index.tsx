@@ -78,6 +78,9 @@ const RadioInput = <TFieldValues extends FieldValues>({
                     checked={field.value === option.value}
                     onChange={() => field.onChange(option.value)}
                     className="text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                    aria-describedby={
+                      errors[name] ? `${inputId}-error` : undefined
+                    }
                   />
                   {option.label}
                 </label>
@@ -88,7 +91,12 @@ const RadioInput = <TFieldValues extends FieldValues>({
       />
 
       {errors[name] && (
-        <span className="text-red-600 dark:text-red-400 text-sm mt-1">
+        <span
+          id={`${inputId}-error`}
+          className="text-red-600 dark:text-red-400 text-sm mt-1"
+          role="alert"
+          aria-live="polite"
+        >
           {errors[name]?.message as string}
         </span>
       )}

@@ -9,7 +9,7 @@ import {
   RadioInput,
 } from "@nizar-repo/ui";
 import { useEffect, useState } from "react";
-import { FormProvider } from "react-hook-form";
+import { FormProvider, useFieldArray } from "react-hook-form";
 import useAppointmentForm, { AddAppointmentType } from "./useAppointmentForm";
 
 type IAppointmentFormProps = IBasicForm<AddAppointmentType> & {
@@ -41,16 +41,16 @@ const AppointmentForm: React.FC<IAppointmentFormProps> = ({
     formMethods.watch("paymentStatus") === PAYMENT_STATUS.FREE;
 
   useEffect(() => {
-    if (formMethods.control._formState.dirtyFields.actIds) {
+    if (formMethods.control._formState.dirtyFields.acts) {
       return;
     }
 
     if (isFreePaymentStatus) {
       formMethods.setValue("confirmedPrice", 0);
     } else {
-      const selectedActIds = formMethods.watch("actIds") || [];
+      const selectedActIds = formMethods.watch("acts") || [];
       const selectedActs = actsOptions.filter((act) =>
-        selectedActIds.includes(act.value)
+        selectedActIds.some((selectedAct) => selectedAct.id === act.value)
       );
       const totalPrice = selectedActs.reduce(
         (sum, act) => sum + parseFloat(act.label.split(" - ")[1]),
@@ -65,13 +65,18 @@ const AppointmentForm: React.FC<IAppointmentFormProps> = ({
       if (
         (name === "paymentStatus" &&
           value.paymentStatus !== PAYMENT_STATUS.FREE) ||
-        name === "actIds"
+        name === "acts"
       ) {
         setIsManualConfirmedPrice(false);
       }
     });
     return () => subscription.unsubscribe();
   }, [formMethods]);
+
+  const { fields, append, remove } = useFieldArray({
+    control: formMethods.control,
+    name: "acts",
+  });
 
   return (
     <FormProvider {...formMethods}>
@@ -122,13 +127,38 @@ const AppointmentForm: React.FC<IAppointmentFormProps> = ({
             />
           </div>
           <div>
-            <MultiSelect
-              control={formMethods.control}
-              name="actIds"
-              options={actsOptions}
-              label="Acts"
-              placeholder="Select acts"
-            />
+            {fields.map((field, index) => (
+              <div key={field.id} className="mb-4 flex gap-4 items-end">
+                <div className="flex-1">
+                  <MultiSelect
+                    control={formMethods.control}
+                    name={`acts.${index}.id`}
+                    options={actsOptions}
+                    label="Act"
+                    placeholder="Select act"
+                    rules={{ required: "Act is required" }}
+                  />
+                </div>
+                <div className="flex-1">
+                  <Input
+                    control={formMethods.control}
+                    name={`acts.${index}.teeth`}
+                    label="Teeth"
+                    placeholder="e.g. 24"
+                  />
+                </div>
+                <Button type="button" onClick={() => remove(index)}>
+                  Remove
+                </Button>
+              </div>
+            ))}
+            <Button
+              type="button"
+              onClick={() => append({ id: "", teeth: "" })}
+              className="mt-2"
+            >
+              Add Act
+            </Button>
           </div>
           <div>
             <Input

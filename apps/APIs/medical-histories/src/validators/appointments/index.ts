@@ -49,8 +49,9 @@ export const addAppointmentDataValidator = [
     .isString()
     .isIn(paymentStatuses)
     .notEmpty(),
-  body("actIds", "Invalid Act IDs").isArray().notEmpty(),
-  body("actIds.*", "Invalid Act ID").isMongoId(),
+  body("acts", "Invalid Acts").isArray().notEmpty(),
+  body("acts.*.id", "Invalid Act ID").isMongoId(),
+  body("acts.*.teeth", "Invalid Act Teeth").isString().optional(),
   body("confirmedPrice", "Invalid Confirmed Price").isNumeric().notEmpty(),
   check("medicalHistoryId", "Invalid Medical History ID")
     .isMongoId()
@@ -109,8 +110,9 @@ export const updateAppointmentDataValidator = [
     .isString()
     .isIn(paymentStatuses)
     .optional(),
-  body("actIds", "Invalid Act IDs").isArray().optional(),
-  body("actIds.*", "Invalid Act ID").isMongoId().optional(),
+  body("acts", "Invalid Acts").isArray().optional(),
+  body("acts.*.id", "Invalid Act ID").isMongoId().optional(),
+  body("acts.*.teeth", "Invalid Act Teeth").isString().optional(),
   body("confirmedPrice", "Invalid Confirmed Price").isNumeric().optional(),
 ];
 

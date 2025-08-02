@@ -15,10 +15,6 @@ const PatientsList = () => {
         <Link to="/patients/add">
           <Button variant="success">Add One</Button>
         </Link>
-
-        {/* <Link to="/">
-          <Button variant="success">Add In Bulk</Button>
-        </Link> */}
       </>
     ),
   });
@@ -69,12 +65,12 @@ const PatientsList = () => {
             title: "Actions",
             cell: (row) => (
               <div className="flex justify-end">
-                <Link to={`/patients/${row._id}/medical-histories`}>
+                <Link to={`${row._id}/medical-histories`}>
                   <Button disabled={isDeleteLoading} variant="primary">
                     Medical History
                   </Button>
                 </Link>
-                <Link to={`/patients/edit/${row._id}`}>
+                <Link to={`edit/${row._id}`}>
                   <Button disabled={isDeleteLoading} variant="warning">
                     Edit
                   </Button>

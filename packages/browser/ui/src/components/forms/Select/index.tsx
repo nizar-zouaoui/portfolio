@@ -63,6 +63,8 @@ const Select = <TFieldValues extends FieldValues>({
               id={selectId}
               className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-2.5 pr-2.5 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500`}
               {...field}
+              aria-describedby={errors[name] ? `${selectId}-error` : undefined}
+              aria-invalid={errors[name] ? true : false}
             >
               {placeholder && (
                 <option value="" disabled>
@@ -83,7 +85,12 @@ const Select = <TFieldValues extends FieldValues>({
         />
       </div>
       {errors[name] && (
-        <span className="text-red-600 dark:text-red-400 text-sm mt-1">
+        <span
+          id={`${selectId}-error`}
+          className="text-red-600 dark:text-red-400 text-sm mt-1"
+          role="alert"
+          aria-live="polite"
+        >
           {errors[name]?.message as string}
         </span>
       )}

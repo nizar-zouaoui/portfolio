@@ -1,3 +1,4 @@
+import { PaginationQuery } from "@nizar-repo/shared-types/PaginationTypes";
 import { FaUsers } from "react-icons/fa";
 import { RouteObject } from "react-router-dom";
 import Api from "sdks";
@@ -10,6 +11,12 @@ const fetchPatient = async (id: string) =>
     params: { id },
   });
 
+const fetchMedicalHistory = async (id: string, query: PaginationQuery) =>
+  Api.medicalHistoriesSDK.getMedicalHistoryDataById({
+    params: { id },
+    query,
+  });
+
 const routes: RouteObject[] = [
   {
     index: true,
@@ -20,11 +27,10 @@ const routes: RouteObject[] = [
       const url = new URL(request.url);
       const query = Object.fromEntries(url.searchParams.entries());
       const patient = await fetchPatient(id);
-      const medicalHistory =
-        await Api.medicalHistoriesSDK.getMedicalHistoryDataById({
-          params: { id: patient.medicalHistoryId },
-          query,
-        });
+      const medicalHistory = await fetchMedicalHistory(
+        patient.medicalHistoryId,
+        query
+      );
       return {
         medicalHistory,
         patient,

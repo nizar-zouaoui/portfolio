@@ -26,13 +26,18 @@ const usePatientsList = () => {
   );
 
   useEffect(() => {
-    setSearchParams({
-      page: (query.page || 1).toString(),
-      limit: (query.limit || 10).toString(),
-      keyword: query.keyword || "",
-      ["sort-direction"]: query["sort-direction"] || SortDirection.asc,
-      ["sort-field"]: query["sort-field"] || "createdAt",
-    });
+    setSearchParams(
+      {
+        page: (query.page || 1).toString(),
+        limit: (query.limit || 10).toString(),
+        keyword: query.keyword || "",
+        ["sort-direction"]: query["sort-direction"] || SortDirection.asc,
+        ["sort-field"]: query["sort-field"] || "createdAt",
+      },
+      {
+        replace: true,
+      }
+    );
   }, [query, setSearchParams]);
 
   const { data, isLoading } = useQuery(

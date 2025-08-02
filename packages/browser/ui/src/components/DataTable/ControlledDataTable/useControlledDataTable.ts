@@ -2,7 +2,11 @@ import {
   PaginationQuery,
   SortDirection,
 } from "@nizar-repo/shared-types/PaginationTypes";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import {
+  safeGetValueByPath,
+  safeRenderContent,
+} from "../../../utils/safeDataAccess";
 import { DataTableColumn } from "../DataTableColumnInterface";
 
 const useControlledDataTable = <T>(
@@ -12,29 +16,33 @@ const useControlledDataTable = <T>(
 
   useEffect(() => {
     setQuery((prev) => ({ ...prev, keyword: searchTerm }));
-  }, [searchTerm]);
+  }, [searchTerm, setQuery]);
 
-  const handlePageChange = (newPage: number) =>
-    setQuery((prev) => ({ ...prev, page: newPage }));
-  const handleSortChange = (field: string) =>
-    setQuery((prev) => ({
-      ...prev,
-      "sort-field": field,
-      "sort-direction":
-        prev["sort-direction"] === SortDirection.asc
-          ? SortDirection.desc
-          : SortDirection.asc,
-    }));
+  const handlePageChange = useCallback(
+    (newPage: number) => setQuery((prev) => ({ ...prev, page: newPage })),
+    [setQuery]
+  );
 
-  const renderCell = (item: T, column: DataTableColumn<T>) => {
+  const handleSortChange = useCallback(
+    (field: string) =>
+      setQuery((prev) => ({
+        ...prev,
+        "sort-field": field,
+        "sort-direction":
+          prev["sort-direction"] === SortDirection.asc
+            ? SortDirection.desc
+            : SortDirection.asc,
+      })),
+    [setQuery]
+  );
+
+  const renderCell = useCallback((item: T, column: DataTableColumn<T>) => {
     if (column.cell) return column.cell(item);
-    const value = column.selector ? getValueByPath(item, column.selector) : "";
-    return typeof value === "string" ||
-      typeof value === "number" ||
-      typeof value === "boolean"
-      ? String(value)
-      : null;
-  };
+    const value = column.selector
+      ? safeGetValueByPath(item, column.selector)
+      : "";
+    return safeRenderContent(value);
+  }, []);
 
   return {
     handlePageChange,
@@ -46,7 +54,3 @@ const useControlledDataTable = <T>(
 };
 
 export default useControlledDataTable;
-
-function getValueByPath(obj: any, path: string): any {
-  return path.split(".").reduce((o, key) => (o ? o[key] : undefined), obj);
-}

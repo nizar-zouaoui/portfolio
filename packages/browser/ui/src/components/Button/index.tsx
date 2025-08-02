@@ -16,6 +16,7 @@ const Button: React.FC<IButton> = ({
   children,
   className = "",
   variant = "primary",
+  disabled,
   ...rest
 }) => {
   // Define styles for each variant
@@ -33,9 +34,13 @@ const Button: React.FC<IButton> = ({
     disabled: "bg-gray-500 dark:bg-gray-500 cursor-not-allowed",
   };
 
+  const isDisabled = disabled || variant === "disabled";
+
   return (
     <button
-      className={`${className} ${variantStyles[variant]} text-white font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none`}
+      className={`${className} ${variantStyles[variant]} text-white font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none focus:ring-2 transition-colors duration-200 ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
+      disabled={isDisabled}
+      aria-disabled={isDisabled}
       {...rest}
     >
       {children}

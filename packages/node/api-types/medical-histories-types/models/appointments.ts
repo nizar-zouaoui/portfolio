@@ -8,7 +8,10 @@ import { PAYMENT_STATUS } from "../enums";
 export interface IAppointment {
   date: Date;
   notes?: string;
-  actIds: string[];
+  acts: {
+    id: string;
+    teeth?: string;
+  }[];
   confirmedPrice: number;
   paymentStatus: PAYMENT_STATUS;
 }

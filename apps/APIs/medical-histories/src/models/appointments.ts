@@ -9,11 +9,18 @@ export const appointmentsSchema = new Schema<
   AppointmentModel
 >(
   {
-    actIds: {
-      type: [String],
-      ref: "Acts",
-      required: true,
-    },
+    acts: [
+      {
+        id: {
+          type: String,
+          required: true,
+        },
+        teeth: {
+          type: String,
+          required: false,
+        },
+      },
+    ],
     confirmedPrice: {
       type: Number,
       required: true,

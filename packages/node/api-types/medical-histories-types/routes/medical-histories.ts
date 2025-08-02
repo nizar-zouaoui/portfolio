@@ -22,8 +22,10 @@ export type MedicalHistoryRouteTypes = {
     };
     GET: {
       response: PaginatedResult<
-        LeanAppointmentDocument & {
-          acts: LeanActDocument[];
+        Omit<LeanAppointmentDocument, "acts"> & {
+          acts: (LeanActDocument & {
+            teeth: string;
+          })[];
         }
       >;
       params: {

@@ -1,6 +1,6 @@
+import { Button, IBasicForm, Input } from "@nizar-repo/ui";
 import React from "react";
 import { FormProvider } from "react-hook-form";
-import { Input, Button, IBasicForm } from "@nizar-repo/ui";
 import { ClassicSignUpBodyType } from "../types";
 import useSignUpForm from "./useSignUpForm";
 
@@ -62,7 +62,26 @@ const SignUpForm: React.FC<ISignUpForm> = ({ onSubmit, loading }) => {
                 required: "Password is required",
                 minLength: {
                   value: 8,
-                  message: "Password should be at least 8 characters",
+                  message: "Password must be at least 8 characters long",
+                },
+                validate: (value) => {
+                  // Check for uppercase letter
+                  if (!/[A-Z]/.test(value)) {
+                    return "Password must contain at least one uppercase letter";
+                  }
+                  // Check for lowercase letter
+                  if (!/[a-z]/.test(value)) {
+                    return "Password must contain at least one lowercase letter";
+                  }
+                  // Check for number
+                  if (!/\d/.test(value)) {
+                    return "Password must contain at least one number";
+                  }
+                  // Check for special character
+                  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\?]/.test(value)) {
+                    return "Password must contain at least one special character";
+                  }
+                  return true;
                 },
               }}
               type="password"

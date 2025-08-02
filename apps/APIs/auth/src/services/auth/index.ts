@@ -6,11 +6,10 @@ import {
 } from "@nizar-repo/auth-types";
 import { DEFAULT_ROLES_NAMES } from "@nizar-repo/auth-types/enums/defaultRoles";
 import { handleDuplicateFieldsError } from "@nizar-repo/custom-router/errors";
-import { validateToken } from "@nizar-repo/route-protection";
+import { createSecureToken } from "@nizar-repo/route-protection/secureJWT";
 import { TokenPayloadType } from "@nizar-repo/route-protection/tokenPayloadType";
 import getAuthWithUserAggregation from "helpers/getAuthWithUserAggregation";
 import createHtpError from "http-errors";
-import { sign } from "jsonwebtoken";
 import Auth from "models/auth";
 import User from "models/users";
 import * as rolesServices from "services/roles";
@@ -41,9 +40,7 @@ export const classicSignIn = async ({
     role: user.role,
   };
 
-  const accessToken = sign(payload, process.env.JWT_SECRET_KEY, {
-    expiresIn: "1d",
-  });
+  const accessToken = createSecureToken(payload);
   return {
     accessToken,
     email: user.email,
@@ -81,9 +78,7 @@ export const classicSignUp = async ({
     email: newAuth.user.email,
     role: userRole,
   };
-  const accessToken = sign(payload, process.env.JWT_SECRET_KEY, {
-    expiresIn: "1d",
-  });
+  const accessToken = createSecureToken(payload);
   return {
     accessToken,
     email: newAuth.user.email,
@@ -105,9 +100,7 @@ export const refreshAccessToken = async (
     role: user.role,
   };
 
-  const accessToken = sign(payload, process.env.JWT_SECRET_KEY, {
-    expiresIn: "1d",
-  });
+  const accessToken = createSecureToken(payload);
   return {
     accessToken,
     email: user.email,
@@ -115,9 +108,6 @@ export const refreshAccessToken = async (
   };
 };
 
-export const verifyAccessToken = async (token: string) => {
-  validateToken(token);
-};
 const createAuth = async (
   authData: AuthRouteTypes["/auth/classic/sign-up/"]["POST"]["body"] & {
     authMethod: AuthMethods;

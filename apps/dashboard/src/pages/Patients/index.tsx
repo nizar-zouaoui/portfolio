@@ -34,7 +34,7 @@ const routes: RouteObject[] = [
     errorElement: <div>Failed to load data</div>,
   },
   {
-    path: ":id/medical-histories/",
+    path: ":id/medical-histories",
     children: medicalHistoryRoutes,
   },
 ];

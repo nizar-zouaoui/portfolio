@@ -1,6 +1,6 @@
+import { Button, IBasicForm, Input } from "@nizar-repo/ui";
 import React from "react";
 import { FormProvider } from "react-hook-form";
-import { Input, Button, IBasicForm } from "@nizar-repo/ui";
 import { ClassicLoginBodyType } from "../types";
 import useLoginForm from "./useLoginForm";
 
@@ -48,7 +48,7 @@ const LoginForm: React.FC<ILoginForm> = ({ onSubmit, loading }) => {
                 required: "Password is required",
                 minLength: {
                   value: 8,
-                  message: "Password should be at least 8 characters",
+                  message: "Password must be at least 8 characters long",
                 },
               }}
               type="password"

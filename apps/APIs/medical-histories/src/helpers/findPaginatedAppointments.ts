@@ -45,12 +45,13 @@ const getAppointmentsPaginationPipeline = (
       $unwind: "$appointments",
     },
     {
+      // Convert each `acts.id` to ObjectId
       $addFields: {
         "appointments.actObjectIds": {
           $map: {
-            input: "$appointments.actIds",
-            as: "id",
-            in: { $toObjectId: "$$id" },
+            input: "$appointments.acts",
+            as: "act",
+            in: { $toObjectId: "$$act.id" },
           },
         },
       },
@@ -60,19 +61,50 @@ const getAppointmentsPaginationPipeline = (
         from: "acts",
         localField: "appointments.actObjectIds",
         foreignField: "_id",
-        as: "appointments.acts",
+        as: "appointments.populatedActs",
       },
     },
     {
-      // Replace the root with the appointment only
+      $addFields: {
+        "appointments.acts": {
+          $map: {
+            input: "$appointments.acts",
+            as: "originalAct",
+            in: {
+              $mergeObjects: [
+                "$$originalAct",
+                {
+                  $arrayElemAt: [
+                    {
+                      $filter: {
+                        input: "$appointments.populatedActs",
+                        as: "populated",
+                        cond: {
+                          $eq: [
+                            "$$populated._id",
+                            { $toObjectId: "$$originalAct.id" },
+                          ],
+                        },
+                      },
+                    },
+                    0,
+                  ],
+                },
+              ],
+            },
+          },
+        },
+      },
+    },
+    {
       $replaceRoot: {
         newRoot: "$appointments",
       },
     },
     {
       $project: {
-        actIds: 0,
         actObjectIds: 0,
+        populatedActs: 0,
       },
     },
     {

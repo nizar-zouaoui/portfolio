@@ -55,8 +55,14 @@ export const useDarkMode = () => {
     }
 
     changeTheme(newTheme);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (window as any).__setPreferredTheme(newTheme);
+    // Safely access the global theme function
+    if (
+      typeof window !== "undefined" &&
+      window &&
+      typeof (window as any).__setPreferredTheme === "function"
+    ) {
+      (window as any).__setPreferredTheme(newTheme);
+    }
   }, [changeTheme, theme]);
 
   return { theme, toggleDarkMode };

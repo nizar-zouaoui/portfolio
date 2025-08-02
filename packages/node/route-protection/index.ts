@@ -5,7 +5,7 @@ import {
 } from "@nizar-repo/auth-types/enums/defaultRoles";
 import { NextFunction, Request, Response } from "express";
 import createError from "http-errors";
-import { sign, verify } from "jsonwebtoken";
+import { createSecureToken, validateTokenSecure } from "./secureJWT";
 import { IAccessResource, IRole, TokenPayloadType } from "./tokenPayloadType";
 
 export const protectRoute =
@@ -15,60 +15,85 @@ export const protectRoute =
     res: Response<any>,
     next: NextFunction
   ) => {
-    const authHeader = req.get("Authorization");
-    const decodedToken = validateToken(authHeader);
+    try {
+      const authHeader = req.get("Authorization");
+      const decodedToken = validateTokenSecure(authHeader);
 
-    res.locals.token = decodedToken;
+      res.locals.token = decodedToken;
 
-    validateRole(decodedToken.role, {
-      accessPrivilege,
-      resource,
-    });
-    return next();
+      validateRole(decodedToken.role, {
+        accessPrivilege,
+        resource,
+      });
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
   };
 
+// Legacy function - marked as deprecated
+/** @deprecated Use validateTokenSecure instead */
 export const validateToken = (authHeader: string | undefined) => {
-  if (!process.env.JWT_SECRET_KEY)
-    throw createError(500, "JWT_SECRET_KEY env is not provided!");
-  if (authHeader === undefined) {
-    throw createError(403, "No header provided!");
-  }
-  const token = authHeader.split(" ")[1];
-  debugger;
-  const decodedToken = verify(
-    token,
-    process.env.JWT_SECRET_KEY
-  ) as TokenPayloadType;
-  if (!decodedToken) throw createError(403, "Malformed or expired token!");
-  return decodedToken;
+  console.warn("validateToken is deprecated. Use validateTokenSecure instead.");
+  return validateTokenSecure(authHeader);
 };
 
 const validateRole = (role: IRole, requiredAccessResource: IAccessResource) => {
-  const hasAccess =
-    role.name === DEFAULT_ROLES_NAMES.GOD ||
-    role.accessResources.some(
-      (accessResource) =>
-        (accessResource.accessPrivilege === "*" ||
-          accessResource.accessPrivilege ===
-            requiredAccessResource.accessPrivilege) &&
-        (accessResource.resource === "*" ||
-          accessResource.resource === requiredAccessResource.resource)
+  // Enhanced security: prevent wildcard abuse
+  if (role.name === DEFAULT_ROLES_NAMES.GOD) {
+    // Log god role usage for security monitoring
+    console.warn(
+      `God role accessed for resource: ${requiredAccessResource.resource}`
     );
+    return true;
+  }
+
+  const hasAccess = role.accessResources.some((accessResource) => {
+    // More restrictive wildcard handling
+    const privilegeMatch =
+      accessResource.accessPrivilege ===
+        requiredAccessResource.accessPrivilege ||
+      (accessResource.accessPrivilege === "*" &&
+        role.name === DEFAULT_ROLES_NAMES.GOD);
+
+    const resourceMatch =
+      accessResource.resource === requiredAccessResource.resource ||
+      (accessResource.resource === "*" &&
+        role.name === DEFAULT_ROLES_NAMES.GOD);
+
+    return privilegeMatch && resourceMatch;
+  });
 
   if (!hasAccess) {
-    throw createError(
-      403,
-      `Unauthorized Access to resource ${requiredAccessResource.resource}`
+    // Enhanced error logging for security monitoring
+    console.warn(
+      `Unauthorized access attempt: ${role.name} tried to access ${requiredAccessResource.resource} with ${requiredAccessResource.accessPrivilege}`
     );
+    throw createError(403, `Insufficient permissions for this resource`);
   }
+
   return hasAccess;
 };
 
+/**
+ * @deprecated This function should only be used in development/testing
+ * Creates a token with god role - USE WITH EXTREME CAUTION
+ */
 export const createFakeToken = () => {
-  if (!process.env.JWT_SECRET_KEY)
-    throw createError(500, "JWT_SECRET_KEY env is not provided!");
-  const payload = {
+  if (process.env.NODE_ENV === "production") {
+    throw createError(403, "Fake token creation is not allowed in production");
+  }
+
+  console.warn(
+    "WARNING: Creating fake god token - this should only be used in development!"
+  );
+
+  const payload: Omit<TokenPayloadType, "iat" | "exp"> = {
+    userId: "dev-user",
+    email: "dev@example.com",
     role: godRole,
   };
-  return sign(payload, process.env.JWT_SECRET_KEY);
+
+  return createSecureToken(payload);
 };

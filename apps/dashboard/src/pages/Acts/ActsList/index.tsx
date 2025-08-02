@@ -46,6 +46,8 @@ const ActsList = () => {
                   : row.description.slice(0, 25)}
               </span>
             ),
+            selector: "description",
+            sortable: true,
           },
           {
             title: "Price",

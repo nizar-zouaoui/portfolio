@@ -41,7 +41,8 @@ export const refreshAccessToken = async (
   if (!authHeader) {
     throw createHttpError(401, "No token provided");
   }
-  await authServices.verifyAccessToken(authHeader);
+  // The route protection middleware already validates and populates res.locals.token
+  // So we can directly use it instead of re-validating
   const newToken = await authServices.refreshAccessToken(
     res.locals.token.userId
   );

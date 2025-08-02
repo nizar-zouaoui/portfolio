@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Control,
   Controller,
@@ -37,21 +37,23 @@ const MultiSelect = <TFieldValues extends FieldValues>({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = useCallback((event: MouseEvent) => {
     if (
       dropdownRef.current &&
       !dropdownRef.current.contains(event.target as Node)
     ) {
       setIsOpen(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
+    if (isOpen) {
+      document.addEventListener("click", handleClickOutside);
+    }
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [isOpen, handleClickOutside]);
 
   const required = rules?.required;
   return (
@@ -79,6 +81,20 @@ const MultiSelect = <TFieldValues extends FieldValues>({
               ref={dropdownRef}
               id={`${name}-dropdown`}
               className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-2.5 pr-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer"
+              role="combobox"
+              aria-expanded={isOpen}
+              aria-haspopup="listbox"
+              aria-labelledby={label ? `${name}-label` : undefined}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setIsOpen(!isOpen);
+                }
+                if (e.key === "Escape") {
+                  setIsOpen(false);
+                }
+              }}
             >
               <div
                 onClick={() => setIsOpen((prev) => !prev)}

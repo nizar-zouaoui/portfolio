@@ -59,7 +59,7 @@ const AppointmentsList = () => {
                     key={act._id.toString()}
                     className="p-1 dark:text-slate-400 text-slate-500 dark:bg-slate-800 bg-slate-100 rounded-md"
                   >
-                    {act.name}
+                    {act.name} {act.teeth ? `(${act.teeth})` : ""}
                   </span>
                 ))}
               </div>
