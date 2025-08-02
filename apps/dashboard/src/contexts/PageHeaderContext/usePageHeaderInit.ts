@@ -1,5 +1,5 @@
 import { PageName } from "components/Layout";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import usePageHeader from "./usePageHeader";
 
 interface PageHeaderInitProps {
@@ -17,17 +17,25 @@ const usePageHeaderInit = ({
 }: PageHeaderInitProps) => {
   const { setTitle, setDescription, setButtons, setIcon } = usePageHeader();
 
-  useEffect(() => {
+  const updatePageHeader = useCallback(() => {
     setTitle(title);
     setDescription(description);
-    if (buttons) {
-      setButtons(buttons);
-    } else setButtons(undefined);
-    if (icon) {
-      setIcon(icon);
-    } else setIcon(undefined);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [title, description]);
+    setButtons(buttons || undefined);
+    setIcon(icon || undefined);
+  }, [
+    title,
+    description,
+    buttons,
+    icon,
+    setTitle,
+    setDescription,
+    setButtons,
+    setIcon,
+  ]);
+
+  useEffect(() => {
+    updatePageHeader();
+  }, [updatePageHeader]);
 };
 
 export default usePageHeaderInit;

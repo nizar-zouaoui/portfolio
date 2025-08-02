@@ -6,7 +6,7 @@ export interface LinkProp {
   icon?: React.ReactNode;
 }
 
-const NavBarLinks: React.FC<{ links: LinkProp[] }> = ({ links }) => {
+const NavBarLinks: React.FC<{ links: LinkProp[] }> = React.memo(({ links }) => {
   return (
     <>
       {links.map(({ pageName, path }) => (
@@ -20,6 +20,8 @@ const NavBarLinks: React.FC<{ links: LinkProp[] }> = ({ links }) => {
       ))}
     </>
   );
-};
+});
+
+NavBarLinks.displayName = "NavBarLinks";
 
 export default NavBarLinks;

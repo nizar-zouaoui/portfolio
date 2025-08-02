@@ -3,7 +3,7 @@ import {
   PaginationQuery,
   SortDirection,
 } from "@nizar-repo/shared-types/PaginationTypes";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { DataTableColumn } from "../DataTableColumnInterface";
 
@@ -45,7 +45,7 @@ const useDataTable = <T>(
 
   const renderCell = (item: T, column: DataTableColumn<T>) => {
     if (column.cell) return column.cell(item);
-    const value = column.selector ? item[column.selector] : "";
+    const value = column.selector ? (item as any)[column.selector] : "";
     return typeof value === "string" ||
       typeof value === "number" ||
       typeof value === "boolean"

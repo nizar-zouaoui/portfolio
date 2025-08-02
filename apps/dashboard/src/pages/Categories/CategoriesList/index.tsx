@@ -2,9 +2,11 @@ import { CategoryRouteTypes } from "@nizar-repo/categories-types";
 import { Button, ControlledDataTable } from "@nizar-repo/ui";
 import SEOHelmet from "components/SEO";
 import usePageHeaderInit from "contexts/PageHeaderContext/usePageHeaderInit";
+import { sanitizeImageUrl } from "helpers/securityUtils";
 import { FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useCategoriesList from "./useCategoryList";
+
 const CategoriesList = () => {
   usePageHeaderInit({
     title: "Categroies",
@@ -41,9 +43,12 @@ const CategoriesList = () => {
             cell: (row) =>
               row.imgUrl ? (
                 <img
-                  src={row.imgUrl}
+                  src={sanitizeImageUrl(row.imgUrl)}
                   alt={row.title}
                   className="w-12 h-12 object-cover rounded-full"
+                  onError={(e) => {
+                    e.currentTarget.src = "/placeholder-image.svg";
+                  }}
                 />
               ) : (
                 <span>No Image</span>

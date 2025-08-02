@@ -1,45 +1,28 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useToastContext from "./Context/useToastContext";
-import useOnInitialRender from "./helpers/useOnInitialRender";
-import { TimerManager } from "./utils/secureUtils";
 
 const useToast = ({ id, timer }: { id: string; timer: number }) => {
   const { removeToast } = useToastContext();
   const [isExiting, setIsExiting] = useState(false);
-  const timerManagerRef = useRef<TimerManager>();
 
-  // Initialize timer manager
-  if (!timerManagerRef.current) {
-    timerManagerRef.current = new TimerManager();
-  }
-
-  useOnInitialRender(() => {
-    const timerManager = timerManagerRef.current!;
-
-    const displayTimer = timerManager.setTimeout(() => {
+  useEffect(() => {
+    const displayTimer = setTimeout(() => {
       setIsExiting(true);
     }, timer);
 
-    const exitTimer = timerManager.setTimeout(() => {
+    const removeTimer = setTimeout(() => {
       removeToast(id);
     }, timer + 300);
 
     return () => {
-      timerManager.clearTimeout(displayTimer);
-      timerManager.clearTimeout(exitTimer);
+      clearTimeout(displayTimer);
+      clearTimeout(removeTimer);
     };
-  }, [timer, id, removeToast]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      timerManagerRef.current?.cleanup();
-    };
-  }, []);
+  }, [id, timer, removeToast]);
 
   const handleRemove = () => {
     setIsExiting(true);
-    timerManagerRef.current?.setTimeout(() => {
+    setTimeout(() => {
       removeToast(id);
     }, 300);
   };

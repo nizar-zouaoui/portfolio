@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { LinkProp } from "../NavBarLinks";
 
-const SideBar: React.FC<{ links: LinkProp[] }> = ({ links }) => {
+const SideBar: React.FC<{ links: LinkProp[] }> = React.memo(({ links }) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -33,6 +33,8 @@ const SideBar: React.FC<{ links: LinkProp[] }> = ({ links }) => {
       </div>
     </div>
   );
-};
+});
+
+SideBar.displayName = "SideBar";
 
 export default SideBar;

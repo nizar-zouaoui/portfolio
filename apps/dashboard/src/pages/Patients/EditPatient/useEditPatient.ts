@@ -55,6 +55,7 @@ const useEditPatient = () => {
       fullName: patient.fullName,
       phoneNumber: patient.phoneNumber,
       birthDate: new Date(patient.birthDate).toISOString().split("T")[0],
+      medicalHistoryId: patient.medicalHistoryId,
     },
     onSubmit: (data: EditPatientType) => addPatient(data),
     isLoading,

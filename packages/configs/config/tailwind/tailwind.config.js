@@ -17,7 +17,11 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "../../packages/**/*.{js,jsx,ts,tsx}",
+    "../../packages/browser/ui/src/**/*.{js,jsx,ts,tsx}",
+    "../../packages/browser/Toast/*.{js,jsx,ts,tsx}",
+    "../../packages/browser/Toast/{Context,Toasts,helpers,utils}/*.{js,jsx,ts,tsx}",
+    "../../packages/browser/Authenticator/*.{js,jsx,ts,tsx}",
+    "../../packages/browser/Authenticator/{LoginForm,SignUpForm}/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {

@@ -35,22 +35,25 @@ export default defineConfig(({ mode }) => ({
     target: "esnext",
     sourcemap: false,
     lib: {
-      entry: resolve(__dirname, "index.tsx"),
+      entry: {
+        index: resolve(__dirname, "index.tsx"),
+      },
+      formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: (id) =>
-        /^[@\w]/.test(id) && !id.startsWith(".") && !id.startsWith("/"),
+      external: ["react", "react-dom"],
       output: [
         {
           format: "cjs",
-          dir: "build/cjs",
+          dir: "build",
           preserveModules: true,
           preserveModulesRoot: ".",
           entryFileNames: "[name].js",
+          exports: "named",
         },
         {
           format: "es",
-          dir: "build/esm",
+          dir: "build",
           preserveModules: true,
           preserveModulesRoot: ".",
           entryFileNames: "[name].js",

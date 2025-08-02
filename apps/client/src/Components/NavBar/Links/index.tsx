@@ -5,7 +5,7 @@ export interface LinkProp {
   pageName: string;
 }
 
-const Links: React.FC<{ links: LinkProp[] }> = ({ links }) => {
+const Links: React.FC<{ links: LinkProp[] }> = React.memo(({ links }) => {
   return (
     <>
       {links.map(({ pageName, path }) => (
@@ -19,6 +19,8 @@ const Links: React.FC<{ links: LinkProp[] }> = ({ links }) => {
       ))}
     </>
   );
-};
+});
+
+Links.displayName = "Links";
 
 export default Links;

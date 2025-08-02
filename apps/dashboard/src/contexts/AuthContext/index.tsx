@@ -6,7 +6,7 @@ import generateApiMessage from "helpers/generateApiMessage";
 import hashPassword from "helpers/hashPassword";
 import { createContext, ReactNode, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import Api from "sdks";
+import Api, { updateApiToken } from "sdks";
 import {
   createSession,
   deleteSession,
@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useQuery("refreshSession", updateSession, {
       onSuccess: async (res) => {
         if (res?.sessionStatus === SESSION_STATUS.SESSION_UPDATED) {
+          updateApiToken(); // Update the API SDK with the refreshed token
           setUserData(res.userData);
           setIsAuthenticated(true);
           toast({
@@ -76,6 +77,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {
         onSuccess: async (res) => {
           await createSession(res.accessToken);
+          updateApiToken(); // Update the API SDK with the new token
           setUserData({
             email: res.email,
             username: res.username,

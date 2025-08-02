@@ -9,6 +9,7 @@ import useToastContext from "@nizar-repo/toast/Context/useToastContext";
 import { Loader } from "@nizar-repo/ui";
 import generateApiMessage from "helpers/generateApiMessage";
 import { SESSION_STATUS } from "helpers/session-management/SessionTypes";
+import { useAuthStatus } from "hooks/useAuthStatus";
 import { useRouter } from "next/navigation";
 import { createContext, ReactNode, useContext, useState } from "react";
 import {
@@ -21,7 +22,6 @@ import Api from "../../sdks";
 import { createSession, deleteSession, updateSession } from "./sessionHandlers";
 
 interface AuthContextType {
-  token: string | null;
   isAuthenticated: boolean;
   logout: () => void;
   login: (props: LoginProps) => void;
@@ -56,9 +56,8 @@ type LoginProps = {
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setToken] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const isAuthenticated = useAuthStatus(); // Use hook instead of state
   const queryClient = useQueryClient();
   const { toast } = useToastContext();
 
@@ -69,7 +68,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       onSuccess: async (res) => {
         if (res?.sessionStatus === SESSION_STATUS.SESSION_UPDATED) {
           setUserData(res.userData);
-          setIsAuthenticated(true);
           toast({
             type: "success",
             message: "Welcome to simple deliver",
@@ -77,7 +75,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           });
         } else {
           setUserData(null);
-          setIsAuthenticated(false);
         }
       },
       onError: (error) => {
@@ -161,15 +158,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     await deleteSession();
-    setToken(null);
     setUserData(null);
-    setIsAuthenticated(false);
     queryClient.removeQueries("refreshSession");
     router.push("/");
   };
 
   const value = {
-    token,
     isAuthenticated,
     logout,
     login,

@@ -67,3 +67,7 @@ const Toast: React.FC<IToast> = ({ id, message, timer, type }) => {
 };
 
 export default Toast;
+
+// Export Toasts component
+export { default as Toasts, type IToasts } from "./Toasts";
+export { default as useToast } from "./useToast";
