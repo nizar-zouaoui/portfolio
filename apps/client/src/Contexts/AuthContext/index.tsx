@@ -11,7 +11,14 @@ import generateApiMessage from "helpers/generateApiMessage";
 import { SESSION_STATUS } from "helpers/session-management/SessionTypes";
 import { useAuthStatus } from "hooks/useAuthStatus";
 import { useRouter } from "next/navigation";
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import {
   UseMutateFunction,
   useMutation,
@@ -118,12 +125,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         },
       }
     );
-  const login = ({ authMethod, data }: LoginProps) => {
-    switch (authMethod) {
-      case AuthMethods.CLASSIC:
-        classicLoginMutation(data);
-    }
-  };
+  const login = useCallback(
+    ({ authMethod, data }: LoginProps) => {
+      switch (authMethod) {
+        case AuthMethods.CLASSIC:
+          classicLoginMutation(data);
+          break;
+      }
+    },
+    [classicLoginMutation]
+  );
 
   const { mutate: classicSignUpMutation, isLoading: classicSignUpLoading } =
     useMutation(
@@ -156,22 +167,33 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     await deleteSession();
     setUserData(null);
     queryClient.removeQueries("refreshSession");
     router.push("/");
-  };
+  }, [queryClient, router]);
 
-  const value = {
-    isAuthenticated,
-    logout,
-    login,
-    classicLoginLoading,
-    classicSignUp: classicSignUpMutation,
-    classicSignUpLoading,
-    userData,
-  };
+  const value = useMemo(
+    () => ({
+      isAuthenticated,
+      logout,
+      login,
+      classicLoginLoading,
+      classicSignUp: classicSignUpMutation,
+      classicSignUpLoading,
+      userData,
+    }),
+    [
+      isAuthenticated,
+      logout,
+      login,
+      classicLoginLoading,
+      classicSignUpMutation,
+      classicSignUpLoading,
+      userData,
+    ]
+  );
 
   return (
     <AuthContext.Provider value={value}>

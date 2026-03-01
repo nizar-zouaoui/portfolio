@@ -13,9 +13,14 @@ const useControlledDataTable = <T>(
   setQuery: React.Dispatch<React.SetStateAction<PaginationQuery>>
 ) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const SEARCH_DEBOUNCE_MS = 300;
 
   useEffect(() => {
-    setQuery((prev) => ({ ...prev, keyword: searchTerm }));
+    const timeoutId = setTimeout(() => {
+      setQuery((prev) => ({ ...prev, keyword: searchTerm }));
+    }, SEARCH_DEBOUNCE_MS);
+
+    return () => clearTimeout(timeoutId);
   }, [searchTerm, setQuery]);
 
   const handlePageChange = useCallback(

@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import { IToast } from "..";
 import { generateSecureId } from "../utils/secureUtils";
 
@@ -17,26 +23,25 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [toasts, setToasts] = useState<IToast[]>([]);
 
-  const toast = (newToast: Omit<IToast, "id">) => {
+  const toast = useCallback((newToast: Omit<IToast, "id">) => {
     const id = generateSecureId();
     setToasts((prevToasts) => [...prevToasts, { ...newToast, id }]);
-  };
+  }, []);
 
-  const removeToast = (id: string) => {
+  const removeToast = useCallback((id: string) => {
     setToasts((prevToasts) =>
       prevToasts.filter((currToast) => currToast.id !== id)
     );
-  };
+  }, []);
 
-  return (
-    <ToastContext.Provider
-      value={{
-        toasts,
-        toast,
-        removeToast,
-      }}
-    >
-      {children}
-    </ToastContext.Provider>
+  const value = useMemo(
+    () => ({
+      toasts,
+      toast,
+      removeToast,
+    }),
+    [toasts, toast, removeToast]
   );
+
+  return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>;
 };

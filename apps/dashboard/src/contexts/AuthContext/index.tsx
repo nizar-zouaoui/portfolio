@@ -4,7 +4,13 @@ import useToastContext from "@nizar-repo/toast/Context/useToastContext";
 import { Loader } from "@nizar-repo/ui";
 import generateApiMessage from "helpers/generateApiMessage";
 import hashPassword from "helpers/hashPassword";
-import { createContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import Api, { updateApiToken } from "sdks";
 import {
@@ -78,12 +84,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         onSuccess: async (res) => {
           await createSession(res.accessToken);
           updateApiToken(); // Update the API SDK with the new token
+          setToken(res.accessToken);
           setUserData({
             email: res.email,
             username: res.username,
           });
+          setIsAuthenticated(true);
           queryClient.invalidateQueries("refreshSession");
-          window.location.reload();
         },
         onError: (error) => {
           toast({
@@ -95,23 +102,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     await deleteSession();
     setToken(null);
     setUserData(null);
     setIsAuthenticated(false);
     queryClient.removeQueries("refreshSession");
-    window.location.reload();
-  };
+  }, [queryClient]);
 
-  const value = {
-    token,
-    isAuthenticated,
-    logout,
-    login: classicLoginMutation,
-    classicLoginLoading,
-    userData,
-  };
+  const login = useCallback(
+    (props: LoginProps) => {
+      classicLoginMutation(props);
+    },
+    [classicLoginMutation]
+  );
+
+  const value = useMemo(
+    () => ({
+      token,
+      isAuthenticated,
+      logout,
+      login,
+      classicLoginLoading,
+      userData,
+    }),
+    [token, isAuthenticated, logout, login, classicLoginLoading, userData]
+  );
 
   return (
     <AuthContext.Provider value={value}>

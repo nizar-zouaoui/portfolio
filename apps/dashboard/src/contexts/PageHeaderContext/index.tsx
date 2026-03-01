@@ -1,5 +1,5 @@
 import { PageName } from "components/Layout";
-import React, { createContext, ReactNode, useState } from "react";
+import React, { createContext, ReactNode, useMemo, useState } from "react";
 
 export type PageHeaderContextType = {
   title: PageName;
@@ -23,19 +23,23 @@ export const PageHeaderProvider: React.FC<{ children: ReactNode }> = ({
   const [description, setDescription] = useState<string>("");
   const [buttons, setButtons] = useState<ReactNode>();
   const [icon, setIcon] = useState<ReactNode>();
+
+  const value = useMemo(
+    () => ({
+      title,
+      description,
+      buttons,
+      setTitle,
+      setDescription,
+      setButtons,
+      icon,
+      setIcon,
+    }),
+    [title, description, buttons, icon]
+  );
+
   return (
-    <PageHeaderContext.Provider
-      value={{
-        title,
-        description,
-        buttons,
-        setTitle,
-        setDescription,
-        setButtons,
-        icon,
-        setIcon,
-      }}
-    >
+    <PageHeaderContext.Provider value={value}>
       {children}
     </PageHeaderContext.Provider>
   );

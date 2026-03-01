@@ -15,7 +15,7 @@ export default function Wrapper({
 }): JSX.Element {
   return (
     <>
-      <Script>{`(function () {
+      <Script id="theme-init" strategy="beforeInteractive">{`(function () {
   function changeTheme(newTheme) {
     window.__theme = newTheme;
     if (newTheme === "light") {
