@@ -6,10 +6,10 @@ This repository builds a multi-application product ecosystem under the Simple De
 
 At a product level, the apps combine as follows:
 
-- Public experience (`apps/client`): communicates product value, supports visitor education, and captures conversion through login/sign-up journeys.
-- Operations workspace (`apps/dashboard`): gives authenticated teams practical tools to run daily work (patient records, acts catalog, appointments, payment-state follow-up).
-- Identity backbone (`apps/APIs/auth`): centralizes account lifecycle, role assignment, and permission enforcement so users only access allowed capabilities.
-- Operational data services (`apps/APIs/patients`, `apps/APIs/medical-histories`): store and expose core entities that power dashboard workflows from record creation through lifecycle updates.
+- Public experience ([apps/client/README.md](apps/client/README.md)): communicates product value, supports visitor education, and captures conversion through login/sign-up journeys.
+- Operations workspace ([apps/dashboard/README.md](apps/dashboard/README.md)): gives authenticated teams practical tools to run daily work (patient records, acts catalog, appointments, payment-state follow-up).
+- Identity backbone ([apps/APIs/auth/README.md](apps/APIs/auth/README.md)): centralizes account lifecycle, role assignment, and permission enforcement so users only access allowed capabilities.
+- Operational data services ([apps/APIs/patients/README.md](apps/APIs/patients/README.md), [apps/APIs/medical-histories/README.md](apps/APIs/medical-histories/README.md)): store and expose core entities that power dashboard workflows from record creation through lifecycle updates.
 
 Together, these applications create one end-to-end user experience: discover the platform -> authenticate -> perform domain actions in the dashboard -> persist and secure every action through typed, protected backend APIs.
 
@@ -18,13 +18,13 @@ Together, these applications create one end-to-end user experience: discover the
 This repository is a Yarn workspaces + Turborepo monorepo that delivers:
 
 - Two frontend applications:
-  - `apps/client`: Next.js app (public pages + auth/session API bridge)
-  - `apps/dashboard`: Vite React app (authenticated operations UI)
+  - [apps/client/README.md](apps/client/README.md): Next.js app (public pages + auth/session API bridge)
+  - [apps/dashboard/README.md](apps/dashboard/README.md): Vite React app (authenticated operations UI)
 - Four backend Express APIs:
-  - `apps/APIs/auth`
-  - `apps/APIs/patients`
-  - `apps/APIs/medical-histories`
-  - `apps/APIs/test-api`
+  - [apps/APIs/auth/README.md](apps/APIs/auth/README.md)
+  - [apps/APIs/patients/README.md](apps/APIs/patients/README.md)
+  - [apps/APIs/medical-histories/README.md](apps/APIs/medical-histories/README.md)
+  - [apps/APIs/test-api/README.md](apps/APIs/test-api/README.md)
 - Shared internal packages:
   - browser UI/auth/toast components
   - typed SDK clients
@@ -35,6 +35,49 @@ This repository is a Yarn workspaces + Turborepo monorepo that delivers:
   - Dockerfiles and compose-based local infra bootstrap
 
 Primary business flow implemented by this codebase centers around authentication/authorization and medical-office operations (patients, medical histories, appointments, acts), with browser apps consuming SDKs that call the backend APIs through a single Nginx gateway.
+
+## Documentation Map
+
+### Apps
+
+- Apps index: [apps/README.md](apps/README.md)
+- APIs workspace: [apps/APIs/README.md](apps/APIs/README.md)
+- Client app: [apps/client/README.md](apps/client/README.md)
+- Dashboard app: [apps/dashboard/README.md](apps/dashboard/README.md)
+- Auth API: [apps/APIs/auth/README.md](apps/APIs/auth/README.md)
+- Patients API: [apps/APIs/patients/README.md](apps/APIs/patients/README.md)
+- Medical-histories API: [apps/APIs/medical-histories/README.md](apps/APIs/medical-histories/README.md)
+- Test API: [apps/APIs/test-api/README.md](apps/APIs/test-api/README.md)
+
+### Packages
+
+- Packages index: [packages/README.md](packages/README.md)
+- Browser index: [packages/browser/README.md](packages/browser/README.md)
+- Browser UI: [packages/browser/ui/README.md](packages/browser/ui/README.md)
+- Browser Authenticator: [packages/browser/Authenticator/README.md](packages/browser/Authenticator/README.md)
+- Browser Toast: [packages/browser/Toast/README.md](packages/browser/Toast/README.md)
+- Node index: [packages/node/README.md](packages/node/README.md)
+- Custom router: [packages/node/custom-router/README.md](packages/node/custom-router/README.md)
+- Route protection: [packages/node/route-protection/README.md](packages/node/route-protection/README.md)
+- Shared types: [packages/node/shared-types/README.md](packages/node/shared-types/README.md)
+- Auth types: [packages/node/api-types/auth-types/README.md](packages/node/api-types/auth-types/README.md)
+- Patients types: [packages/node/api-types/patients-types/README.md](packages/node/api-types/patients-types/README.md)
+- Medical-histories types: [packages/node/api-types/medical-histories-types/README.md](packages/node/api-types/medical-histories-types/README.md)
+- SDK index: [packages/SDK/README.md](packages/SDK/README.md)
+- Server SDK: [packages/SDK/server-sdk/README.md](packages/SDK/server-sdk/README.md)
+- Auth SDK: [packages/SDK/auth-sdk/README.md](packages/SDK/auth-sdk/README.md)
+- Patients SDK: [packages/SDK/patients-sdk/README.md](packages/SDK/patients-sdk/README.md)
+- Medical-histories SDK: [packages/SDK/medical-histories-sdk/README.md](packages/SDK/medical-histories-sdk/README.md)
+- Config index: [packages/configs/README.md](packages/configs/README.md)
+- Tailwind config: [packages/configs/config/README.md](packages/configs/config/README.md)
+- ESLint config: [packages/configs/eslint-config/README.md](packages/configs/eslint-config/README.md)
+- TypeScript config: [packages/configs/typescript-config/README.md](packages/configs/typescript-config/README.md)
+
+### Infrastructure
+
+- Dev environment: [dev-env/README.md](dev-env/README.md)
+- Dockerfiles: [dockerfiles/README.md](dockerfiles/README.md)
+- Nginx: [nginx/README.md](nginx/README.md)
 
 ## Architecture
 
@@ -198,6 +241,6 @@ The Nginx container proxies to `host.docker.internal` ports, so frontend/API Nod
 
 Detailed READMEs are available in each component root, including env vars, scripts, internal deps, and deployment notes.
 
-- Apps: `apps/client`, `apps/dashboard`, `apps/APIs/*`
-- Packages: `packages/browser/*`, `packages/node/*`, `packages/node/api-types/*`, `packages/SDK/*`, `packages/configs/*`
-- Infra/config: `dev-env`, `dockerfiles`, `nginx`
+- Apps: [apps/client/README.md](apps/client/README.md), [apps/dashboard/README.md](apps/dashboard/README.md), [apps/APIs/README.md](apps/APIs/README.md)
+- Packages: [packages/browser/README.md](packages/browser/README.md), [packages/node/README.md](packages/node/README.md), [packages/SDK/README.md](packages/SDK/README.md), [packages/configs/README.md](packages/configs/README.md)
+- Infra/config: [dev-env/README.md](dev-env/README.md), [dockerfiles/README.md](dockerfiles/README.md), [nginx/README.md](nginx/README.md)

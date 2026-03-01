@@ -29,9 +29,17 @@ This workspace delivers the full user-facing product surface: public-facing expe
 
 ## Components
 
-- `APIs/`: Express microservices (`auth`, `patients`, `medical-histories`, `test-api`)
-- `client/`: Next.js app
-- `dashboard/`: Vite React app
+- [APIs/README.md](APIs/README.md): Express microservices (`auth`, `patients`, `medical-histories`, `test-api`)
+- [client/README.md](client/README.md): Next.js app
+- [dashboard/README.md](dashboard/README.md): Vite React app
+
+## Documentation Links
+
+- Root monorepo guide: [../README.md](../README.md)
+- Packages index: [../packages/README.md](../packages/README.md)
+- Nginx routing docs: [../nginx/README.md](../nginx/README.md)
+- Dockerfiles docs: [../dockerfiles/README.md](../dockerfiles/README.md)
+- Dev environment docs: [../dev-env/README.md](../dev-env/README.md)
 
 ## Scripts
 

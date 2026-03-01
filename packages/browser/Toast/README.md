@@ -4,6 +4,12 @@
 
 Reusable toast notification system for React applications, including a toast context provider, toast rendering components, secure ID generation, and Vite-based package build output.
 
+## Capabilities & Exports
+
+- Exports `ToastProvider` and toast context hooks to trigger feedback messages from any mounted feature area.
+- Exports toast rendering components for success/info/warning/error style notifications with consistent UX behavior.
+- Exports utility logic for toast lifecycle handling (queueing, dismissal, identity generation) used by host apps.
+
 ## Tech Stack
 
 - React + TypeScript
@@ -12,9 +18,14 @@ Reusable toast notification system for React applications, including a toast con
 
 ## Internal Dependencies
 
-- `@nizar-repo/ui`
-- `@nizar-repo/eslint-config`
-- `@nizar-repo/typescript-config`
+- `@nizar-repo/ui` -> [../ui/README.md](../ui/README.md)
+- `@nizar-repo/eslint-config` -> [../../configs/eslint-config/README.md](../../configs/eslint-config/README.md)
+- `@nizar-repo/typescript-config` -> [../../configs/typescript-config/README.md](../../configs/typescript-config/README.md)
+
+## Documentation Links
+
+- Browser packages index: [../README.md](../README.md)
+- Consuming apps: [../../../apps/client/README.md](../../../apps/client/README.md), [../../../apps/dashboard/README.md](../../../apps/dashboard/README.md)
 
 ## Environment Variables
 

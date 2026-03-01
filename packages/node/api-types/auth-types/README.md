@@ -4,6 +4,12 @@
 
 Auth domain type contracts for routes, models, enums, and access-resource metadata used by auth API, route-protection middleware, and auth SDK consumers.
 
+## Capabilities & Exports
+
+- Exports auth route request/response contract types used by API controllers and SDK wrappers.
+- Exports role and access-resource enums/constants used to model authorization rules.
+- Exports auth/user/role model typings shared by service, middleware, and UI-auth integration layers.
+
 ## Tech Stack
 
 - TypeScript type package
@@ -12,6 +18,13 @@ Auth domain type contracts for routes, models, enums, and access-resource metada
 ## Internal Dependencies
 
 No direct internal dependencies.
+
+## Documentation Links
+
+- Node packages index: [../../README.md](../../README.md)
+- Route-protection consumer: [../../route-protection/README.md](../../route-protection/README.md)
+- SDK consumer: [../../../SDK/auth-sdk/README.md](../../../SDK/auth-sdk/README.md)
+- App/package consumers: [../../../../apps/APIs/auth/README.md](../../../../apps/APIs/auth/README.md), [../../../browser/Authenticator/README.md](../../../browser/Authenticator/README.md)
 
 ## Environment Variables
 

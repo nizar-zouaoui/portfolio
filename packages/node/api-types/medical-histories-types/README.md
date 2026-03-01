@@ -4,6 +4,12 @@
 
 Medical histories domain type contracts for acts, appointments, and medical histories route/model payloads. Shared by the medical-histories API, SDK package, and dashboard.
 
+## Capabilities & Exports
+
+- Exports typed contracts for acts catalog operations including create/read/update/delete payloads.
+- Exports appointment and medical-history route/model contracts that represent clinical workflow state.
+- Exports enums and domain model typings used by services and dashboard features (for example payment-state values).
+
 ## Tech Stack
 
 - TypeScript type package
@@ -11,7 +17,13 @@ Medical histories domain type contracts for acts, appointments, and medical hist
 
 ## Internal Dependencies
 
-- `shared-types` (declared dependency string in package manifest)
+- `@nizar-repo/shared-types` -> [../../shared-types/README.md](../../shared-types/README.md) (declared dependency)
+
+## Documentation Links
+
+- Node packages index: [../../README.md](../../README.md)
+- SDK consumer: [../../../SDK/medical-histories-sdk/README.md](../../../SDK/medical-histories-sdk/README.md)
+- App/API consumers: [../../../../apps/APIs/medical-histories/README.md](../../../../apps/APIs/medical-histories/README.md), [../../../../apps/dashboard/README.md](../../../../apps/dashboard/README.md)
 
 ## Environment Variables
 

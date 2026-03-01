@@ -4,6 +4,12 @@
 
 Express router wrapper that automatically decorates route handlers with async-safe try/catch middleware handling. This package standardizes error-handling behavior across backend APIs.
 
+## Capabilities & Exports
+
+- Exports `CustomRouter()` factory wrappers that automatically apply async-safe middleware around route handlers.
+- Exports standardized error helpers/middleware patterns to reduce duplicated exception handling logic in API services.
+- Enforces a consistent controller execution model across auth, patients, medical-histories, and test services.
+
 ## Tech Stack
 
 - TypeScript
@@ -13,6 +19,11 @@ Express router wrapper that automatically decorates route handlers with async-sa
 ## Internal Dependencies
 
 No internal monorepo package dependencies.
+
+## Documentation Links
+
+- Node packages index: [../README.md](../README.md)
+- API consumers: [../../../apps/APIs/auth/README.md](../../../apps/APIs/auth/README.md), [../../../apps/APIs/patients/README.md](../../../apps/APIs/patients/README.md), [../../../apps/APIs/medical-histories/README.md](../../../apps/APIs/medical-histories/README.md), [../../../apps/APIs/test-api/README.md](../../../apps/APIs/test-api/README.md)
 
 ## Environment Variables
 

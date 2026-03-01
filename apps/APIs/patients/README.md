@@ -41,11 +41,11 @@ This service is the source of truth for patient identity and contact records. It
 
 ## Internal Dependencies
 
-- `@nizar-repo/custom-router`
-- `@nizar-repo/patients-types`
-- `@nizar-repo/medical-histories-sdk`
-- `@nizar-repo/route-protection`
-- `@nizar-repo/shared-types`
+- `@nizar-repo/custom-router` -> [../../../packages/node/custom-router/README.md](../../../packages/node/custom-router/README.md)
+- `@nizar-repo/patients-types` -> [../../../packages/node/api-types/patients-types/README.md](../../../packages/node/api-types/patients-types/README.md)
+- `@nizar-repo/medical-histories-sdk` -> [../../../packages/SDK/medical-histories-sdk/README.md](../../../packages/SDK/medical-histories-sdk/README.md)
+- `@nizar-repo/route-protection` -> [../../../packages/node/route-protection/README.md](../../../packages/node/route-protection/README.md)
+- `@nizar-repo/shared-types` -> [../../../packages/node/shared-types/README.md](../../../packages/node/shared-types/README.md)
 
 ## Environment Variables
 
@@ -79,3 +79,15 @@ This service is the source of truth for patient identity and contact records. It
 
 - Default runtime with `.env.example` is `PORT=4005`.
 - Nginx proxy: `/api/v1/patients` -> `http://host.docker.internal:4005`.
+
+Related infrastructure docs:
+
+- Nginx proxy and TLS: [../../../nginx/README.md](../../../nginx/README.md)
+- Docker image definitions: [../../../dockerfiles/README.md](../../../dockerfiles/README.md)
+- Local compose environment: [../../../dev-env/README.md](../../../dev-env/README.md)
+
+## Documentation Links
+
+- APIs workspace index: [../README.md](../README.md)
+- Root monorepo guide: [../../../README.md](../../../README.md)
+- SDK consumers: [../../../packages/SDK/patients-sdk/README.md](../../../packages/SDK/patients-sdk/README.md), [../../../apps/dashboard/README.md](../../../apps/dashboard/README.md)

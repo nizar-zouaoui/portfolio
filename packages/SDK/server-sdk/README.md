@@ -4,6 +4,12 @@
 
 Core HTTP transport SDK used by all domain SDKs. It encapsulates Axios initialization, bearer token handling, refresh-token interceptor behavior, and environment-aware HTTPS/base URL defaults.
 
+## Capabilities & Exports
+
+- Exports base `ApiSDK` transport abstractions used by all domain SDK packages.
+- Exports request/response interceptor behavior for token refresh and automatic retry on expired-auth scenarios.
+- Exports bearer-token management helpers and environment-aware base URL defaults for browser/server contexts.
+
 ## Tech Stack
 
 - TypeScript
@@ -13,6 +19,12 @@ Core HTTP transport SDK used by all domain SDKs. It encapsulates Axios initializ
 ## Internal Dependencies
 
 No internal monorepo runtime dependencies.
+
+## Documentation Links
+
+- SDK packages index: [../README.md](../README.md)
+- Domain SDK consumers: [../auth-sdk/README.md](../auth-sdk/README.md), [../patients-sdk/README.md](../patients-sdk/README.md), [../medical-histories-sdk/README.md](../medical-histories-sdk/README.md)
+- App-level consumers: [../../../apps/client/README.md](../../../apps/client/README.md), [../../../apps/dashboard/README.md](../../../apps/dashboard/README.md)
 
 ## Environment Variables
 

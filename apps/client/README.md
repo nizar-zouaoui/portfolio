@@ -43,12 +43,12 @@ This app is the product’s public front door and account-entry experience. It c
 
 ## Internal Dependencies
 
-- `@nizar-repo/auth-sdk`
-- `@nizar-repo/authenticator`
-- `@nizar-repo/server-sdk`
-- `@nizar-repo/toast`
-- `@nizar-repo/ui`
-- `@nizar-repo/tailwindcss-config` (dev dependency)
+- `@nizar-repo/auth-sdk` -> [../../packages/SDK/auth-sdk/README.md](../../packages/SDK/auth-sdk/README.md)
+- `@nizar-repo/authenticator` -> [../../packages/browser/Authenticator/README.md](../../packages/browser/Authenticator/README.md)
+- `@nizar-repo/server-sdk` -> [../../packages/SDK/server-sdk/README.md](../../packages/SDK/server-sdk/README.md)
+- `@nizar-repo/toast` -> [../../packages/browser/Toast/README.md](../../packages/browser/Toast/README.md)
+- `@nizar-repo/ui` -> [../../packages/browser/ui/README.md](../../packages/browser/ui/README.md)
+- `@nizar-repo/tailwindcss-config` -> [../../packages/configs/config/README.md](../../packages/configs/config/README.md) (dev dependency)
 
 ## Environment Variables
 
@@ -83,6 +83,19 @@ Detected from `apps/client/.env.example`, session helpers, and middleware helper
   - `PUT /api/session` refresh/rotate session
   - `DELETE /api/session` clear session cookies
 - Cookie strategy: `AUTH_SESSION` (httpOnly), `API_TOKEN` (client-readable), `AUTH_STATUS`.
+
+Related infrastructure docs:
+
+- Nginx proxy and TLS: [../../nginx/README.md](../../nginx/README.md)
+- Docker image definitions: [../../dockerfiles/README.md](../../dockerfiles/README.md)
+- Local compose environment: [../../dev-env/README.md](../../dev-env/README.md)
+
+## Documentation Links
+
+- Apps index: [../README.md](../README.md)
+- Root monorepo guide: [../../README.md](../../README.md)
+- Dashboard app: [../dashboard/README.md](../dashboard/README.md)
+- APIs workspace: [../APIs/README.md](../APIs/README.md)
 
 ## Getting Started
 

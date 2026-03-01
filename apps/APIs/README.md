@@ -31,10 +31,10 @@ This workspace provides the product’s business engine. It handles identity and
 
 ## Components
 
-- `auth`: authentication, user, and role management (`/api/v1/auth`).
-- `patients`: patient CRUD and bulk import-style operations (`/api/v1/patients`).
-- `medical-histories`: acts, medical histories, and appointments (`/api/v1/medical-histories`).
-- `test-api`: small validation/CRUD test surface (`/api/v1/test-api`).
+- [auth/README.md](auth/README.md): authentication, user, and role management (`/api/v1/auth`).
+- [patients/README.md](patients/README.md): patient CRUD and bulk import-style operations (`/api/v1/patients`).
+- [medical-histories/README.md](medical-histories/README.md): acts, medical histories, and appointments (`/api/v1/medical-histories`).
+- [test-api/README.md](test-api/README.md): small validation/CRUD test surface (`/api/v1/test-api`).
 
 ## Infrastructure & Routing
 
@@ -43,6 +43,19 @@ This workspace provides the product’s business engine. It handles identity and
   - `/api/v1/patients` -> `http://host.docker.internal:4005`
   - `/api/v1/medical-histories` -> `http://host.docker.internal:4006`
 - All APIs use `@nizar-repo/custom-router` and (except `test-api`) use `@nizar-repo/route-protection` JWT-based authorization.
+
+Related package docs:
+
+- `@nizar-repo/custom-router` -> [../../packages/node/custom-router/README.md](../../packages/node/custom-router/README.md)
+- `@nizar-repo/route-protection` -> [../../packages/node/route-protection/README.md](../../packages/node/route-protection/README.md)
+- API domain types -> [../../packages/node/README.md](../../packages/node/README.md)
+
+## Documentation Links
+
+- Apps index: [../README.md](../README.md)
+- Root monorepo guide: [../../README.md](../../README.md)
+- Nginx routing docs: [../../nginx/README.md](../../nginx/README.md)
+- Dev environment docs: [../../dev-env/README.md](../../dev-env/README.md)
 
 ## Environment Variables
 

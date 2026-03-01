@@ -44,13 +44,13 @@ This app is the day-to-day operational cockpit for authenticated staff. It centr
 
 ## Internal Dependencies
 
-- `@nizar-repo/auth-sdk`
-- `@nizar-repo/patients-sdk`
-- `@nizar-repo/medical-histories-sdk`
-- `@nizar-repo/server-sdk`
-- `@nizar-repo/toast`
-- `@nizar-repo/ui`
-- `@nizar-repo/tailwindcss-config` (dev dependency)
+- `@nizar-repo/auth-sdk` -> [../../packages/SDK/auth-sdk/README.md](../../packages/SDK/auth-sdk/README.md)
+- `@nizar-repo/patients-sdk` -> [../../packages/SDK/patients-sdk/README.md](../../packages/SDK/patients-sdk/README.md)
+- `@nizar-repo/medical-histories-sdk` -> [../../packages/SDK/medical-histories-sdk/README.md](../../packages/SDK/medical-histories-sdk/README.md)
+- `@nizar-repo/server-sdk` -> [../../packages/SDK/server-sdk/README.md](../../packages/SDK/server-sdk/README.md)
+- `@nizar-repo/toast` -> [../../packages/browser/Toast/README.md](../../packages/browser/Toast/README.md)
+- `@nizar-repo/ui` -> [../../packages/browser/ui/README.md](../../packages/browser/ui/README.md)
+- `@nizar-repo/tailwindcss-config` -> [../../packages/configs/config/README.md](../../packages/configs/config/README.md) (dev dependency)
 
 ## Environment Variables
 
@@ -83,6 +83,19 @@ Detected from `apps/dashboard/.env.example`, auth session management, and Vite c
 - Auth/session integration:
   - dashboard calls `/api/session` endpoints (served by Next.js app) to create/update/delete shared cookies.
   - `API_TOKEN` cookie is propagated to SDK bearer token via `updateApiToken()`.
+
+Related infrastructure docs:
+
+- Nginx proxy and TLS: [../../nginx/README.md](../../nginx/README.md)
+- Docker image definitions: [../../dockerfiles/README.md](../../dockerfiles/README.md)
+- Local compose environment: [../../dev-env/README.md](../../dev-env/README.md)
+
+## Documentation Links
+
+- Apps index: [../README.md](../README.md)
+- Root monorepo guide: [../../README.md](../../README.md)
+- Client app: [../client/README.md](../client/README.md)
+- APIs workspace: [../APIs/README.md](../APIs/README.md)
 
 # React + TypeScript + Vite
 

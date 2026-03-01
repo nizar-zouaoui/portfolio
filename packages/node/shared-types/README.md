@@ -4,6 +4,12 @@
 
 Shared backend/frontend type contracts for cross-domain utility models such as pagination and validation helpers.
 
+## Capabilities & Exports
+
+- Exports generic pagination query/response contracts used for list views and paginated API endpoints.
+- Exports shared utility types that normalize validation and transport typing across backend and frontend layers.
+- Provides cross-domain foundational types consumed by domain type packages and services.
+
 ## Tech Stack
 
 - TypeScript declaration package
@@ -12,6 +18,12 @@ Shared backend/frontend type contracts for cross-domain utility models such as p
 ## Internal Dependencies
 
 No internal monorepo dependencies.
+
+## Documentation Links
+
+- Node packages index: [../README.md](../README.md)
+- Domain types using this package: [../api-types/patients-types/README.md](../api-types/patients-types/README.md), [../api-types/medical-histories-types/README.md](../api-types/medical-histories-types/README.md)
+- API/SDK consumers: [../../../apps/APIs/patients/README.md](../../../apps/APIs/patients/README.md), [../../../apps/APIs/medical-histories/README.md](../../../apps/APIs/medical-histories/README.md), [../../SDK/patients-sdk/README.md](../../SDK/patients-sdk/README.md), [../../SDK/medical-histories-sdk/README.md](../../SDK/medical-histories-sdk/README.md)
 
 ## Environment Variables
 

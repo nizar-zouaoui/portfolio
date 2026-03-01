@@ -19,6 +19,14 @@ Reverse proxy and TLS termination configuration for the monorepo. It consolidate
   - Patients API on `4005`
   - Medical-histories API on `4006`
 
+Linked docs:
+
+- Client app: [../apps/client/README.md](../apps/client/README.md)
+- Dashboard app: [../apps/dashboard/README.md](../apps/dashboard/README.md)
+- APIs workspace: [../apps/APIs/README.md](../apps/APIs/README.md)
+- Dockerfiles: [../dockerfiles/README.md](../dockerfiles/README.md)
+- Dev compose environment: [../dev-env/README.md](../dev-env/README.md)
+
 ## Environment Variables
 
 No environment variables are directly referenced in Nginx configuration files.
@@ -40,3 +48,8 @@ No local scripts defined in this directory.
   - `/_next/webpack-hmr` -> `http://host.docker.internal:3001/_next/webpack-hmr`
   - `/` -> `http://host.docker.internal:3001`
 - TLS assets live under `cert/` (`localhost3000.crt`, `localhost3000.key`).
+
+## Documentation Links
+
+- Root monorepo guide: [../README.md](../README.md)
+- Packages index: [../packages/README.md](../packages/README.md)

@@ -41,9 +41,9 @@ This service is the trust and access layer for the platform. It decides who can 
 
 ## Internal Dependencies
 
-- `@nizar-repo/custom-router`
-- `@nizar-repo/route-protection`
-- `@nizar-repo/auth-types`
+- `@nizar-repo/custom-router` -> [../../../packages/node/custom-router/README.md](../../../packages/node/custom-router/README.md)
+- `@nizar-repo/route-protection` -> [../../../packages/node/route-protection/README.md](../../../packages/node/route-protection/README.md)
+- `@nizar-repo/auth-types` -> [../../../packages/node/api-types/auth-types/README.md](../../../packages/node/api-types/auth-types/README.md)
 
 ## Environment Variables
 
@@ -80,3 +80,15 @@ This service is the trust and access layer for the platform. It decides who can 
 - Default runtime port: `4001`.
 - Nginx proxy: `/api/v1/auth` -> `http://host.docker.internal:4001`.
 - On startup, after successful DB connect, imports `helpers/seed` to ensure base role/user/auth records are present.
+
+Related infrastructure docs:
+
+- Nginx proxy and TLS: [../../../nginx/README.md](../../../nginx/README.md)
+- Docker image definitions: [../../../dockerfiles/README.md](../../../dockerfiles/README.md)
+- Local compose environment: [../../../dev-env/README.md](../../../dev-env/README.md)
+
+## Documentation Links
+
+- APIs workspace index: [../README.md](../README.md)
+- Root monorepo guide: [../../../README.md](../../../README.md)
+- SDK consumer: [../../../packages/SDK/auth-sdk/README.md](../../../packages/SDK/auth-sdk/README.md)

@@ -37,10 +37,10 @@ This service acts as a controlled sandbox for development and quality checks. It
 
 ## Internal Dependencies
 
-- `@nizar-repo/custom-router`
-- `@nizar-repo/route-protection` (declared dependency)
-- `@nizar-repo/auth-types`
-- `@nizar-repo/shared-types`
+- `@nizar-repo/custom-router` -> [../../../packages/node/custom-router/README.md](../../../packages/node/custom-router/README.md)
+- `@nizar-repo/route-protection` -> [../../../packages/node/route-protection/README.md](../../../packages/node/route-protection/README.md) (declared dependency)
+- `@nizar-repo/auth-types` -> [../../../packages/node/api-types/auth-types/README.md](../../../packages/node/api-types/auth-types/README.md)
+- `@nizar-repo/shared-types` -> [../../../packages/node/shared-types/README.md](../../../packages/node/shared-types/README.md)
 
 ## Environment Variables
 
@@ -69,3 +69,14 @@ This service acts as a controlled sandbox for development and quality checks. It
 
 - Runtime defaults to port `4000`.
 - No active Nginx mapping is configured for `/api/v1/test-api` in `nginx/conf.d/default.conf` (service is runnable directly and can be mapped when needed).
+
+Related infrastructure docs:
+
+- Nginx proxy and TLS: [../../../nginx/README.md](../../../nginx/README.md)
+- Docker image definitions: [../../../dockerfiles/README.md](../../../dockerfiles/README.md)
+- Local compose environment: [../../../dev-env/README.md](../../../dev-env/README.md)
+
+## Documentation Links
+
+- APIs workspace index: [../README.md](../README.md)
+- Root monorepo guide: [../../../README.md](../../../README.md)

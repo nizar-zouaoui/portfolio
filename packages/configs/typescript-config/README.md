@@ -4,6 +4,12 @@
 
 Shared TypeScript configuration presets for monorepo apps and packages, including base, Next.js, server, and react-library variants.
 
+## Capabilities & Exports
+
+- Exports standardized TS presets (`base`, `nextjs`, `server`, `react-library`) used by different runtime targets.
+- Enforces consistent compiler strictness, module behavior, and declaration/source-map defaults across workspaces.
+- Reduces per-project tsconfig duplication and keeps type-checking behavior predictable across app/package boundaries.
+
 ## Tech Stack
 
 - TypeScript `tsconfig` preset package
@@ -11,6 +17,12 @@ Shared TypeScript configuration presets for monorepo apps and packages, includin
 ## Internal Dependencies
 
 No internal dependencies.
+
+## Documentation Links
+
+- Config packages index: [../README.md](../README.md)
+- ESLint config companion: [../eslint-config/README.md](../eslint-config/README.md)
+- Common consumers: [../../browser/ui/README.md](../../browser/ui/README.md), [../../browser/Toast/README.md](../../browser/Toast/README.md), [../../browser/Authenticator/README.md](../../browser/Authenticator/README.md)
 
 ## Environment Variables
 

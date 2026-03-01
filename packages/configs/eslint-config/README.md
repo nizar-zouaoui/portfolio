@@ -4,6 +4,12 @@
 
 Central ESLint rules package for monorepo applications and libraries. It provides reusable config entrypoints for generic libraries, Next.js apps, and internal React bundles.
 
+## Capabilities & Exports
+
+- Exports `library`, `next`, and `react-internal` ESLint profiles that standardize linting behavior across workspace types.
+- Exports rule baselines for import ordering, unused-import cleanup, and TypeScript lint consistency.
+- Enforces monorepo-wide code quality defaults so apps and packages avoid drift in style and static-analysis behavior.
+
 ## Tech Stack
 
 - ESLint 9
@@ -15,6 +21,12 @@ Central ESLint rules package for monorepo applications and libraries. It provide
 ## Internal Dependencies
 
 No internal runtime dependencies.
+
+## Documentation Links
+
+- Config packages index: [../README.md](../README.md)
+- TypeScript config companion: [../typescript-config/README.md](../typescript-config/README.md)
+- Common consumers: [../../browser/ui/README.md](../../browser/ui/README.md), [../../browser/Toast/README.md](../../browser/Toast/README.md), [../../browser/Authenticator/README.md](../../browser/Authenticator/README.md)
 
 ## Environment Variables
 

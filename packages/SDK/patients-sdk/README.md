@@ -4,6 +4,12 @@
 
 Typed SDK for patients API operations (list/get/create/update/delete and bulk create), built on shared `ApiSDK` transport.
 
+## Capabilities & Exports
+
+- Exports typed CRUD client methods for patient listing, detail retrieval, creation, update, deletion, and bulk insert.
+- Exports query/body parameter contracts aligned with patients domain types.
+- Encapsulates patients endpoint URLs and transport calls behind a reusable client abstraction.
+
 ## Tech Stack
 
 - TypeScript
@@ -12,8 +18,14 @@ Typed SDK for patients API operations (list/get/create/update/delete and bulk cr
 
 ## Internal Dependencies
 
-- `@nizar-repo/patients-types`
-- `@nizar-repo/server-sdk`
+- `@nizar-repo/patients-types` -> [../../node/api-types/patients-types/README.md](../../node/api-types/patients-types/README.md)
+- `@nizar-repo/server-sdk` -> [../server-sdk/README.md](../server-sdk/README.md)
+
+## Documentation Links
+
+- SDK packages index: [../README.md](../README.md)
+- API provider: [../../../apps/APIs/patients/README.md](../../../apps/APIs/patients/README.md)
+- App consumers: [../../../apps/dashboard/README.md](../../../apps/dashboard/README.md)
 
 ## Environment Variables
 

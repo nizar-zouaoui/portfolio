@@ -4,6 +4,12 @@
 
 Typed SDK wrapper around auth API endpoints. Provides login/sign-up/token refresh calls plus role/user endpoints on top of the shared `ApiSDK` transport.
 
+## Capabilities & Exports
+
+- Exports typed methods for login, sign-up, and refresh-token flows.
+- Exports typed user and role client operations that align with auth service RBAC workflows.
+- Wraps auth endpoints behind a stable client API to simplify frontend integration and reduce transport duplication.
+
 ## Tech Stack
 
 - TypeScript
@@ -12,8 +18,14 @@ Typed SDK wrapper around auth API endpoints. Provides login/sign-up/token refres
 
 ## Internal Dependencies
 
-- `@nizar-repo/auth-types`
-- `@nizar-repo/server-sdk`
+- `@nizar-repo/auth-types` -> [../../node/api-types/auth-types/README.md](../../node/api-types/auth-types/README.md)
+- `@nizar-repo/server-sdk` -> [../server-sdk/README.md](../server-sdk/README.md)
+
+## Documentation Links
+
+- SDK packages index: [../README.md](../README.md)
+- API provider: [../../../apps/APIs/auth/README.md](../../../apps/APIs/auth/README.md)
+- App consumers: [../../../apps/client/README.md](../../../apps/client/README.md), [../../../apps/dashboard/README.md](../../../apps/dashboard/README.md)
 
 ## Environment Variables
 
