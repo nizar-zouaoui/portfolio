@@ -27,10 +27,8 @@ export default defineConfig(({ mode }) => ({
           icons: ["react-icons"],
           sdk: [
             "@nizar-repo/auth-sdk",
-            "@nizar-repo/categories-sdk",
             "@nizar-repo/patients-sdk",
             "@nizar-repo/medical-histories-sdk",
-            "@nizar-repo/marketing-targets-sdk",
           ],
         },
         // Optimized chunk file names

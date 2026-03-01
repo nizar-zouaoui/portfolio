@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { FiSearch } from "react-icons/fi";
+import Icons from "../../Icons";
 
 interface ISearchInputProps {
   searchTerm: string;
@@ -41,7 +41,7 @@ const SearchInput: React.FC<ISearchInputProps> = ({
         aria-label="Search input"
         role="searchbox"
       />
-      <FiSearch
+      <Icons.Search
         className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 pointer-events-none"
         aria-hidden="true"
       />

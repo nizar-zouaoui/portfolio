@@ -22,22 +22,22 @@ const TableBody = <T,>({
         <tr>
           <td
             colSpan={columns.length}
-            className="p-3 text-center text-gray-500 dark:text-gray-400"
+            className="px-4 py-8 text-center text-neutral-500 dark:text-neutral-400"
           >
             Loading...
           </td>
         </tr>
       ) : items.length > 0 ? (
-        items.map((item) => (
+        items.map((item, index) => (
           <tr
             key={keyExtractor(item)}
-            className="even:bg-gray-50 dark:even:bg-gray-800"
+            className="transition-colors duration-200 hover:bg-neutral-50 dark:hover:bg-neutral-700 bg-white dark:bg-neutral-800"
           >
             {columns.map((column, colIndex) => {
               return (
                 <td
                   key={colIndex}
-                  className="p-3 border border-gray-200 dark:border-gray-700 dark:bg-gray-900"
+                  className="px-4 py-3 text-left text-sm text-neutral-900 dark:text-neutral-100 border-b border-neutral-200 dark:border-neutral-700"
                 >
                   {renderCell(item, column)}
                 </td>
@@ -49,7 +49,7 @@ const TableBody = <T,>({
         <tr>
           <td
             colSpan={columns.length}
-            className="p-3 text-center text-gray-500 dark:text-gray-400"
+            className="px-4 py-8 text-center text-neutral-500 dark:text-neutral-400"
           >
             No results found.
           </td>

@@ -1,5 +1,5 @@
 import { SortDirection } from "@nizar-repo/shared-types/PaginationTypes";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import Icons from "../../../Icons";
 import { DataTableColumn } from "../../DataTableColumnInterface";
 
 interface ITableHeader<T> {
@@ -34,9 +34,9 @@ const TableHeader = <T,>({
                 {column.sortable &&
                   (sortField === column.selector ? (
                     sortDirection === SortDirection.asc ? (
-                      <FaArrowUp />
+                      <Icons.ArrowUp className="w-3 h-3" />
                     ) : (
-                      <FaArrowDown />
+                      <Icons.ArrowDown className="w-3 h-3" />
                     )
                   ) : (
                     ""

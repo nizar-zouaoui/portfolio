@@ -1,5 +1,5 @@
+import Icons from "@nizar-repo/ui/src/components/Icons";
 import LoginPage from "pages/Login";
-import { MdLogin } from "react-icons/md";
 
 import { Navigate, RouteObject } from "react-router-dom";
 
@@ -21,6 +21,6 @@ export const authLinks = [
     main: true,
     pageName: "Login",
     path: "/login",
-    icon: <MdLogin />,
+    icon: <Icons.User />,
   },
 ] as const;

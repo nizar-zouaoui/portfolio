@@ -1,3 +1,60 @@
+# @nizar-repo/dashboard
+
+## Title & Description
+
+`@nizar-repo/dashboard` is the authenticated React + Vite operations UI. It manages patient records, medical histories, acts, and appointments by consuming internal SDK packages and sharing auth session state with the Next.js client through same-domain cookies.
+
+## Tech Stack
+
+- React 18 + TypeScript
+- Vite 5
+- React Router 6
+- React Query
+- React Hook Form
+- Shared UI/Toast/Auth SDK packages
+
+## Internal Dependencies
+
+- `@nizar-repo/auth-sdk`
+- `@nizar-repo/patients-sdk`
+- `@nizar-repo/medical-histories-sdk`
+- `@nizar-repo/server-sdk`
+- `@nizar-repo/toast`
+- `@nizar-repo/ui`
+- `@nizar-repo/tailwindcss-config` (dev dependency)
+
+## Environment Variables
+
+Detected from `apps/dashboard/.env.example`, auth session management, and Vite config.
+
+| Variable              | Required       | Purpose                                                     | Format / Example             |
+| --------------------- | -------------- | ----------------------------------------------------------- | ---------------------------- |
+| `VITE_SESSION_SECRET` | yes (declared) | reserved session secret placeholder                         | secure string                |
+| `VITE_JWT_SECRET_KEY` | yes (declared) | declared JWT secret for dashboard env surface               | secure string                |
+| `VITE_JWT_EXPIRES_IN` | optional       | controls fallback cookie expiry in dashboard session helper | numeric string, e.g. `1`     |
+| `NODE_ENV`            | implicit       | controls HTTPS certificate loading and production flags     | `development` / `production` |
+| `ANALYZE`             | optional       | enables bundle analysis plugin output                       | `true` / `false`             |
+
+## Available Scripts
+
+| Script    | Command                | What it does                                      |
+| --------- | ---------------------- | ------------------------------------------------- |
+| `start`   | `vite --host`          | starts Vite dev server (configured port `3002`)   |
+| `build`   | `tsc -b && vite build` | type-checks/builds dashboard bundle into `build/` |
+| `lint`    | `eslint .`             | lints project sources                             |
+| `preview` | `vite preview`         | serves built output locally                       |
+
+## Infrastructure & Deployment
+
+- Local runtime port: `3002` (`vite.config.ts`).
+- Vite base path and router basename are `/dashboard`.
+- Nginx routing:
+  - `/dashboard` -> `https://host.docker.internal:3002`
+- Dev HTTPS cert/key are read from `../../nginx/cert/localhost3000.crt` and `../../nginx/cert/localhost3000.key` in non-production.
+- Auth/session integration:
+  - dashboard calls `/api/session` endpoints (served by Next.js app) to create/update/delete shared cookies.
+  - `API_TOKEN` cookie is propagated to SDK bearer token via `updateApiToken()`.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -18,11 +75,11 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 - Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
@@ -31,11 +88,11 @@ export default tseslint.config({
 
 ```js
 // eslint.config.js
-import react from 'eslint-plugin-react'
+import react from "eslint-plugin-react";
 
 export default tseslint.config({
   // Set the react version
-  settings: { react: { version: '18.3' } },
+  settings: { react: { version: "18.3" } },
   plugins: {
     // Add the react plugin
     react,
@@ -44,7 +101,7 @@ export default tseslint.config({
     // other rules...
     // Enable its recommended rules
     ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
+    ...react.configs["jsx-runtime"].rules,
   },
-})
+});
 ```

@@ -20,6 +20,7 @@ interface IMultiSelect<TFieldValues extends FieldValues> {
     "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"
   >;
   defaultValue?: string[];
+  size?: "sm" | "md" | "lg";
 }
 
 const MultiSelect = <TFieldValues extends FieldValues>({
@@ -30,6 +31,7 @@ const MultiSelect = <TFieldValues extends FieldValues>({
   control,
   rules,
   defaultValue = [],
+  size = "md",
 }: IMultiSelect<TFieldValues>) => {
   const {
     formState: { errors },
@@ -56,17 +58,45 @@ const MultiSelect = <TFieldValues extends FieldValues>({
   }, [isOpen, handleClickOutside]);
 
   const required = rules?.required;
+  const hasError = !!errors[name];
+
+  // Enhanced size styles to match Input component
+  const sizeStyles = {
+    sm: "px-3 py-1.5 text-sm h-8",
+    md: "px-3 py-2 text-sm h-10",
+    lg: "px-4 py-3 text-base h-12",
+  };
+
+  // Enhanced label styles to match unified theme
+  const labelStyles = `
+    block mb-2 text-sm font-medium transition-colors duration-200
+    ${
+      hasError
+        ? "text-error-600 dark:text-error-400"
+        : "text-neutral-700 dark:text-neutral-300"
+    }
+  `.trim();
+
+  // Enhanced dropdown styles to match unified theme
+  const dropdownStyles = `
+    relative block w-full rounded-lg transition-all duration-200 cursor-pointer border
+    focus:outline-none focus:ring-2 focus:ring-offset-1
+    ${sizeStyles[size]}
+    ${
+      hasError
+        ? "border-error-500 bg-error-50 text-error-900 focus:border-error-500 focus:ring-error-500 dark:border-error-400 dark:bg-error-900 dark:text-error-100 dark:focus:border-error-400 dark:focus:ring-error-400"
+        : "border-neutral-300 bg-white text-neutral-900 focus:border-primary-500 focus:ring-primary-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-100 dark:focus:border-primary-400 dark:focus:ring-primary-400"
+    }
+  `.trim();
+
   return (
     <>
       <div>
         {label && (
-          <label
-            htmlFor={`${name}-dropdown`}
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-          >
+          <label htmlFor={`${name}-dropdown`} className={labelStyles}>
             {label}
             {required ? (
-              <span className="text-red-600 dark:text-red-400"> *</span>
+              <span className="text-error-600 dark:text-error-400"> *</span>
             ) : null}
           </label>
         )}
@@ -80,7 +110,7 @@ const MultiSelect = <TFieldValues extends FieldValues>({
             <div
               ref={dropdownRef}
               id={`${name}-dropdown`}
-              className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-2.5 pr-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer"
+              className={dropdownStyles}
               role="combobox"
               aria-expanded={isOpen}
               aria-haspopup="listbox"
@@ -98,28 +128,36 @@ const MultiSelect = <TFieldValues extends FieldValues>({
             >
               <div
                 onClick={() => setIsOpen((prev) => !prev)}
-                className="flex justify-between items-center"
+                className="flex justify-between items-center h-full"
               >
-                <p>
-                  {field.value.length > 0
-                    ? options
-                        .filter((option) => field.value.includes(option.value))
-                        .map((option) => (
-                          <span
-                            className="bg-slate-200 dark:bg-slate-600 text-slate-800 dark:text-slate-200 rounded-md px-2 py-1 mr-1"
-                            key={option.value}
-                          >
-                            {option.label}
-                          </span>
-                        ))
-                    : placeholder}
-                </p>
-                <span>{isOpen ? "▲" : "▼"}</span>
+                <div className="flex items-center flex-wrap gap-1 flex-1 min-h-0">
+                  {field.value.length > 0 ? (
+                    options
+                      .filter((option) => field.value.includes(option.value))
+                      .map((option) => (
+                        <span
+                          className="bg-primary-100 dark:bg-primary-800 text-primary-800 dark:text-primary-100 rounded-md px-2 py-0.5 text-xs font-medium"
+                          key={option.value}
+                        >
+                          {option.label}
+                        </span>
+                      ))
+                  ) : (
+                    <span className="text-neutral-500 dark:text-neutral-400">
+                      {placeholder}
+                    </span>
+                  )}
+                </div>
+                <span className="ml-2 flex-shrink-0">{isOpen ? "▲" : "▼"}</span>
               </div>
               {isOpen && (
                 <ul
-                  className={`absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-md max-h-40 overflow-y-auto z-10
-                dark:bg-gray-800 dark:border-gray-600`}
+                  className={`absolute top-full left-0 right-0 mt-1 rounded-lg border shadow-lg max-h-40 overflow-y-auto z-10 
+                  ${
+                    hasError
+                      ? "bg-error-50 border-error-200 dark:bg-error-900 dark:border-error-700"
+                      : "bg-white border-neutral-200 dark:bg-neutral-800 dark:border-neutral-700"
+                  }`}
                 >
                   {options.map((option) => (
                     <li
@@ -132,10 +170,11 @@ const MultiSelect = <TFieldValues extends FieldValues>({
                           : [...field.value, option.value];
                         field.onChange(newValue);
                       }}
-                      className={`mx-1 my-1 px-1 py-1 cursor-pointer ${
+                      className={`mx-1 my-1 px-3 py-2 cursor-pointer rounded transition-colors duration-200 text-sm
+                      ${
                         field.value.includes(option.value)
-                          ? "bg-slate-200 dark:bg-slate-600"
-                          : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                          ? "bg-primary-100 text-primary-800 dark:bg-primary-800 dark:text-primary-100"
+                          : "hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300"
                       }`}
                     >
                       <input
@@ -161,7 +200,7 @@ const MultiSelect = <TFieldValues extends FieldValues>({
         />
       </div>
       {errors[name] && (
-        <span className="text-red-600 dark:text-red-400 text-sm mt-1">
+        <span className="text-error-600 dark:text-error-400 text-sm mt-1 block">
           {errors[name]?.message as string}
         </span>
       )}

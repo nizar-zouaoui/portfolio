@@ -3,10 +3,11 @@
  * @param url - The image URL to sanitize
  * @returns Sanitized URL or placeholder if invalid
  */
-export const sanitizeImageUrl = (url: string | undefined | null): string => {
-  // Return placeholder for null/undefined
+export const isSanitizedImageUrl = (
+  url: string | undefined | null,
+): boolean => {
   if (!url) {
-    return "/placeholder-image.svg";
+    return false;
   }
 
   try {
@@ -14,13 +15,34 @@ export const sanitizeImageUrl = (url: string | undefined | null): string => {
 
     // Only allow http/https protocols
     if (!["http:", "https:"].includes(urlObj.protocol)) {
-      return "/placeholder-image.svg";
+      return false;
+    }
+
+    return true;
+  } catch {
+    // Invalid URL format
+    return false;
+  }
+};
+
+export const sanitizeImageUrl = (url: string | undefined | null): string => {
+  // Return placeholder for null/undefined
+  if (!url) {
+    return "/dashboard/placeholder-image.svg";
+  }
+
+  try {
+    const urlObj = new URL(url);
+
+    // Only allow http/https protocols
+    if (!["http:", "https:"].includes(urlObj.protocol)) {
+      return "/dashboard/placeholder-image.svg";
     }
 
     return url;
   } catch {
     // Invalid URL format
-    return "/placeholder-image.svg";
+    return "/dashboard/placeholder-image.svg";
   }
 };
 

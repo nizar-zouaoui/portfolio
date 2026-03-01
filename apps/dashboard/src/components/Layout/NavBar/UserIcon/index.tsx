@@ -1,7 +1,7 @@
 import { Button } from "@nizar-repo/ui";
+import Icons from "@nizar-repo/ui/src/components/Icons";
 import useAuth from "contexts/AuthContext/useAuth";
 import React, { useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const UserIcon: React.FC = () => {
@@ -16,9 +16,9 @@ const UserIcon: React.FC = () => {
     <div className="relative">
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center text-white space-x-2"
+        className="flex items-center text-gray-800 dark:text-gray-100 space-x-2 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
       >
-        <FaUserCircle className="text-2xl" />
+        <Icons.User className="text-2xl" />
         <span>
           {userData.username.length > 8
             ? `${userData.username.slice(0, 3)}...`
@@ -28,11 +28,15 @@ const UserIcon: React.FC = () => {
 
       {/* Dropdown Menu */}
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 border-solid bg-white dark:bg-zinc-800 rounded-lg shadow-lg">
+        <div className="absolute right-0 mt-2 w-48 border-solid bg-white dark:bg-zinc-800 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700">
           <div className="p-4">
-            <p className="font-bold">{userData.username}</p>
-            <p className="text-sm">{userData.email}</p>
-            <hr className="my-2" />
+            <p className="font-bold text-gray-800 dark:text-gray-100">
+              {userData.username}
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              {userData.email}
+            </p>
+            <hr className="my-2 border-neutral-200 dark:border-neutral-600" />
             <Button
               onClick={() => {
                 handleLogout();

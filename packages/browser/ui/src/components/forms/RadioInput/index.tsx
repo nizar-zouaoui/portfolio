@@ -40,14 +40,36 @@ const RadioInput = <TFieldValues extends FieldValues>({
 
   const required = rules?.required;
   const inputId = `${name}-radio`;
+  const hasError = !!errors[name];
+
+  // Enhanced label styles to match unified theme
+  const labelStyles = `
+    block mb-2 text-sm font-medium transition-colors duration-200
+    ${
+      hasError
+        ? "text-error-600 dark:text-error-400"
+        : "text-neutral-700 dark:text-neutral-300"
+    }
+  `.trim();
+
+  // Enhanced radio option styles to match unified theme
+  const optionLabelStyles = `
+    flex items-center gap-2 text-sm transition-colors duration-200 cursor-pointer
+    ${
+      hasError
+        ? "text-error-600 dark:text-error-400"
+        : "text-neutral-700 dark:text-neutral-300"
+    }
+    hover:text-primary-600 dark:hover:text-primary-400
+  `.trim();
 
   return (
     <div className="mb-4">
       {label && (
-        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+        <label className={labelStyles}>
           {label}
           {required ? (
-            <span className="text-red-600 dark:text-red-400"> *</span>
+            <span className="text-error-600 dark:text-error-400"> *</span>
           ) : null}
         </label>
       )}
@@ -69,7 +91,7 @@ const RadioInput = <TFieldValues extends FieldValues>({
                 <label
                   key={option.value}
                   htmlFor={optionId}
-                  className="flex items-center gap-2 text-sm text-gray-900 dark:text-gray-100"
+                  className={optionLabelStyles}
                 >
                   <input
                     id={optionId}
@@ -77,7 +99,16 @@ const RadioInput = <TFieldValues extends FieldValues>({
                     value={option.value}
                     checked={field.value === option.value}
                     onChange={() => field.onChange(option.value)}
-                    className="text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                    className={`
+                      h-4 w-4 transition-colors duration-200 cursor-pointer
+                      ${
+                        hasError
+                          ? "text-error-600 focus:ring-error-500 dark:focus:ring-error-400"
+                          : "text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-400"
+                      }
+                      bg-white dark:bg-neutral-800 border-neutral-300 dark:border-neutral-600
+                      focus:ring-2 focus:ring-offset-1 dark:ring-offset-neutral-800
+                    `.trim()}
                     aria-describedby={
                       errors[name] ? `${inputId}-error` : undefined
                     }
@@ -93,7 +124,7 @@ const RadioInput = <TFieldValues extends FieldValues>({
       {errors[name] && (
         <span
           id={`${inputId}-error`}
-          className="text-red-600 dark:text-red-400 text-sm mt-1"
+          className="text-error-600 dark:text-error-400 text-sm mt-1 block"
           role="alert"
           aria-live="polite"
         >

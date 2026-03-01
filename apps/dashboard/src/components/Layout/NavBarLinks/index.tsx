@@ -13,7 +13,7 @@ const NavBarLinks: React.FC<{ links: LinkProp[] }> = React.memo(({ links }) => {
         <Link
           key={`${path}-${pageName}`}
           to={path}
-          className="text-lg text-white hover:text-gray-400"
+          className="text-lg text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
         >
           {pageName}
         </Link>

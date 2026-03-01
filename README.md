@@ -1,81 +1,190 @@
-# Turborepo starter
+# portfolio (Turborepo Monorepo)
 
-This is an official starter Turborepo.
+## Project Overview
 
-## Using this example
+This repository is a Yarn workspaces + Turborepo monorepo that delivers:
 
-Run the following command:
+- Two frontend applications:
+  - `apps/client`: Next.js app (public pages + auth/session API bridge)
+  - `apps/dashboard`: Vite React app (authenticated operations UI)
+- Four backend Express APIs:
+  - `apps/APIs/auth`
+  - `apps/APIs/patients`
+  - `apps/APIs/medical-histories`
+  - `apps/APIs/test-api`
+- Shared internal packages:
+  - browser UI/auth/toast components
+  - typed SDK clients
+  - API route/model type contracts
+  - reusable middleware/utilities/config presets
+- Infrastructure assets:
+  - Nginx reverse-proxy + TLS config
+  - Dockerfiles and compose-based local infra bootstrap
 
-```sh
-npx create-turbo@latest
+Primary business flow implemented by this codebase centers around authentication/authorization and medical-office operations (patients, medical histories, appointments, acts), with browser apps consuming SDKs that call the backend APIs through a single Nginx gateway.
+
+## Architecture
+
+### Runtime Communication Model
+
+1. User enters through `https://localhost:3000` (Nginx TLS endpoint).
+2. Nginx routes:
+   - `/` -> Next.js app on `3001`
+   - `/dashboard` -> Vite dashboard on `3002`
+   - `/api/v1/auth` -> auth API on `4001`
+   - `/api/v1/patients` -> patients API on `4005`
+   - `/api/v1/medical-histories` -> medical-histories API on `4006`
+3. Frontend SDK stack:
+   - apps create `ApiSDK` from `@nizar-repo/server-sdk`
+   - domain SDKs (`auth-sdk`, `patients-sdk`, `medical-histories-sdk`) wrap route calls
+4. Auth/session model:
+   - Next app exposes `/api/session` for create/read/update/delete session cookies
+   - shared cookies (`AUTH_SESSION`, `API_TOKEN`, `AUTH_STATUS`) are used across both frontends under same domain
+5. Backend authorization:
+   - protected API routes call `protectRoute(...)` from `@nizar-repo/route-protection`
+   - JWT secret/issuer/audience/expiry are read from env
+
+### Data Layer
+
+- Each API connects to MongoDB via Mongoose with separate DB URIs:
+  - `portfolio-auth`
+  - `portfolio-patients`
+  - `portfolio-medical-histories`
+  - `portfolio-test-api`
+
+## Turborepo Pipeline
+
+`turbo.json` defines:
+
+- `globalDependencies`: `**/.env.*local`
+- `globalEnv`: `NPM_TOKEN`, `DATABASE_USER`, `DATABASE_PASSWORD`, `JWT_SECRET_KEY`
+- `tasks.build`:
+  - depends on `^build`
+  - outputs `.next/**` and excludes `.next/cache/**`
+- `tasks.lint`:
+  - depends on `^lint`
+- `tasks.start`:
+  - inputs `$TURBO_DEFAULT$`, `.env`
+  - env passthrough includes auth/db/base-url values
+  - `cache: false`, `persistent: true` (long-running dev processes)
+
+Root scripts:
+
+- `yarn build` -> `turbo build`
+- `yarn start` -> `dotenv -- turbo run start --parallel`
+- `yarn lint` -> `turbo lint`
+
+## Repository Structure
+
+```text
+apps/
+	APIs/
+		auth/                 # auth + users + roles API service
+		patients/             # patient CRUD/bulk API service
+		medical-histories/    # acts/medical-histories/appointments API service
+		test-api/             # lightweight test CRUD API
+	client/                 # Next.js web app + /api/session endpoints
+	dashboard/              # Vite React dashboard app at /dashboard
+
+packages/
+	browser/
+		Authenticator/        # reusable login/sign-up form components
+		Toast/                # reusable toast context + components
+		ui/                   # shared design-system UI primitives
+	node/
+		custom-router/        # express router wrapper with try/catch middleware
+		route-protection/     # JWT + RBAC middleware utilities
+		shared-types/         # shared type utilities (pagination/validation)
+		api-types/
+			auth-types/         # auth route/model/enums contracts
+			patients-types/     # patient route/model contracts
+			medical-histories-types/ # medical domain contracts
+	SDK/
+		server-sdk/           # base axios transport and token refresh logic
+		auth-sdk/             # auth API typed client
+		patients-sdk/         # patients API typed client
+		medical-histories-sdk/# medical-histories API typed client
+	configs/
+		config/               # shared Tailwind/design token assets
+		eslint-config/        # shared ESLint presets
+		typescript-config/    # shared tsconfig presets
+
+dev-env/                  # docker-compose for nginx + mongo
+dockerfiles/              # proxy container Dockerfile(s)
+nginx/                    # reverse proxy, TLS, and h5bp includes
+scripts/                  # monorepo package publish/build utility scripts
 ```
 
-## What's inside?
+## Global Setup & Installation
 
-This Turborepo includes the following packages/apps:
+### Prerequisites
 
-### Apps and Packages
+- Node.js `>=18` (enforced in root `package.json`)
+- Yarn `1.22.19` (root `packageManager`)
+- Docker + Docker Compose (for infra services)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@nizar-repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@nizar-repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@nizar-repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### 1) Clone and install
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```bash
+git clone <repo-url>
+cd portfolio
+yarn install
 ```
 
-### Develop
+### 2) Configure environment
 
-To develop all apps and packages, run the following command:
+Create root `.env` from `.env.example` and set at least:
 
-```
-cd my-turborepo
-pnpm dev
-```
+- `JWT_SECRET_KEY`
+- `DATABASE_USER`
+- `DATABASE_PASSWORD`
+- `USER_EMAIL`, `USER_PASSWORD`, `USER_USERNAME`
+- `BASE_URL`, `NEXT_PUBLIC_BASE_URL`
 
-### Remote Caching
+Also ensure per-app env files exist where needed:
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+- `apps/APIs/*/.env` from each service `.env.example`
+- `apps/client/.env` from `.env.example`
+- `apps/dashboard/.env` from `.env.example`
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+### 3) Start local API/frontend processes
 
-```
-cd my-turborepo
-npx turbo login
-```
+Run all workspace `start` scripts through Turbo:
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+```bash
+yarn start
 ```
 
-## Useful Links
+Or run specific apps/services manually from component directories when isolating issues.
 
-Learn more about the power of Turborepo:
+## Running the Infrastructure
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+### Start proxy + database
+
+```bash
+make compose-dev
+```
+
+This executes:
+
+```bash
+cd dev-env && docker compose up --build --force-recreate -d --remove-orphans
+```
+
+Exposed ports:
+
+- `https://localhost:3000` -> Nginx TLS entrypoint (`443` in container)
+- `http://localhost:3007` -> Nginx HTTP listener (`80` in container)
+- `localhost:27017` -> MongoDB
+
+### Important routing note
+
+The Nginx container proxies to `host.docker.internal` ports, so frontend/API Node processes must also be running on the host (`3001`, `3002`, `4001`, `4005`, `4006`) for full end-to-end behavior.
+
+## Component Documentation Index
+
+Detailed READMEs are available in each component root, including env vars, scripts, internal deps, and deployment notes.
+
+- Apps: `apps/client`, `apps/dashboard`, `apps/APIs/*`
+- Packages: `packages/browser/*`, `packages/node/*`, `packages/node/api-types/*`, `packages/SDK/*`, `packages/configs/*`
+- Infra/config: `dev-env`, `dockerfiles`, `nginx`

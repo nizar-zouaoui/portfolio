@@ -1,13 +1,13 @@
+import Icons from "@nizar-repo/ui/src/components/Icons";
 import SEOHelmet from "components/SEO";
 import usePageHeaderInit from "contexts/PageHeaderContext/usePageHeaderInit";
-import { FaHome } from "react-icons/fa";
 
 const Home = () => {
   usePageHeaderInit({
     title: "Simple Deliver",
     description:
       "Simple Deliver is marketing app that helps ease the of whatsapp and email services",
-    icon: <FaHome />,
+    icon: <Icons.Home />,
   });
   return (
     <>

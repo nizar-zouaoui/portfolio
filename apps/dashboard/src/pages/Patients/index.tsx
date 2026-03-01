@@ -1,4 +1,4 @@
-import { FaUsers } from "react-icons/fa";
+import Icons from "@nizar-repo/ui/src/components/Icons";
 import { RouteObject } from "react-router-dom";
 import Api from "sdks";
 import AddPatient from "./AddPatient";
@@ -45,20 +45,20 @@ export const patientsLinks = [
     main: true,
     pageName: "Patients",
     path: "/patients",
-    icon: <FaUsers />,
+    icon: <Icons.Users />,
   },
   {
     main: false,
     pageName: "Create New Patient",
     path: "/patients/add",
-    icon: <FaUsers />,
+    icon: <Icons.Users />,
   },
 
   {
     main: false,
     pageName: "Edit Patient",
     path: "/patients/edit/:id",
-    icon: <FaUsers />,
+    icon: <Icons.Users />,
   },
   ...appointmentsLinks,
 ] as const;

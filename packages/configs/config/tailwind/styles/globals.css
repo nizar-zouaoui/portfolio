@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  /* #region  /**=========== Primary Color =========== */
+  /* #region  /**=========== Enhanced Primary Color =========== */
   --tw-color-primary-50: 232 240 254;
   --tw-color-primary-100: 202 228 255;
   --tw-color-primary-200: 155 202 252;
@@ -25,7 +25,7 @@
   --color-primary-800: rgb(var(--tw-color-primary-800)); /* #204e93 */
   --color-primary-900: rgb(var(--tw-color-primary-900)); /* #1a3f73 */
 
-  /* Secondary Color - WhatsApp Green */
+  /* Enhanced Secondary Color */
   --tw-color-secondary-50: 225 251 241;
   --tw-color-secondary-100: 200 245 226;
   --tw-color-secondary-200: 153 235 202;
@@ -330,6 +330,144 @@
     100% {
       opacity: 0;
     }
+  }
+
+  /* Enhanced Component Utilities */
+  .unified-card {
+    @apply bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-700 transition-all duration-200;
+  }
+
+  .unified-card-hover {
+    @apply hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-600;
+  }
+
+  .unified-button-primary {
+    @apply inline-flex items-center justify-center font-medium rounded-lg px-4 py-2 text-sm
+           bg-primary-500 hover:bg-primary-600 active:bg-primary-700
+           text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+           transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .unified-button-secondary {
+    @apply inline-flex items-center justify-center font-medium rounded-lg px-4 py-2 text-sm
+           bg-secondary-500 hover:bg-secondary-600 active:bg-secondary-700
+           text-white focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2
+           transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .unified-button-outline {
+    @apply inline-flex items-center justify-center font-medium rounded-lg px-4 py-2 text-sm
+           border-2 border-primary-500 text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900
+           focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+           transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .unified-input {
+    @apply block w-full rounded-lg border border-neutral-300 dark:border-neutral-600
+           bg-white dark:bg-neutral-800 px-3 py-2 text-sm
+           text-neutral-900 dark:text-neutral-100
+           placeholder-neutral-400 dark:placeholder-neutral-400
+           focus:border-primary-500 dark:focus:border-primary-400
+           focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:ring-offset-1
+           transition-colors duration-200
+           disabled:bg-neutral-50 dark:disabled:bg-neutral-900 disabled:text-neutral-400 disabled:cursor-not-allowed;
+  }
+
+  .unified-input-error {
+    @apply border-error-500 dark:border-error-400 bg-error-50 dark:bg-error-900
+           text-error-900 dark:text-error-100 placeholder-error-400 dark:placeholder-error-300
+           focus:border-error-500 dark:focus:border-error-400 focus:ring-error-500 dark:focus:ring-error-400;
+  }
+
+  .unified-toast {
+    @apply relative rounded-lg border-l-4 shadow-lg p-4 transition-all duration-300 transform;
+  }
+
+  .unified-toast-success {
+    @apply border-success-500 bg-success-50 text-success-800 dark:border-success-400 dark:bg-success-900 dark:text-success-100;
+  }
+
+  .unified-toast-error {
+    @apply border-error-500 bg-error-50 text-error-800 dark:border-error-400 dark:bg-error-900 dark:text-error-100;
+  }
+
+  .unified-toast-warning {
+    @apply border-warning-500 bg-warning-50 text-warning-800 dark:border-warning-400 dark:bg-warning-900 dark:text-warning-100;
+  }
+
+  .unified-toast-info {
+    @apply border-info-500 bg-info-50 text-info-800 dark:border-info-400 dark:bg-info-900 dark:text-info-100;
+  }
+
+  .unified-table {
+    @apply min-w-full border-collapse rounded-lg overflow-hidden shadow-sm
+           bg-white dark:bg-neutral-800;
+  }
+
+  .unified-table-header {
+    @apply bg-neutral-50 dark:bg-neutral-700 border-b border-neutral-200 dark:border-neutral-600;
+  }
+
+  .unified-table-cell {
+    @apply px-4 py-3 text-sm text-neutral-700 dark:text-neutral-300 
+           border-b border-neutral-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800;
+  }
+
+  .unified-table-header-cell {
+    @apply px-4 py-3 text-left text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider
+           bg-neutral-50 dark:bg-neutral-700;
+  }
+
+  .unified-navbar {
+    @apply bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 
+           shadow-sm backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90;
+  }
+
+  .unified-sidebar {
+    @apply bg-white dark:bg-neutral-800 border-r border-neutral-200 dark:border-neutral-700 
+           shadow-sm h-full flex flex-col;
+  }
+
+  .unified-form-container {
+    @apply bg-white dark:bg-neutral-800 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-700 
+           p-6 space-y-6;
+  }
+
+  .unified-form-actions {
+    @apply flex flex-col sm:flex-row sm:justify-end gap-3 pt-4 border-t border-neutral-200 dark:border-neutral-700;
+  }
+
+  .unified-form-header {
+    @apply flex items-center gap-4 pb-4 border-b border-neutral-200 dark:border-neutral-700;
+  }
+
+  .unified-form-help {
+    @apply flex gap-3 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700;
+  }
+
+  .unified-loading-spinner {
+    @apply animate-spin h-5 w-5 text-primary-500;
+  }
+
+  .unified-badge-primary {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+           bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-100;
+  }
+
+  .unified-badge-success {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+           bg-success-100 text-success-800 dark:bg-success-900 dark:text-success-100;
+  }
+
+  .unified-badge-warning {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+           bg-warning-100 text-warning-800 dark:bg-warning-900 dark:text-warning-100;
+  }
+
+  .unified-badge-error {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+           bg-error-100 text-error-800 dark:bg-error-900 dark:text-error-100;
   }
 }
 button {

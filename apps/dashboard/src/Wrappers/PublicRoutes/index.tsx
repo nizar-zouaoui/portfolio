@@ -1,6 +1,6 @@
+import Icons from "@nizar-repo/ui/src/components/Icons";
 import AboutUs from "pages/AboutUs";
 import Home from "pages/Home";
-import { FaHome, FaQuestionCircle } from "react-icons/fa";
 import { RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [
@@ -21,7 +21,7 @@ export const homeLinks = [
     main: true,
     pageName: "Simple Deliver",
     path: "/",
-    icon: <FaHome />,
+    icon: <Icons.Home />,
   },
 ] as const;
 
@@ -30,7 +30,7 @@ export const aboutUsLinks = [
     main: true,
     pageName: "About Us",
     path: "/about-us",
-    icon: <FaQuestionCircle />,
+    icon: <Icons.InformationCircle />,
   },
 ] as const;
 export const publicLinks = [...homeLinks, ...aboutUsLinks] as const;

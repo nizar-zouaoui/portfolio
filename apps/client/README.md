@@ -1,3 +1,60 @@
+# @nizar-repo/client
+
+## Title & Description
+
+`@nizar-repo/client` is the Next.js public/auth web application. It provides the marketing/public pages and authentication screens, hosts session APIs (`/api/session`), and acts as the primary browser entrypoint proxied at `/` by Nginx.
+
+## Tech Stack
+
+- Next.js 14 (App Router)
+- React 18 + TypeScript
+- React Query
+- Tailwind CSS (shared config package)
+- Internal UI/Auth/SDK packages
+
+## Internal Dependencies
+
+- `@nizar-repo/auth-sdk`
+- `@nizar-repo/authenticator`
+- `@nizar-repo/server-sdk`
+- `@nizar-repo/toast`
+- `@nizar-repo/ui`
+- `@nizar-repo/tailwindcss-config` (dev dependency)
+
+## Environment Variables
+
+Detected from `apps/client/.env.example`, session helpers, and middleware helpers.
+
+| Variable                     | Required       | Purpose                                                | Format / Example                        |
+| ---------------------------- | -------------- | ------------------------------------------------------ | --------------------------------------- |
+| `NEXT_PUBLIC_SESSION_SECRET` | yes (declared) | reserved session secret value for client config        | secure string (>= 32 chars recommended) |
+| `NEXT_PUBLIC_JWT_SECRET_KEY` | yes            | used by server-side `isAuthenticated` JWT verification | secure string (>= 32 chars)             |
+| `NEXT_PUBLIC_JWT_EXPIRES_IN` | optional       | controls cookie/session expiry days in session helper  | numeric string, e.g. `1`                |
+| `NODE_ENV`                   | implicit       | toggles production/dev behavior in SDK and Next config | `development` / `production`            |
+| `ANALYZE`                    | optional       | enables webpack bundle analyzer in optimized config    | `true` / `false`                        |
+
+## Available Scripts
+
+| Script       | Command                     | What it does                           |
+| ------------ | --------------------------- | -------------------------------------- |
+| `start`      | `next dev --port 3001`      | starts local dev server on port `3001` |
+| `build`      | `next build`                | creates production build               |
+| `start:prod` | `next start`                | runs built app in production mode      |
+| `lint`       | `eslint . --max-warnings 0` | lints source with zero-warning policy  |
+
+## Infrastructure & Deployment
+
+- Local runtime port: `3001`.
+- Nginx routing:
+  - `/` -> `http://host.docker.internal:3001`
+  - `/_next/webpack-hmr` -> `http://host.docker.internal:3001/_next/webpack-hmr`
+- Session API endpoints (`src/app/api/session/route.ts`):
+  - `POST /api/session` create secure cookies
+  - `GET /api/session` read current token
+  - `PUT /api/session` refresh/rotate session
+  - `DELETE /api/session` clear session cookies
+- Cookie strategy: `AUTH_SESSION` (httpOnly), `API_TOKEN` (client-readable), `AUTH_STATUS`.
+
 ## Getting Started
 
 First, run the development server:
