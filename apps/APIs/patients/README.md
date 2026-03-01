@@ -4,6 +4,33 @@
 
 Patient domain API service responsible for patient data CRUD, paginated retrieval, and bulk patient insertion workflows.
 
+## Features & Capabilities
+
+### Core Purpose
+
+This service is the source of truth for patient identity and contact records. It enables staff to maintain reliable patient profiles that downstream clinical workflows depend on.
+
+### Key Features
+
+- Patient master records: stores and manages full name, phone, birth date, optional email, and linked medical history identifier.
+- Paginated patient discovery: list endpoints support query-driven pagination to keep large patient registries manageable in operational UIs.
+- Full lifecycle operations: supports create, retrieve, update, and delete actions for individual patient records.
+- Bulk registration support: allows multi-record insertion to accelerate onboarding from external lists or migration files.
+- Data consistency safeguards: schema-level uniqueness and duplicate-error handling reduce accidental duplicate patient entries.
+- Cross-service workflow integration: patient creation automatically provisions a medical history record via the medical-histories SDK and persists the relationship.
+
+### User Flows / Primary Endpoints
+
+- Primary business entity:
+  - `Patient` with identity/contact fields and `medicalHistoryId` linkage.
+- Primary endpoints:
+  - `GET /patients/` (paginated listing/search)
+  - `GET /patients/:id` (single patient retrieval)
+  - `POST /patients/` (create patient + link medical history)
+  - `POST /patients/bulk` (bulk create)
+  - `PATCH /patients/:id` (update patient)
+  - `DELETE /patients/:id` (remove patient)
+
 ## Tech Stack
 
 - Node.js + Express + TypeScript

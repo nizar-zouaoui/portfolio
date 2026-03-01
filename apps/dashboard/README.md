@@ -4,6 +4,35 @@
 
 `@nizar-repo/dashboard` is the authenticated React + Vite operations UI. It manages patient records, medical histories, acts, and appointments by consuming internal SDK packages and sharing auth session state with the Next.js client through same-domain cookies.
 
+## Features & Capabilities
+
+### Core Purpose
+
+This app is the day-to-day operational cockpit for authenticated staff. It centralizes core business work: maintaining patient records, managing treatment catalog entries, and tracking appointment/payment progression over time.
+
+### Key Features
+
+- Auth-gated workspace: route composition switches between public/auth pages and private operational pages based on active authentication state.
+- Patient registry management: users can browse paginated patient lists, add new patients, edit existing records, and remove outdated entries.
+- Acts catalog administration: users can maintain the catalog of available medical acts/procedures including pricing and descriptions.
+- Medical history timeline access: users can navigate from a patient to their medical history context and inspect appointment records tied to that history.
+- Appointment lifecycle control: users can create, edit, and delete appointments with procedure references, notes, scheduling dates, and payment status.
+- Operational visibility: list views expose quick performance indicators (counts, paid/pending distribution, procedure totals) to support daily decision-making.
+
+### User Flows / Primary Endpoints
+
+- Main views/pages:
+  - `/dashboard/` (home)
+  - `/dashboard/about-us` (public product/about page)
+  - `/dashboard/login` (authentication entry)
+  - `/dashboard/patients` (patients list)
+  - `/dashboard/patients/add` and `/dashboard/patients/edit/:id`
+  - `/dashboard/acts` plus `/dashboard/acts/add` and `/dashboard/acts/edit/:id`
+  - `/dashboard/patients/:id/medical-histories` (appointments list)
+  - `/dashboard/patients/:id/medical-histories/:medicalHistoryId/appointments/add`
+  - `/dashboard/patients/:id/medical-histories/:medicalHistoryId/appointments/edit/:appointmentId`
+- Primary user flow: authenticate -> open patient/acts modules -> drill into patient history -> create/update appointments and payment state.
+
 ## Tech Stack
 
 - React 18 + TypeScript

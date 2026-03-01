@@ -4,6 +4,33 @@
 
 Authentication and authorization API service. This service owns classic sign-in/sign-up, role management, user management, refresh-access-token issuance, and startup seeding of initial root credentials.
 
+## Features & Capabilities
+
+### Core Purpose
+
+This service is the trust and access layer for the platform. It decides who can enter, what they can do, and how identity is represented consistently across the full product ecosystem.
+
+### Key Features
+
+- Classic account authentication: users can sign up and sign in with email/password and receive JWT access tokens for authenticated API usage.
+- Token continuity: authenticated users can request refreshed access tokens without re-entering credentials.
+- Role-based authorization model: roles carry granular `accessResources` privileges, enabling controlled access by resource and action.
+- User lifecycle management: supports user creation, self-profile retrieval/update (`/users/me`), and admin-level user updates/deletions.
+- Role lifecycle management: supports role creation, retrieval, updates, deletion, and explicit role assignment to users.
+- Bootstrap and first-admin readiness: startup seed logic provisions default roles and root credentials from environment settings.
+
+### User Flows / Primary Endpoints
+
+- Primary business entities:
+  - `Auth` credentials (`email`, `password`, auth method)
+  - `User` identity/profile (`email`, `username`, `roleId`, `auths`)
+  - `Role` permission container (`name`, `accessResources`)
+- Primary endpoints:
+  - `POST /auth/classic/login`, `POST /auth/classic/sign-up`
+  - `GET /auth/refresh-access-token`
+  - `GET/POST/PATCH/DELETE /roles/*` and `POST /roles/assign-role`
+  - `GET/POST/PATCH/DELETE /users/*` and `GET/PATCH /users/me`
+
 ## Tech Stack
 
 - Node.js + Express + TypeScript

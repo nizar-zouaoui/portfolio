@@ -1,5 +1,18 @@
 # portfolio (Turborepo Monorepo)
 
+## Product Ecosystem
+
+This repository builds a multi-application product ecosystem under the Simple Deliver umbrella: a public-facing experience for discovery and onboarding, an authenticated operations interface for execution, and backend services that enforce identity, permissions, and domain workflows.
+
+At a product level, the apps combine as follows:
+
+- Public experience (`apps/client`): communicates product value, supports visitor education, and captures conversion through login/sign-up journeys.
+- Operations workspace (`apps/dashboard`): gives authenticated teams practical tools to run daily work (patient records, acts catalog, appointments, payment-state follow-up).
+- Identity backbone (`apps/APIs/auth`): centralizes account lifecycle, role assignment, and permission enforcement so users only access allowed capabilities.
+- Operational data services (`apps/APIs/patients`, `apps/APIs/medical-histories`): store and expose core entities that power dashboard workflows from record creation through lifecycle updates.
+
+Together, these applications create one end-to-end user experience: discover the platform -> authenticate -> perform domain actions in the dashboard -> persist and secure every action through typed, protected backend APIs.
+
 ## Project Overview
 
 This repository is a Yarn workspaces + Turborepo monorepo that delivers:
@@ -78,36 +91,36 @@ Root scripts:
 
 ```text
 apps/
-	APIs/
-		auth/                 # auth + users + roles API service
-		patients/             # patient CRUD/bulk API service
-		medical-histories/    # acts/medical-histories/appointments API service
-		test-api/             # lightweight test CRUD API
-	client/                 # Next.js web app + /api/session endpoints
-	dashboard/              # Vite React dashboard app at /dashboard
+ APIs/
+  auth/                 # auth + users + roles API service
+  patients/             # patient CRUD/bulk API service
+  medical-histories/    # acts/medical-histories/appointments API service
+  test-api/             # lightweight test CRUD API
+ client/                 # Next.js web app + /api/session endpoints
+ dashboard/              # Vite React dashboard app at /dashboard
 
 packages/
-	browser/
-		Authenticator/        # reusable login/sign-up form components
-		Toast/                # reusable toast context + components
-		ui/                   # shared design-system UI primitives
-	node/
-		custom-router/        # express router wrapper with try/catch middleware
-		route-protection/     # JWT + RBAC middleware utilities
-		shared-types/         # shared type utilities (pagination/validation)
-		api-types/
-			auth-types/         # auth route/model/enums contracts
-			patients-types/     # patient route/model contracts
-			medical-histories-types/ # medical domain contracts
-	SDK/
-		server-sdk/           # base axios transport and token refresh logic
-		auth-sdk/             # auth API typed client
-		patients-sdk/         # patients API typed client
-		medical-histories-sdk/# medical-histories API typed client
-	configs/
-		config/               # shared Tailwind/design token assets
-		eslint-config/        # shared ESLint presets
-		typescript-config/    # shared tsconfig presets
+ browser/
+  Authenticator/        # reusable login/sign-up form components
+  Toast/                # reusable toast context + components
+  ui/                   # shared design-system UI primitives
+ node/
+  custom-router/        # express router wrapper with try/catch middleware
+  route-protection/     # JWT + RBAC middleware utilities
+  shared-types/         # shared type utilities (pagination/validation)
+  api-types/
+   auth-types/         # auth route/model/enums contracts
+   patients-types/     # patient route/model contracts
+   medical-histories-types/ # medical domain contracts
+ SDK/
+  server-sdk/           # base axios transport and token refresh logic
+  auth-sdk/             # auth API typed client
+  patients-sdk/         # patients API typed client
+  medical-histories-sdk/# medical-histories API typed client
+ configs/
+  config/               # shared Tailwind/design token assets
+  eslint-config/        # shared ESLint presets
+  typescript-config/    # shared tsconfig presets
 
 dev-env/                  # docker-compose for nginx + mongo
 dockerfiles/              # proxy container Dockerfile(s)

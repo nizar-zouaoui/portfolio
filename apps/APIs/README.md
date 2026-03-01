@@ -4,6 +4,31 @@
 
 This folder contains the backend Express services for the monorepo. Each service runs independently with its own MongoDB database and is mounted behind Nginx under `/api/v1/*` paths.
 
+## Features & Capabilities
+
+### Core Purpose
+
+This workspace provides the product’s business engine. It handles identity and permissions, stores core operational records, and exposes the API actions that frontend users trigger when they create accounts, manage patients, and process medical workflows.
+
+### Key Features
+
+- Capability-oriented service design: each API owns a clear business domain (`auth`, `patients`, `medical-histories`) to reduce coupling and simplify maintenance.
+- Role- and privilege-aware access control: protected routes require JWT-backed authorization and resource-specific permissions.
+- Data ownership by domain: each service persists to its own MongoDB database, enabling independent scaling and safer schema evolution.
+- Typed integration model: internal SDK and type packages align request/response contracts between frontend and backend.
+- Operational extensibility: `test-api` provides a lightweight sandbox route set for validating middleware, validators, and CRUD behavior outside core domains.
+
+### User Flows / Primary Endpoints
+
+- Identity flow endpoints (`/api/v1/auth`):
+  - sign-in / sign-up (`/auth/classic/login`, `/auth/classic/sign-up`)
+  - token renewal (`/auth/refresh-access-token`)
+  - user and role administration (`/users/*`, `/roles/*`)
+- Patient flow endpoints (`/api/v1/patients`):
+  - patient listing, retrieval, creation, updates, deletion, and bulk ingest.
+- Clinical workflow endpoints (`/api/v1/medical-histories`):
+  - acts catalog (`/acts/*`), medical history retrieval/creation/deletion, appointment lifecycle (`/appointments/*`).
+
 ## Components
 
 - `auth`: authentication, user, and role management (`/api/v1/auth`).

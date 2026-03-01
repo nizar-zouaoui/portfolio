@@ -4,6 +4,35 @@
 
 `@nizar-repo/client` is the Next.js public/auth web application. It provides the marketing/public pages and authentication screens, hosts session APIs (`/api/session`), and acts as the primary browser entrypoint proxied at `/` by Nginx.
 
+## Features & Capabilities
+
+### Core Purpose
+
+This app is the product’s public front door and account-entry experience. It communicates the value proposition to new visitors, converts visitors into registered users, and maintains browser session state that other interfaces can reuse.
+
+### Key Features
+
+- Marketing landing experience: the home page presents Simple Deliver’s value proposition with clear calls to action and feature storytelling.
+- Brand and trust content: the About page explains mission, values, and business positioning to support conversion and credibility.
+- Account onboarding: sign-up flow allows new users to create credentials and immediately receive authenticated access tokens.
+- Account access: login flow allows existing users to re-enter the platform and resume work with refreshed session state.
+- Session lifecycle management: `/api/session` route handlers create, read, rotate, and clear cookies (`AUTH_SESSION`, `API_TOKEN`, `AUTH_STATUS`) used across browser contexts.
+- Route-aware access gating: middleware distinguishes public, auth, and protected paths and redirects users according to authentication status.
+
+### User Flows / Primary Endpoints
+
+- Main views/pages:
+  - `/` (marketing landing)
+  - `/about-us` (company/product narrative)
+  - `/login` (credential sign-in)
+  - `/sign-up` (new account registration)
+- Session endpoints:
+  - `POST /api/session` create browser session cookies after receiving token
+  - `GET /api/session` read current session token
+  - `PUT /api/session` refresh active session
+  - `DELETE /api/session` terminate session
+- Primary user flow: discover product -> register or sign in -> establish cookies -> continue into authenticated product areas.
+
 ## Tech Stack
 
 - Next.js 14 (App Router)

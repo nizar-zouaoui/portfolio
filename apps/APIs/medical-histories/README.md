@@ -4,6 +4,32 @@
 
 Medical histories domain API service managing acts catalog, medical history records, and appointment lifecycle operations.
 
+## Features & Capabilities
+
+### Core Purpose
+
+This service records treatment activity over time. It links clinical procedures, appointment timelines, and payment progression into a coherent history that can be reviewed and updated as care evolves.
+
+### Key Features
+
+- Acts/procedures catalog management: supports creation and maintenance of billable or trackable acts with pricing and optional descriptions.
+- Medical history container management: creates and retrieves per-patient medical history aggregates that organize appointment references.
+- Appointment lifecycle operations: supports creating, updating, retrieving, and deleting appointment events with associated acts, notes, and dates.
+- Financial state tracking: appointment records capture payment status (`PAID`, `PENDING`, `FREE`) to support operational follow-up.
+- Relational consistency logic: appointment create/delete operations push/pull identifiers from medical history records to keep links synchronized.
+- Query-ready retrieval patterns: aggregation pipelines support paginated medical-history appointment retrieval for UI tables and workflow navigation.
+
+### User Flows / Primary Endpoints
+
+- Primary business entities:
+  - `Act` (`name`, `price`, optional `description`)
+  - `MedicalHistory` (`appointmentIds` linkage list)
+  - `Appointment` (`acts`, `date`, `notes`, `confirmedPrice`, `paymentStatus`)
+- Primary endpoints:
+  - Acts: `GET/POST/PATCH/DELETE /acts/*`
+  - Medical histories: `GET /medical-histories/:id`, `POST /medical-histories/`, `DELETE /medical-histories/:id`
+  - Appointments: `GET /appointments/:id`, `POST /appointments/:medicalHistoryId`, `PATCH /appointments/:id`, `DELETE /appointments/:id`
+
 ## Tech Stack
 
 - Node.js + Express + TypeScript
